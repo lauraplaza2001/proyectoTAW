@@ -60,15 +60,22 @@
                     </div>
                     <%    List<Categoria> categorias = (List) request.getAttribute("categorias");
                     %>
-                    <nav class="container align-items-right p-3"
-
-                         <ul class="list-group col-4">
-                            <%    for (Categoria categoria : categorias) {
+                    <div class="container p-3">
+                        <div class="row">
+                            <%
+                                    for (Categoria categoria : categorias) {
                             %>
-                            <li class="list-group-item"value="<%=categoria.getIdCategoria()%>"><%=categoria.getNombre()%></li>
-                                <% }
-                                %>
-                        </ul>
+                            <ul class="col col-12 list-group list-group-horizontal">
+                                
+                                <li class="list-group-item col-8"value="<%=categoria.getIdCategoria()%>"><%=categoria.getNombre()%></li>  
+                                <li class="p-2">
+                                    <button  type="button" class="btn btn-warning" action="">Editar</button>
+                                    <a type="button" class="btn btn-danger" href="${pageContext.request.contextPath}/EliminarCategoriaServlet?id=<%=categoria.getIdCategoria()%>">Eliminar</a>
+                                </li>
+                            </ul>
+                                <% }%>
+                        </div>  
+                    </div>
                 </div>
             </div>
         </div>
