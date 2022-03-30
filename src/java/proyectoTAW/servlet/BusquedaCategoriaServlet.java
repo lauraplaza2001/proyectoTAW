@@ -43,19 +43,8 @@ public class BusquedaCategoriaServlet extends HttpServlet {
         String busqueda = request.getParameter("busqueda");
 
         List<Categoria> inicial = (List) this.cFacade.findAll();
-        List<Categoria> categorias = new ArrayList<Categoria>();
-
-        if (busqueda.isEmpty()) {
-            categorias = inicial;
-        } else {
-            for (Categoria c : inicial) {
-                if (c.getNombre().toLowerCase().contains(busqueda.toLowerCase())) {
-                    categorias.add(c);
-                } else {
-                }
-
-            }
-        }
+        
+        List<Categoria> categorias = this.cFacade.getCategoriasLike(busqueda);
 
         request.setAttribute("categorias", categorias);
 

@@ -33,8 +33,8 @@ public class CategoriaFacade extends AbstractFacade<Categoria> {
     
     public List<Categoria> getCategoriasLike(String busqueda){
         Query q;
-        q = this.getEntityManager().createQuery("select a from Categoria a where a.nombre like %:busqueda%");
-        q.setParameter("busqueda", busqueda);
+        q = this.getEntityManager().createQuery("select a from Categoria a where a.nombre like :busqueda");
+        q.setParameter("busqueda", '%'+busqueda+'%');
         
         return q.getResultList();
     }
