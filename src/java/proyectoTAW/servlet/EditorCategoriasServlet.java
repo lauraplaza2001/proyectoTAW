@@ -27,6 +27,7 @@ import proyectoTAW.dao.CategoriaFacade;
 public class EditorCategoriasServlet extends HttpServlet {
 
         @EJB CategoriaFacade cFacade;
+        
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,8 +37,18 @@ public class EditorCategoriasServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+        
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        String id = request.getParameter("id");
+        String edit = request.getParameter("edit");
+        
+        if(id != null && edit != null){
+            Categoria cat = this.cFacade.find(Integer.parseInt(id));
+            cat.setNombre(edit);
+            this.cFacade.edit(cat);
+        }
         
         List<Categoria> categorias = this.cFacade.findAll();
         

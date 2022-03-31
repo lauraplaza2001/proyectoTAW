@@ -66,14 +66,16 @@
                                 <%
                                     for (Categoria categoria : categorias) {
                                 %>
-                                <ul class="col col-12 list-group list-group-horizontal">
+                                <form action="${pageContext.request.contextPath}/EditorCategoriasServlet">
+                                    <ul class="col col-12 list-group list-group-horizontal">
+                                        <input name="edit" id="myInputID" type="text" class="list-group-item col-8"value="<%=categoria.getNombre()%>"></input>  
+                                        <li class="p-2">
+                                            <button  type="submit" name="id" value="<%=categoria.getIdCategoria()%>" class="btn btn-warning" >Editar</button>
+                                            <a type="button" class="btn btn-danger" href="${pageContext.request.contextPath}/EliminarCategoriaServlet?id=<%=categoria.getIdCategoria()%>">Eliminar</a>
+                                        </li>
+                                    </ul>
+                                </form>
 
-                                    <li class="list-group-item col-8"value="<%=categoria.getIdCategoria()%>"><%=categoria.getNombre()%></li>  
-                                    <li class="p-2">
-                                        <button  type="button" class="btn btn-warning" action="">Editar</button>
-                                        <a type="button" class="btn btn-danger" href="${pageContext.request.contextPath}/EliminarCategoriaServlet?id=<%=categoria.getIdCategoria()%>">Eliminar</a>
-                                    </li>
-                                </ul>
                                 <% }%>
                             </div>  
                         </div>
@@ -92,6 +94,17 @@
             </div>
         </div>
     </div>
+
+    <script>
+        var el = document.getElementById("myInputID");
+        el.addEventListener("keypress", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+            }
+        });
+
+    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
 
