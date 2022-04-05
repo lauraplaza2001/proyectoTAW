@@ -14,6 +14,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -39,6 +41,12 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Producto.findByFoto", query = "SELECT p FROM Producto p WHERE p.foto = :foto")
     , @NamedQuery(name = "Producto.findByPrecioSalida", query = "SELECT p FROM Producto p WHERE p.precioSalida = :precioSalida")})
 public class Producto implements Serializable {
+
+    @JoinTable(name = "productos_favoritos", joinColumns = {
+        @JoinColumn(name = "Producto_idProducto", referencedColumnName = "idProducto")}, inverseJoinColumns = {
+        @JoinColumn(name = "Usuario_idUsuario", referencedColumnName = "idUsuario")})
+    @ManyToMany
+    private List<Usuario> usuarioList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -166,6 +174,15 @@ public class Producto implements Serializable {
     @Override
     public String toString() {
         return "proyectoTAW.entity.Producto[ idProducto=" + idProducto + " ]";
+    }
+
+    @XmlTransient
+    public List<Usuario> getUsuarioList() {
+        return usuarioList;
+    }
+
+    public void setUsuarioList(List<Usuario> usuarioList) {
+        this.usuarioList = usuarioList;
     }
     
 }

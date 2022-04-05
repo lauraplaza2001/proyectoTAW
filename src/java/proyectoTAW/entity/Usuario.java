@@ -8,7 +8,6 @@ package proyectoTAW.entity;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,7 +18,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -84,19 +82,13 @@ public class Usuario implements Serializable {
     @Column(name = "edad")
     private Integer edad;
     @ManyToMany(mappedBy = "usuarioList")
-    private List<Categoria> categoriaList;
-    @OneToMany(mappedBy = "mayorPostor")
-    private List<Subasta> subastaList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "creador")
-    private List<Subasta> subastaList1;
+    private List<Producto> productoList;
     @JoinColumn(name = "genero", referencedColumnName = "Genero")
     @ManyToOne(optional = false)
     private Genero genero;
     @JoinColumn(name = "tipoUsuario", referencedColumnName = "tipoUsuario")
     @ManyToOne(optional = false)
     private Tipousuario tipoUsuario;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dueno")
-    private List<Notificacion> notificacionList;
 
     public Usuario() {
     }
@@ -180,30 +172,12 @@ public class Usuario implements Serializable {
     }
 
     @XmlTransient
-    public List<Categoria> getCategoriaList() {
-        return categoriaList;
+    public List<Producto> getProductoList() {
+        return productoList;
     }
 
-    public void setCategoriaList(List<Categoria> categoriaList) {
-        this.categoriaList = categoriaList;
-    }
-
-    @XmlTransient
-    public List<Subasta> getSubastaList() {
-        return subastaList;
-    }
-
-    public void setSubastaList(List<Subasta> subastaList) {
-        this.subastaList = subastaList;
-    }
-
-    @XmlTransient
-    public List<Subasta> getSubastaList1() {
-        return subastaList1;
-    }
-
-    public void setSubastaList1(List<Subasta> subastaList1) {
-        this.subastaList1 = subastaList1;
+    public void setProductoList(List<Producto> productoList) {
+        this.productoList = productoList;
     }
 
     public Genero getGenero() {
@@ -221,8 +195,8 @@ public class Usuario implements Serializable {
     public void setTipoUsuario(Tipousuario tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
     }
-
-    public String filtro(int filtro) {
+    
+        public String filtro(int filtro) {
 
         String sol;
         switch (filtro) {
@@ -255,15 +229,6 @@ public class Usuario implements Serializable {
         return sol;
     }
 
-    @XmlTransient
-    public List<Notificacion> getNotificacionList() {
-        return notificacionList;
-    }
-
-    public void setNotificacionList(List<Notificacion> notificacionList) {
-        this.notificacionList = notificacionList;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -288,5 +253,5 @@ public class Usuario implements Serializable {
     public String toString() {
         return "proyectoTAW.entity.Usuario[ idUsuario=" + idUsuario + " ]";
     }
-
+    
 }

@@ -57,7 +57,7 @@
                         <div class="input-group-prepend">
                             <form class="d-flex" action="${pageContext.request.contextPath}/ListaUsuariosServlet" method="get">
                                 <select class="custom-select" name="filtro" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <option selected>Tipo de Búsqueda<option
+                                    <option selected value="1">Tipo de Búsqueda<option
                                 <option value="1">Nombre de usuario</option>
                                 <option value="2">Nombre</option>
                                 <option value="3">Apellidos</option>
