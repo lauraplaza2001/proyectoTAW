@@ -36,16 +36,18 @@ public class ListaUsuariosServlet extends HttpServlet {
         @EJB UsuarioFacade uFacade;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-      
-      List<Usuario> usuarios = this.uFacade.findAll();
+        throws ServletException, IOException {
+        
+      List<Usuario> usuarios;
+      String like = (String) request.getParameter("busqueda");
       Integer filtro = Integer.parseInt(request.getParameter("filtro"));
-      
-      if(filtro == null ){
-            filtro = 1;
-        }
-      
-      request.setAttribute("filtro", filtro);
+  
+      if(!like.isEmpty()){
+          usuarios = this.uFacade.findFiltered(filtro, like);
+      }else{
+          usuarios = this.uFacade.findAll();
+      }
+     
       request.setAttribute("usuarios", usuarios);
       request.getRequestDispatcher("editorUsuarios.jsp").forward(request, response);
     }

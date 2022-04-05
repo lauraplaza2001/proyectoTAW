@@ -251,7 +251,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "proyectoTAW.entity.Usuario[ idUsuario=" + idUsuario + " ]";
+        return nombreUsuario + ", " + nombre + " " + apellidos + ", " + ciudad + ", " + domicilio + ", " + edad + ", " + getGenero().getGenero() + ", " + getTipoUsuario().getTipoUsuario() + ", ";
     }
     
 }

@@ -5,9 +5,11 @@
  */
 package proyectoTAW.dao;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import proyectoTAW.entity.Usuario;
 
 /**
@@ -28,5 +30,46 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
     public UsuarioFacade() {
         super(Usuario.class);
     }
-    
+
+    public List<Usuario> findFiltered(Integer filtro, String busqueda) {
+
+        Query q;
+
+        switch (filtro) {
+            case (2):
+                q = this.getEntityManager().createQuery("select a from Usuario a where a.nombre like :busqueda");
+                q.setParameter("busqueda", '%' + busqueda + '%');
+                break;
+            case (3):
+                q = this.getEntityManager().createQuery("select a from Usuario a where a.apellidos like :busqueda");
+                q.setParameter("busqueda", '%' + busqueda + '%');
+                break;
+            case (4):
+                q = this.getEntityManager().createQuery("select a from Usuario a where a.domicilio like :busqueda");
+                q.setParameter("busqueda", '%' + busqueda + '%');
+                break;
+            case (5):
+                q = this.getEntityManager().createQuery("select a from Usuario a where a.ciudad like :busqueda");
+                q.setParameter("busqueda", '%' + busqueda + '%');
+                break;
+            case (6):
+                q = this.getEntityManager().createQuery("select a from Usuario a where a.edad = :busqueda");
+                q.setParameter("busqueda", Integer.parseInt(busqueda));
+                break;
+            case (7):
+                q = this.getEntityManager().createQuery("select a from Usuario a where a.genero.genero like :busqueda");
+                q.setParameter("busqueda", '%' + busqueda + '%');
+                break;
+            case (8):
+                q = this.getEntityManager().createQuery("select a from Usuario a where a.tipoUsuario.tipoUsuario like :busqueda");
+                q.setParameter("busqueda", '%' + busqueda + '%');
+                break;
+            default:
+                q = this.getEntityManager().createQuery("select a from Usuario a where a.nombreUsuario like :busqueda");
+                q.setParameter("busqueda", '%' + busqueda + '%');
+                break;
+        }
+
+        return q.getResultList();
+    }
 }

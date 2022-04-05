@@ -74,7 +74,7 @@
                     </div>
 
                     <%    List<Usuario> usuarios = (List) request.getAttribute("usuarios");
-                          int filtro = (Integer) request.getAttribute("filtro");
+                          
                     %>
                     <div class="container p-3">
                         <div class="row">
@@ -83,7 +83,7 @@
                             %>
                             <form action="${pageContext.request.contextPath}/EditorUsuariosServlet">
                                 <ul class="col col-12 list-group list-group-horizontal">
-                                    <li class="list-group-item col-8"><%= usuario.filtro(filtro) %></li>  
+                                    <li class="list-group-item col-8"><%= usuario.toString() %></li>  
                                     <li class="p-2">
                                         <button  type="submit" name="id" value="<%=usuario.getIdUsuario()%>" class="btn btn-warning" >Editar</button>
                                         <a type="button" class="btn btn-danger" href="${pageContext.request.contextPath}/EliminarCategoriaServlet?id=<%=usuario.getIdUsuario()%>">Eliminar</a>
