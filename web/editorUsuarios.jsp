@@ -86,7 +86,7 @@
                                     <li class="list-group-item col-8"><%= usuario.toString() %></li>  
                                     <li class="p-2">
                                         <button  type="submit" name="id" value="<%=usuario.getIdUsuario()%>" class="btn btn-warning" >Editar</button>
-                                        <a type="button" class="btn btn-danger" href="${pageContext.request.contextPath}/EliminarCategoriaServlet?id=<%=usuario.getIdUsuario()%>">Eliminar</a>
+                                        <a type="button" class="btn btn-danger" href="${pageContext.request.contextPath}/EliminarUsuarioServlet?id=<%=usuario.getIdUsuario()%>">Eliminar</a>
                                     </li>
                                 </ul>
                             </form>
