@@ -99,9 +99,8 @@
             <div class="col col-6">
                 <div class="container rows-2">
                     <div class="container align-items-right">
-                        <form class="d-flex" action="${pageContext.request.contextPath}/NuevoUsuarioServlet" method="post">
-                            <input class="form-control me-2" type="text"autocomplete="off" placeholder="Nuevo Usuario" aria-label="New" name="username">
-                            <button class="btn btn-outline-success" type="submit">Crear</button>
+                        <form class="d-flex" action="${pageContext.request.contextPath}/NuevoUsuarioServlet?admin=true" method="post">
+                            <button class="btn btn-outline-success" type="submit">Crear Usuario</button>
                         </form>
                     </div>  
                 </div>
