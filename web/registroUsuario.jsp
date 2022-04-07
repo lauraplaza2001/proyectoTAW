@@ -36,7 +36,7 @@
                             <div class="col-sm-3">
                                 <label for="username" class="form-label">Nombre de usuario</label>
                                 <div class="input-group has-validation">
-                                    <input type="text" class="form-control" id="username"  required>
+                                    <input type="text" class="form-control" name="username" id="username" required>
                                     <div class="invalid-feedback">
                                         Nombre de usuario obligatorio.
                                     </div>
@@ -46,7 +46,7 @@
                             <div class="col-sm-9">
                                 <label for="password" class="form-label">Contraseña</label>
                                 <div class="input-group has-validation">
-                                    <input type="password" class="form-control" id="password"  required>
+                                    <input type="password" class="form-control" name="password" id="password" required>
                                     <div class="invalid-feedback">
                                         Contraseña obligatoria.
                                     </div>
@@ -55,7 +55,7 @@
 
                             <div class="col-sm-6">
                                 <label for="firstName" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" id="firstName" placeholder="" required>
+                                <input type="text" class="form-control" name="firstName" id="firstName" required>
                                 <div class="invalid-feedback">
                                     Primer nombre obligatorio.
                                 </div>
@@ -63,7 +63,7 @@
 
                             <div class="col-sm-6">
                                 <label for="lastName" class="form-label">Apellidos</label>
-                                <input type="text" class="form-control" id="lastName" placeholder="" required>
+                                <input type="text" class="form-control" name="lastName" id="lastName" required>
                                 <div class="invalid-feedback">
                                     Apellidos obligatorios.
                                 </div>
@@ -71,7 +71,7 @@
 
                             <div class="col-sm-4">
                                 <label for="city" class="form-label">Ciudad</label>
-                                <input type="text" class="form-control" id="city" required>
+                                <input type="text" class="form-control" name="city" id="city" required>
                                 <div class="invalid-feedback">
                                     Ciudad obligatoria.
                                 </div>
@@ -79,7 +79,7 @@
                             
                             <div class="col-sm-4">
                                 <label for="address" class="form-label">Dirección</label>
-                                <input type="text" class="form-control" id="address" required>
+                                <input type="text" class="form-control" name="address" id="address" required>
                                 <div class="invalid-feedback">
                                     Dirección obligatoria.
                                 </div>
@@ -87,7 +87,7 @@
 
                             <div class="col-md-5">
                                 <label for="age" class="form-label">Edad</label>
-                                <input type="number" class="form-control" id="age" required>
+                                <input type="number" class="form-control" name="age" id="age" min="0" max="130" required>
                                 <div class="invalid-feedback">
                                     Edad obligatoria.
                                 </div>
@@ -101,10 +101,10 @@
 
                             <div class="col-md-3">
                                 <label for="gender" class="form-label">Género</label>
-                                <select class="form-select" id="gender" required>
+                                <select class="form-select" name="gender" id="gender" required>
                                     <option value="">Elige</option>
                                     <% for (Genero g : generos) {%>
-                                    <option value="<%=g.getGenero()%>"><%=g.getGenero()%></option>
+                                    <option value="<%=g.getGenero() %>"><%=g.getGenero()%></option>
                                     <% } %>
                                 </select>
                                 <div class="invalid-feedback">
@@ -114,7 +114,7 @@
                             <% if (admin.equalsIgnoreCase("true")) { %>
                             <div class="col-md-3">
                                 <label for="usertype" class="form-label">Tipo de Usuario</label>
-                                <select class="form-select" id="usertype" required>
+                                <select class="form-select" name="usertype" id="usertype" required>
                                     <option value="">Elige</option>
                                     <% for (Tipousuario tu : tUsuarios) {%>
                                     <option value="<%=tu.getTipoUsuario()%>"><%=tu.getTipoUsuario()%></option>

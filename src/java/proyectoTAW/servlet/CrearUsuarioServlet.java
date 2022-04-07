@@ -42,16 +42,18 @@ public class CrearUsuarioServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-
+        
+        
         String username = (String) request.getParameter("username");
         String pass = (String) request.getParameter("password");
         String name = (String) request.getParameter("firstName");
-        String surname = (String) request.getParameter("lasrName");
+        String surname = (String) request.getParameter("lastName");
         String city = (String) request.getParameter("city");
         String address = (String) request.getParameter("address");
-        Integer age = Integer.parseInt((String)request.getParameter("age"));
-        Genero gender = this.gFacade.find(request.getParameter("gender"));
+        int age = Integer.parseInt(request.getParameter("age"));
+        
+        String genero = request.getParameter("gender");
+        Genero gender = this.gFacade.find(genero);
         
         String userParameter = (String) request.getParameter("usertype");
         Tipousuario userType;
@@ -77,7 +79,7 @@ public class CrearUsuarioServlet extends HttpServlet {
         
         this.uFacade.create(usuario);
         
-        request.getRequestDispatcher(request.getContextPath()+"/ListaUsuariosServlet?filtro=1").forward(request, response);        
+        response.sendRedirect(request.getContextPath()+"/ListaUsuariosServlet?filtro=1");        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
