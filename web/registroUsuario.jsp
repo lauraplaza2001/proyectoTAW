@@ -4,6 +4,7 @@
     Author     : juanm
 --%>
 
+<%@page import="proyectoTAW.entity.Tipousuario"%>
 <%@page import="proyectoTAW.entity.Genero"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -22,17 +23,17 @@
     <body class="bg-light">
 
         <div class="container">
-            <main>
-                
+            <main class="row justify-content-md-center">
+
                 <div class="py-5 text-center">
                     <img class="d-block mx-auto mb-4" src="<%= request.getContextPath()%>/Images/logoipsum-logo-50.svg" alt="" width="72" height="57">
                     <h2>Registro de nuevos usuarios</h2>
-                    <p class="lead">Por favor, introduzca los datos necesarios para completar el registro</p>
+                    <p class="lead">Por favor, introduzca todos los campos para completar el registro</p>
                 </div>
                 <div class="col-md-7 col-lg-8">
-                    <form class="needs-validation" novalidate>
+                    <form class="needs-validation" novalidate action="${pageContext.request.contextPath}/CrearUsuarioServlet">
                         <div class="row g-3">
-                            <div class="col-12">
+                            <div class="col-sm-3">
                                 <label for="username" class="form-label">Nombre de usuario</label>
                                 <div class="input-group has-validation">
                                     <input type="text" class="form-control" id="username"  required>
@@ -40,11 +41,21 @@
                                         Nombre de usuario obligatorio.
                                     </div>
                                 </div>
+                            </div> 
+                            
+                            <div class="col-sm-9">
+                                <label for="password" class="form-label">Contraseña</label>
+                                <div class="input-group has-validation">
+                                    <input type="password" class="form-control" id="password"  required>
+                                    <div class="invalid-feedback">
+                                        Contraseña obligatoria.
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <label for="firstName" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+                                <input type="text" class="form-control" id="firstName" placeholder="" required>
                                 <div class="invalid-feedback">
                                     Primer nombre obligatorio.
                                 </div>
@@ -52,13 +63,21 @@
 
                             <div class="col-sm-6">
                                 <label for="lastName" class="form-label">Apellidos</label>
-                                <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
+                                <input type="text" class="form-control" id="lastName" placeholder="" required>
                                 <div class="invalid-feedback">
                                     Apellidos obligatorios.
                                 </div>
                             </div>
 
-                            <div class="col-12">
+                            <div class="col-sm-4">
+                                <label for="city" class="form-label">Ciudad</label>
+                                <input type="text" class="form-control" id="city" required>
+                                <div class="invalid-feedback">
+                                    Ciudad obligatoria.
+                                </div>
+                            </div>
+                            
+                            <div class="col-sm-4">
                                 <label for="address" class="form-label">Dirección</label>
                                 <input type="text" class="form-control" id="address" required>
                                 <div class="invalid-feedback">
@@ -66,16 +85,8 @@
                                 </div>
                             </div>
 
-                            <div class="col-12">
-                                <label for="address" class="form-label">Ciudad</label>
-                                <input type="text" class="form-control" id="city" required>
-                                <div class="invalid-feedback">
-                                    Ciudad obligatoria.
-                                </div>
-                            </div>
-
                             <div class="col-md-5">
-                                <label for="country" class="form-label">Edad</label>
+                                <label for="age" class="form-label">Edad</label>
                                 <input type="number" class="form-control" id="age" required>
                                 <div class="invalid-feedback">
                                     Edad obligatoria.
@@ -84,21 +95,36 @@
 
                             <%
                                 List<Genero> generos = (List) request.getAttribute("generos");
-                                int i = 0;
+                                List<Tipousuario> tUsuarios = (List) request.getAttribute("tUsuarios");
+                                String admin = (String) request.getAttribute("admin");
                             %>
 
                             <div class="col-md-3">
-                                <label for="zip" class="form-label">Género</label>
+                                <label for="gender" class="form-label">Género</label>
                                 <select class="form-select" id="gender" required>
                                     <option value="">Elige</option>
-                                    <% for(Genero g:generos){ %>
-                                    <option value="<%=g.getGenero() %>"><%=g.getGenero() %></option>
+                                    <% for (Genero g : generos) {%>
+                                    <option value="<%=g.getGenero()%>"><%=g.getGenero()%></option>
                                     <% } %>
                                 </select>
                                 <div class="invalid-feedback">
                                     Género requerido.
                                 </div>
                             </div>
+                            <% if (admin.equalsIgnoreCase("true")) { %>
+                            <div class="col-md-3">
+                                <label for="usertype" class="form-label">Tipo de Usuario</label>
+                                <select class="form-select" id="usertype" required>
+                                    <option value="">Elige</option>
+                                    <% for (Tipousuario tu : tUsuarios) {%>
+                                    <option value="<%=tu.getTipoUsuario()%>"><%=tu.getTipoUsuario()%></option>
+                                    <% }%>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Tipo de usuario requerido.
+                                </div>
+                            </div>
+                            <% }%>
                         </div>
 
                         <hr class="my-4">
@@ -114,7 +140,23 @@
     </footer>
 </div>
 
-
+<script>// Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict'
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+    })()</script>
 <script src="/docs/5.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
 <script src="form-validation.js"></script>

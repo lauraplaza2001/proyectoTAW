@@ -6,7 +6,6 @@
 package proyectoTAW.servlet;
 
 import java.io.IOException;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,15 +14,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import proyectoTAW.dao.GeneroFacade;
 import proyectoTAW.dao.TipousuarioFacade;
+import proyectoTAW.dao.UsuarioFacade;
 import proyectoTAW.entity.Genero;
 import proyectoTAW.entity.Tipousuario;
+import proyectoTAW.entity.Usuario;
 
 /**
  *
  * @author juanm
  */
-@WebServlet(name = "NuevoUsuarioServlet", urlPatterns = {"/NuevoUsuarioServlet"})
-public class NuevoUsuarioServlet extends HttpServlet {
+@WebServlet(name = "CrearUsuarioServlet", urlPatterns = {"/CrearUsuarioServlet"})
+public class CrearUsuarioServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,28 +35,49 @@ public class NuevoUsuarioServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
     @EJB GeneroFacade gFacade;
     @EJB TipousuarioFacade tuFacade;
+    @EJB UsuarioFacade uFacade;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        List<Genero> generos = (List) this.gFacade.findAll();
-        List<Tipousuario> tUsuarios = (List) this.tuFacade.findAll();
+        String username = (String) request.getParameter("username");
+        String pass = (String) request.getParameter("password");
+        String name = (String) request.getParameter("firstName");
+        String surname = (String) request.getParameter("lasrName");
+        String city = (String) request.getParameter("city");
+        String address = (String) request.getParameter("address");
+        Integer age = Integer.parseInt((String)request.getParameter("age"));
+        Genero gender = this.gFacade.find(request.getParameter("gender"));
         
-        boolean admin = Boolean.parseBoolean((String)request.getParameter("admin"));
-
-        request.setAttribute("generos", generos);
-        request.setAttribute("tUsuarios", tUsuarios);
+        String userParameter = (String) request.getParameter("usertype");
+        Tipousuario userType;
         
-        if(admin){
-            request.setAttribute("admin", "true");
+        if(userParameter != null){
+            userType  = this.tuFacade.find(userParameter);
         }else{
-            request.setAttribute("admin", "false");
+            userType = this.tuFacade.find("Estandar");
         }
         
-        request.getRequestDispatcher("registroUsuario.jsp").forward(request, response);
+        
+        Usuario usuario = new Usuario();
+        
+        usuario.setNombreUsuario(username);
+        usuario.setContrasena(pass);
+        usuario.setNombre(name);
+        usuario.setApellidos(surname);
+        usuario.setCiudad(city);
+        usuario.setDomicilio(address);
+        usuario.setEdad(age);
+        usuario.setGenero(gender);
+        usuario.setTipoUsuario(userType);
+        
+        this.uFacade.create(usuario);
+        
+        request.getRequestDispatcher(request.getContextPath()+"/ListaUsuariosServlet?filtro=1").forward(request, response);        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
