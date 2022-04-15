@@ -80,7 +80,7 @@
                         <img  class="fluid" src="<%= producto.getFoto()%>"
                              <li class="p-2">
                             <button  type="submit" name="id" value="<%= producto.getIdProducto()%>" class="btn btn-warning" >Editar</button>
-                            <a type="button" class="btn btn-danger" href="${pageContext.request.contextPath}/EliminarUsuarioServlet?id=<%= producto.getIdProducto()%>">Eliminar</a>
+                            <a type="button" class="btn btn-danger" href="${pageContext.request.contextPath}/EliminarProductoServlet?id=<%= producto.getIdProducto()%>">Eliminar</a>
                         </li>
                     </ul>
                 </form>

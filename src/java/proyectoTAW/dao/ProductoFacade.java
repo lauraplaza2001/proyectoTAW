@@ -45,6 +45,16 @@ public class ProductoFacade extends AbstractFacade<Producto> {
                 q = this.getEntityManager().createQuery("select distinct a from Producto a, Categoria c WHERE c.nombre like :busqueda");
                 q.setParameter("busqueda", '%' + busqueda + '%');
                 break;
+
+            /*
+                SELECT *
+                FROM producto a
+                JOIN categoriasproducto relation 
+                ON a.idProducto = relation.idProducto
+                JOIN categoria b 
+                ON relation.idCategoria = b.idCategoria
+                where b.nombre like :busqueda
+             */
         }
 
         return q.getResultList();
