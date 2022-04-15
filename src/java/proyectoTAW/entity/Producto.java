@@ -61,12 +61,12 @@ public class Producto implements Serializable {
     private String titulo;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
+    @Size(min = 1, max = 1000)
     @Column(name = "descripcion")
     private String descripcion;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
+    @Size(min = 1, max = 1000)
     @Column(name = "foto")
     private String foto;
     @Basic(optional = false)

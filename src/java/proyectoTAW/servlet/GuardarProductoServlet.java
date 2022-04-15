@@ -23,8 +23,8 @@ import proyectoTAW.entity.Producto;
  *
  * @author juanm
  */
-@WebServlet(name = "EditorProductosServlet", urlPatterns = {"/EditorProductosServlet"})
-public class EditorProductosServlet extends HttpServlet {
+@WebServlet(name = "GuardarProductoServlet", urlPatterns = {"/GuardarProductoServlet"})
+public class GuardarProductoServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,22 +35,32 @@ public class EditorProductosServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
-    @EJB ProductoFacade pFacade;
-    @EJB CategoriaFacade cFacade;
-    
+    @EJB
+    ProductoFacade pFacade;
+
+    @EJB
+    CategoriaFacade cFacade;
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String id = request.getParameter("id");
-        
-        Producto prod = this.pFacade.find(Integer.parseInt(id));
-        List<Categoria> categorias = this.cFacade.findAll();
- 
-        request.setAttribute("producto", prod); 
-        request.setAttribute("categorias", categorias);
-        request.getRequestDispatcher("editorProducto.jsp").forward(request, response);
-        
+
+        int id = Integer.parseInt(request.getParameter("id"));
+        String title = (String) request.getParameter("name");
+        String desc = (String) request.getParameter("descripcion");
+        String foto = (String) request.getParameter("image");
+        double precio = Double.parseDouble(request.getParameter("price"));
+
+        Producto producto = this.pFacade.find(id);
+
+        producto.setTitulo(title);
+        producto.setDescripcion(desc);
+        producto.setFoto(foto);
+        producto.setPrecioSalida(precio);
+
+        this.pFacade.edit(producto);
+
+        response.sendRedirect(request.getContextPath() + "/ListaProductosServlet");
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
