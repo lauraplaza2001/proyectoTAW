@@ -31,7 +31,7 @@
                         <li><a href="#" class="nav-link px-2 link-secondary">Página Principal</a></li>
                         <li><a href="#" class="nav-link px-2 link-dark">Inventario</a></li>
                         <li><a href="<%= request.getContextPath()%>/ListaUsuariosServlet?filtro=1" class="nav-link px-2 link-dark">Clientes</a></li>
-                        <li><a href="#" class="nav-link px-2 link-dark">Productos</a></li>
+                        <li><a href="<%= request.getContextPath()%>/ListaProductosServlet" class="nav-link px-2 link-dark">Productos</a></li>
                         <li><a href="<%= request.getContextPath()%>/EditorCategoriasServlet" class="nav-link px-2 link-primary">Categorías</a></li>
                     </ul>
 

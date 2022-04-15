@@ -5,9 +5,12 @@
  */
 package proyectoTAW.dao;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import proyectoTAW.entity.Categoria;
 import proyectoTAW.entity.Producto;
 
 /**
@@ -28,5 +31,22 @@ public class ProductoFacade extends AbstractFacade<Producto> {
     public ProductoFacade() {
         super(Producto.class);
     }
-    
+
+    public List<Producto> findFiltered(Integer filtro, String busqueda) {
+
+        Query q;
+
+        switch (filtro) {
+            case (1):
+                q = this.getEntityManager().createQuery("select a from Producto a where a.titulo like :busqueda");
+                q.setParameter("busqueda", '%' + busqueda + '%');
+                break;
+            default:
+                q = this.getEntityManager().createQuery("select distinct a from Producto a, Categoria c WHERE c.nombre like :busqueda");
+                q.setParameter("busqueda", '%' + busqueda + '%');
+                break;
+        }
+
+        return q.getResultList();
+    }
 }

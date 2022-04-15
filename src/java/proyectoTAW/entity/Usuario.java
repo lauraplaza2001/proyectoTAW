@@ -43,6 +43,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Usuario.findByEdad", query = "SELECT u FROM Usuario u WHERE u.edad = :edad")})
 public class Usuario implements Serializable {
 
+    @ManyToMany(mappedBy = "usuarioList")
+    private List<Categoria> categoriaList;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -252,6 +255,15 @@ public class Usuario implements Serializable {
     @Override
     public String toString() {
         return nombreUsuario + ", " + nombre + " " + apellidos + ", " + ciudad + ", " + domicilio + ", " + edad + ", " + getGenero().getGenero() + ", " + getTipoUsuario().getTipoUsuario() + ", ";
+    }
+
+    @XmlTransient
+    public List<Categoria> getCategoriaList() {
+        return categoriaList;
+    }
+
+    public void setCategoriaList(List<Categoria> categoriaList) {
+        this.categoriaList = categoriaList;
     }
     
 }
