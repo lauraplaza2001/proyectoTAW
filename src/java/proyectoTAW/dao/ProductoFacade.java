@@ -42,7 +42,7 @@ public class ProductoFacade extends AbstractFacade<Producto> {
                 q.setParameter("busqueda", '%' + busqueda + '%');
                 break;
             default:
-                q = this.getEntityManager().createQuery("select distinct a from Producto a, Categoria c WHERE c.nombre like :busqueda");
+                q = this.getEntityManager().createQuery("select distinct a from Producto a JOIN a.categoriaList c WHERE c.nombre like :busqueda", Categoria.class);
                 q.setParameter("busqueda", '%' + busqueda + '%');
                 break;
 
