@@ -7,6 +7,7 @@ package proyectoTAW.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -49,6 +50,17 @@ public class GuardarProductoServlet extends HttpServlet {
         String desc = (String) request.getParameter("descripcion");
         String foto = (String) request.getParameter("image");
         double precio = Double.parseDouble(request.getParameter("price"));
+        
+        /*List<Categoria> categoriasTotales = this.cFacade.findAll();
+        List<Categoria> categoriasFinales = new ArrayList<Categoria>();
+        
+        for(Categoria c : categoriasTotales){
+            String categoria = ((String) request.getParameter(c.getIdCategoria()+""));
+            if(categoria != null && (categoria.equalsIgnoreCase("true"))){
+                System.out.println(c.getNombre());
+                categoriasFinales.add(c);
+            }
+        }*/
 
         Producto producto = this.pFacade.find(id);
 
@@ -56,6 +68,7 @@ public class GuardarProductoServlet extends HttpServlet {
         producto.setDescripcion(desc);
         producto.setFoto(foto);
         producto.setPrecioSalida(precio);
+        //producto.setCategoriaList(categoriasFinales);
 
         this.pFacade.edit(producto);
 
