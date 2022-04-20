@@ -1,15 +1,15 @@
 <%-- 
-    Document   : editorCategorias
-    Created on : 15-apr-2022, 00:57:16
-    Author     : juanm
+    Document   : listaProductosEnVenta
+    Created on : 20-abr-2022, 12:01:08
+    Author     : amigo
 --%>
 
 <%@page import="proyectoTAW.entity.Producto"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!doctype html>
-<html lang="es">
-    <head>
+<!DOCTYPE html>
+<html>
+        <head>
 
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -63,6 +63,11 @@
 
                             <input class="form-control me-2" type="search" autocomplete="off" placeholder="Busqueda..." aria-label="Search" name="busqueda">
                             <button class="btn btn-outline-success" type="submit">Buscar</button>
+                            
+                            <a type="button" class="btn btn-danger" href="${pageContext.request.contextPath}/SubastarProductoServlet">Subastar producto</a>
+                            
+                            
+
                         </form>
                     </div>
                 </div>

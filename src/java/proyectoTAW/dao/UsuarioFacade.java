@@ -5,11 +5,14 @@
  */
 package proyectoTAW.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import proyectoTAW.entity.Producto;
+import proyectoTAW.entity.Subasta;
 import proyectoTAW.entity.Usuario;
 
 /**
@@ -72,7 +75,6 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
 
         return q.getResultList();
     }
-
     public Usuario comprobarUsuario(String usuario, String psw) {
         Query q;
         
@@ -81,14 +83,12 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         q.setParameter("usuario",usuario);
         q.setParameter("contrasena", psw);
         
-        List<Usuario> lista = q.getResultList();
-        if (lista == null || lista.isEmpty()) {
             return null;
+        if (lista == null || lista.isEmpty()) {
+        List<Usuario> lista = q.getResultList();
         } else {
             return lista.get(0);
-        }  
         
+        }  
     }
-    
-
 }
