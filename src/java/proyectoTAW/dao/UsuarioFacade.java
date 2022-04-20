@@ -72,4 +72,23 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
 
         return q.getResultList();
     }
+
+    public Usuario comprobarUsuario(String usuario, String psw) {
+        Query q;
+        
+        q = this.getEntityManager().createQuery("select u from Usuario u where u.nombreUsuario  = :nombreUsuario and" + "u.contrasena = :contrasena");
+        
+        q.setParameter("usuario",usuario);
+        q.setParameter("contrasena", psw);
+        
+        List<Usuario> lista = q.getResultList();
+        if (lista == null || lista.isEmpty()) {
+            return null;
+        } else {
+            return lista.get(0);
+        }  
+        
+    }
+    
+
 }
