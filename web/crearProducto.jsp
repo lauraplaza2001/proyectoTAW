@@ -24,7 +24,7 @@
         <%
            
           //  Usuario usuario = (Usuario) request.getAttribute("usuario");
-            Producto producto = (Producto) request.getAttribute("producto");
+           // Producto producto = (Producto) request.getAttribute("producto");
             List<Categoria> categorias = (List) request.getAttribute("categorias");
 
         %>
@@ -38,7 +38,7 @@
 
                 </div>
                 <div class="col-md-7 col-lg-8">
-                    <form class="needs-validation" novalidate action="${pageContext.request.contextPath}/GuardarProductoServlet">
+                    <form class="needs-validation" novalidate action="${pageContext.request.contextPath}/GuardarProductoSubastaServlet">
                         <div class="row g-3">
                             <div class="col-sm-12">
                                 <label for="name" class="form-label">Titulo del Producto</label>
@@ -85,7 +85,7 @@
                                 %>
 
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" value="true" id="<%= c.getIdCategoria()%>" <%= !producto.getCategoriaList().contains(c)? "": "checked" %>>
+                                    <input class="form-check-input" type="checkbox" value="true" id="<%= c.getIdCategoria()%>" >
                                     <label class="form-check-label" for="<%= c.getIdCategoria()%>">
                                         <%= c.getNombre()%>
                                     </label>
@@ -96,7 +96,7 @@
 
                             <hr class="my-4">
 
-                            <button class="w-100 btn btn-primary btn-lg" type="submit" name="id" value="<%= producto.getIdProducto()%>">Finalizar Edición</button>
+                            <button class="w-100 btn btn-primary btn-lg" type="submit" name="id" value="Finalizar Edición" >Finalizar Edición</button>
                     </form>
                 </div>
         </div>
