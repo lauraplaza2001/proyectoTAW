@@ -39,35 +39,35 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         Query q;
 
         switch (filtro) {
-            case (2):
+            case (2): //nombre
                 q = this.getEntityManager().createQuery("select a from Usuario a where a.nombre like :busqueda");
                 q.setParameter("busqueda", '%' + busqueda + '%');
                 break;
-            case (3):
+            case (3)://apellido
                 q = this.getEntityManager().createQuery("select a from Usuario a where a.apellidos like :busqueda");
                 q.setParameter("busqueda", '%' + busqueda + '%');
                 break;
-            case (4):
+            case (4)://domicilio
                 q = this.getEntityManager().createQuery("select a from Usuario a where a.domicilio like :busqueda");
                 q.setParameter("busqueda", '%' + busqueda + '%');
                 break;
-            case (5):
+            case (5)://ciudad
                 q = this.getEntityManager().createQuery("select a from Usuario a where a.ciudad like :busqueda");
                 q.setParameter("busqueda", '%' + busqueda + '%');
                 break;
-            case (6):
+            case (6)://edad
                 q = this.getEntityManager().createQuery("select a from Usuario a where a.edad = :busqueda");
                 q.setParameter("busqueda", Integer.parseInt(busqueda));
                 break;
-            case (7):
+            case (7)://genero
                 q = this.getEntityManager().createQuery("select a from Usuario a where a.genero.genero like :busqueda");
                 q.setParameter("busqueda", '%' + busqueda + '%');
                 break;
-            case (8):
+            case (8)://tipoUsuario
                 q = this.getEntityManager().createQuery("select a from Usuario a where a.tipoUsuario.tipoUsuario like :busqueda");
                 q.setParameter("busqueda", '%' + busqueda + '%');
                 break;
-            default:
+            default://nombreUsuario
                 q = this.getEntityManager().createQuery("select a from Usuario a where a.nombreUsuario like :busqueda");
                 q.setParameter("busqueda", '%' + busqueda + '%');
                 break;
@@ -83,12 +83,29 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         q.setParameter("usuario",usuario);
         q.setParameter("contrasena", psw);
         
-            return null;
-        if (lista == null || lista.isEmpty()) {
         List<Usuario> lista = q.getResultList();
-        } else {
-            return lista.get(0);
+            
         
-        }  
+        return lista.get(0);
+        
+        
     }
+
+    public void favouriteList(int add, String idUsuario, String idProducto) {
+          
+        switch (add){
+            case(1):
+             //Query para añadir el producto a favoritos
+             break;
+             default:
+              //Query para quitar el producto de la lista de 
+             break;
+             
+        }
+       
+    }
+
+
+    
+
 }

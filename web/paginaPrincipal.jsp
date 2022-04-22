@@ -75,6 +75,7 @@
                                     </select>
 
                                 <input class="form-control me-2" type="search" autocomplete="off" placeholder="Busqueda..." aria-label="Search" name="busqueda">
+                                </br>
                                 <button class="btn btn-outline-success" type="submit">Buscar</button>
                             </form>
                         </div>
@@ -103,18 +104,18 @@
                      
                              %>
                             
-                                <a type="button" class="btn btn-danger" href="${pageContext.request.contextPath}/PonerFavorito?id=<%= producto.getIdProducto()%>">Poner a favoritos</a>
+                                <a type="button" class="btn btn-danger" href="${pageContext.request.contextPath}/PonerFavoritoServlet?idProducto=<%= producto.getIdProducto()%>&idUsuario=<%=user.getIdUsuario()%>">Poner a favoritos</a>
                             <%
                              }else{
                             %>
                  
-                             <a type="button" class="btn btn-danger" href="${pageContext.request.contextPath}/QuitarFavorito?id=<%= producto.getIdProducto()%>"Quitar de Favoritos</a>
+                             <a type="button" class="btn btn-danger" href="${pageContext.request.contextPath}/QuitarFavoritoServlet?idProducto=<%= producto.getIdProducto()%>&idUsuario=<%=user.getIdUsuario()%>"Quitar de favoritos</a>
                             <%
                             } if (comp){
                   
                              %>
                    
-                             <a type="button" class="btn btn-danger" href="${pageContext.request.contextPath}/QuitarComprado?id=<%= producto.getIdProducto()%>"Quitar de Favoritos</a>
+                             <a type="button" class="btn btn-danger" href="${pageContext.request.contextPath}/QuitarCompradoServlet?idProducto=<%= producto.getIdProducto()%>&idUsuario=<%=user.getIdUsuario() %>" Quitar de comprados</a>
                             <%
                               }
                            %>
