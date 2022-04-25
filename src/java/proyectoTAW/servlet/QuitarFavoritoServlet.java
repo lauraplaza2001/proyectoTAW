@@ -33,7 +33,8 @@ public class QuitarFavoritoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-               String idProducto = request.getParameter("idProducto");
+        
+        String idProducto = request.getParameter("idProducto");
         String idUsuario = request.getParameter("idUsuario");
         
         this.usuarioFacade.favouriteList(0,idUsuario,idProducto);

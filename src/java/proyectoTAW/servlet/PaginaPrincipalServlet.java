@@ -57,16 +57,15 @@ public class PaginaPrincipalServlet extends HttpServlet {
        if (filtro.equals("Todos los productos") || filtro.isEmpty()){
            productos=this.pf.findAll();
        }else if (filtro.equals("Favoritos")){
-          productos = this.pf.findFiltered(1,id);
+          productos = this.pf.findProductList(1,id);
           fav=true;
        } else if (filtro.equals("Comprados")){
-          productos = this.pf.findFiltered(0,id);
+          productos = this.pf.findProductList(0,id);
           comp=true;
        }else{ //Filtlrado por una categoría
                    
            productos = this.pf.findFiltered(0,filtro); // Busca la lista de productos de la categoría del nombre del string
-           
-           
+          
        }
        
        

@@ -93,12 +93,18 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
    }}
     public void favouriteList(int add, String idUsuario, String idProducto) {
           
+        Query q;
         switch (add){
             case(1):
              //Query para añadir el producto a favoritos
+             
+              q = this.getEntityManager().createQuery("INSERT INTO PRDOUCTOS_FAVORITOS VALUES ( :idUsuario, :idProducto");
+              
              break;
-             default:
+             default:  
               //Query para quitar el producto de la lista de 
+             
+              q = this.getEntityManager().createQuery("DELETE FROM PRDOUCTOS_FAVORITOS WHERE Usuario_idUsuario = :idUsuario AND Producto_idProducto = :idProducto");
              break;
              
         }
