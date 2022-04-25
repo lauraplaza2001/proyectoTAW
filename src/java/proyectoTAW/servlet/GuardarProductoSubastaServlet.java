@@ -8,7 +8,9 @@ package proyectoTAW.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -49,7 +51,7 @@ public class GuardarProductoSubastaServlet extends HttpServlet {
         String desc = (String) request.getParameter("descripcion");
         String foto = (String) request.getParameter("image");
         double precio = Double.parseDouble(request.getParameter("price"));
-        Usuario user = uFacade.find(id);
+        Usuario user = this.uFacade.find(id);
         
         /*List<Categoria> categoriasTotales = this.cFacade.findAll();
         List<Categoria> categoriasFinales = new ArrayList<Categoria>();
@@ -77,8 +79,12 @@ public class GuardarProductoSubastaServlet extends HttpServlet {
         s.setCreador(user);
         s.setPredioActual(precio);
         s.setProducto(producto);
+        Date d =new Date();
+        s.setFechaCierre(d);
      
   
+        
+        
 
         this.pFacade.create(producto);
         this.sFacade.create(s);
