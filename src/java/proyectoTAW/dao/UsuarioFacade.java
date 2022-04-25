@@ -89,7 +89,8 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         } else {
             return lista.get(0);
         
-        }   
+        }
+   }
     public void favouriteList(int add, String idUsuario, String idProducto) {
           
         Query q;
@@ -107,7 +108,7 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
              break;
              
         }
-       
+    }   
 
    public List<Producto> getProductosVendedor(String idUser){
        Query q;
@@ -122,9 +123,10 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
        Query q ;
        int id = Integer.parseInt(idUser);
        q=this.getEntityManager().createQuery("select s from Subasta s where s.creador.idUsuario= :id");
+       q.setParameter("id", id);
        return q.getResultList();
    }
-       q.setParameter("id", id);
+   
    
    
 }
