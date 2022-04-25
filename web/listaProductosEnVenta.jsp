@@ -28,7 +28,7 @@
                     </a>
 
                     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                        <li><a href="<%= request.getContextPath()%>/NuevoProductoServlet" class="nav-link px-2 link-secondary">Página Principal</a></li>
+                        <li><a href="#" class="nav-link px-2 link-secondary">Página Principal</a></li>
                         <li><a href="#" class="nav-link px-2 link-dark">Inventario</a></li>
                         <li><a href="<%= request.getContextPath()%>/ListaUsuariosServlet?filtro=1" class="nav-link px-2 link-dark">Clientes</a></li>
                         <li><a href="<%= request.getContextPath()%>/ListaProductosServlet" class="nav-link px-2 link-primary">Productos</a></li>
@@ -54,7 +54,7 @@
                 <div class="col col-6">
                     <div class="container rows-2">
                         <div class="input-group-prepend">
-                            <form class="d-flex" action="${pageContext.request.contextPath}/BusquedaProductosVendedorServlet" method="get">
+                            <form class="d-flex" action="${pageContext.request.contextPath}/BusquedaProductosVendedorServlet?id=1" method="get">
                                 <select class="custom-select" name="filtro" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <option selected value="1">Tipo de Búsqueda<option
                                 <option value="1">Nombre</option>
@@ -78,13 +78,13 @@
                 for (Producto producto : productos) {
             %>
             <div class="col col-4 p-3">
-                <form class="border"action="${pageContext.request.contextPath}/EditorProductosServlet">
+                <form class="border"action="${pageContext.request.contextPath}/EditorProductosServlet?idUser=1">
                     <ul class="list-group list-group-vertical">
                         <li class="list-group-item"><%= producto.getTitulo()%></li>
                         <img  class="fluid" src="<%= producto.getFoto()%>"
                              <li class="p-2">
                             <button  type="submit" name="id" value="<%= producto.getIdProducto()%>" class="btn btn-warning" >Editar</button>
-                            <a type="button" class="btn btn-danger" href="${pageContext.request.contextPath}/EliminarProductoServlet?id=<%= producto.getIdProducto()%>">Eliminar</a>
+                            <a type="button" class="btn btn-danger" href="${pageContext.request.contextPath}/EliminarProductoVendedorServlet?id=<%= producto.getIdProducto()%>&idUser=1">Eliminar</a>
                         </li>
                     </ul>
                 </form>

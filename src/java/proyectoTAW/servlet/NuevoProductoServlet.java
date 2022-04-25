@@ -40,9 +40,10 @@ public class NuevoProductoServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
        
-       // String idUser = request.getParameter("usuario");
-        Usuario user = uFacade.find(1);
-        List<Producto> productos =  user.getProductoList();
+        String idUser = request.getParameter("id");
+    
+        //List<Producto> productos = uFacade.find(1).getProductoList();
+        List<Producto> productos =  this.uFacade.getProductosVendedor(idUser);
         request.setAttribute("productos", productos);
         request.getRequestDispatcher("listaProductosEnVenta.jsp").forward(request, response);
     }

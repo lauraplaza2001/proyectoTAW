@@ -7,8 +7,6 @@ package proyectoTAW.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,21 +14,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import proyectoTAW.dao.ProductoFacade;
-import proyectoTAW.dao.SubastaFacade;
-import proyectoTAW.dao.UsuarioFacade;
 import proyectoTAW.entity.Producto;
-import proyectoTAW.entity.Subasta;
-import proyectoTAW.entity.Usuario;
 
 /**
  *
  * @author amigo
  */
-@WebServlet(name = "GuardarProductoSubastaServlet", urlPatterns = {"/GuardarProductoSubastaServlet"})
-public class GuardarProductoSubastaServlet extends HttpServlet {
+@WebServlet(name = "EliminarProductoVendedorServlet", urlPatterns = {"/EliminarProductoVendedorServlet"})
+public class EliminarProductoVendedorServlet extends HttpServlet {
     @EJB ProductoFacade pFacade;
-    @EJB UsuarioFacade uFacade;
-    @EJB SubastaFacade sFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -42,54 +34,14 @@ public class GuardarProductoSubastaServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
-        //int id = Integer.parseInt(request.getParameter("id")); // id del usuario
-        int id = 1;
-        String title = (String) request.getParameter("name");
-        String desc = (String) request.getParameter("descripcion");
-        String foto = (String) request.getParameter("image");
-        double precio = Double.parseDouble(request.getParameter("price"));
-        Usuario user = uFacade.find(id);
+        String str = request.getParameter("id");
+        String idUser= request.getParameter("idUser");
         
-        /*List<Categoria> categoriasTotales = this.cFacade.findAll();
-        List<Categoria> categoriasFinales = new ArrayList<Categoria>();
+        Producto producto = this.pFacade.find(Integer.parseInt(str));
         
-        for(Categoria c : categoriasTotales){
-            String categoria = ((String) request.getParameter(c.getIdCategoria()+""));
-            if(categoria != null && (categoria.equalsIgnoreCase("true"))){
-                System.out.println(c.getNombre());
-                categoriasFinales.add(c);
-            }
-        }*/
-
-        Producto producto = new Producto();
-
-        producto.setTitulo(title);
-        producto.setDescripcion(desc);
-        producto.setFoto(foto);
-        producto.setPrecioSalida(precio);
-
-   
-        //producto.setCategoriaList(categoriasFinales);
-       
+        this.pFacade.remove(producto);
         
-        Subasta s = new Subasta();
-        s.setCreador(user);
-        s.setPredioActual(precio);
-        s.setProducto(producto);
-     
-  
-
-        this.pFacade.create(producto);
-        this.sFacade.create(s);
-        
-        
-        
-
-        response.sendRedirect(request.getContextPath() + "/NuevoProductoServlet?id=1");
-
-       
-        
+        response.sendRedirect(request.getContextPath() + "/NuevoProductoServlet?id=1" );
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -33,12 +33,12 @@
             <main class="row justify-content-md-center">
 
                 <div class="py-5 text-center">
-                    <h2>Edición de productos</h2>
-                    <p class="lead">Por favor, introduzca los campos a editar</p>
+                    <h2>Creación de productos</h2>
+                    <p class="lead">Por favor, introduzca todos los campos</p>
 
                 </div>
                 <div class="col-md-7 col-lg-8">
-                    <form class="needs-validation" novalidate action="${pageContext.request.contextPath}/GuardarProductoSubastaServlet">
+                    <form class="needs-validation" novalidate action="${pageContext.request.contextPath}/GuardarProductoSubastaServlet?id=1">
                         <div class="row g-3">
                             <div class="col-sm-12">
                                 <label for="name" class="form-label">Titulo del Producto</label>
@@ -96,7 +96,7 @@
 
                             <hr class="my-4">
 
-                            <button class="w-100 btn btn-primary btn-lg" type="submit" name="id" value="Finalizar Edición" >Finalizar Edición</button>
+                            <button class="w-100 btn btn-primary btn-lg" type="submit" name="idFinalizar" value="Finalizar Edición" >Finalizar Edición</button>
                     </form>
                 </div>
         </div>
