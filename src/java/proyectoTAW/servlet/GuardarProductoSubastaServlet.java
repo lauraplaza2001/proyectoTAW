@@ -7,29 +7,19 @@ package proyectoTAW.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import proyectoTAW.dao.CategoriaFacade;
-import proyectoTAW.dao.ProductoFacade;
-import proyectoTAW.dao.UsuarioFacade;
-import proyectoTAW.entity.Categoria;
-import proyectoTAW.entity.Producto;
-import proyectoTAW.entity.Usuario;
 
 /**
  *
  * @author amigo
  */
-@WebServlet(name = "SubastarProductoServlet", urlPatterns = {"/SubastarProductoServlet"})
-public class SubastarProductoServlet extends HttpServlet {
-    @EJB ProductoFacade pFacade;
-    @EJB CategoriaFacade cFacade;
-    @EJB UsuarioFacade uFacade;
+@WebServlet(name = "GuardarProductoSubastaServlet", urlPatterns = {"/GuardarProductoSubastaServlet"})
+public class GuardarProductoSubastaServlet extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -41,25 +31,8 @@ public class SubastarProductoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-     
-       // int idUsuario = Integer.parseInt(request.getParameter("usuario"));
        
-         Usuario u = uFacade.find(1);
        
-        
-        
-        
-        
-      //  String id = request.getParameter("id");
-        
-       // Producto prod = this.pFacade.find(Integer.parseInt(id));
-        List<Categoria> categorias = this.cFacade.findAll();
- 
-        request.setAttribute("usuario", u);
-  //      request.setAttribute("producto", prod); 
-        request.setAttribute("categorias", categorias);
-        request.getRequestDispatcher("crearProducto.jsp").forward(request, response);
-        
         
     }
 

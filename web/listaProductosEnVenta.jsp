@@ -54,7 +54,7 @@
                 <div class="col col-6">
                     <div class="container rows-2">
                         <div class="input-group-prepend">
-                            <form class="d-flex" action="${pageContext.request.contextPath}/BusquedaProductosServlet" method="get">
+                            <form class="d-flex" action="${pageContext.request.contextPath}/BusquedaProductosVendedorServlet" method="get">
                                 <select class="custom-select" name="filtro" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <option selected value="1">Tipo de Búsqueda<option
                                 <option value="1">Nombre</option>
@@ -64,10 +64,9 @@
                             <input class="form-control me-2" type="search" autocomplete="off" placeholder="Busqueda..." aria-label="Search" name="busqueda">
                             <button class="btn btn-outline-success" type="submit">Buscar</button>
                             
-                            <a type="button" class="btn btn-danger" href="${pageContext.request.contextPath}/SubastarProductoServlet">Subastar producto</a>
+                            <a type="button" class="btn btn-danger" href="${pageContext.request.contextPath}/SubastarProductoServlet?id=1&usuario=1">Subastar producto</a>
                             
-                            
-
+                           
                         </form>
                     </div>
                 </div>
