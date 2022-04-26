@@ -65,6 +65,7 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         return q.getResultList();
     }
 
+    //Todavía no se si funciona
     public List<Producto> findProductList(int filtro, String idUsuario) {
        Query q;
        List <Producto> res = null;

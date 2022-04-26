@@ -16,9 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import proyectoTAW.dao.CategoriaFacade;
 import proyectoTAW.dao.ProductoFacade;
-import proyectoTAW.dao.SubastaFacade;
 import proyectoTAW.dao.UsuarioFacade;
-import proyectoTAW.entity.Categoria;
 import proyectoTAW.entity.Producto;
 import proyectoTAW.entity.Usuario;
 
@@ -26,68 +24,40 @@ import proyectoTAW.entity.Usuario;
  *
  * @author 34636
  */
-@WebServlet(name = "PaginaPrincipalServlet", urlPatterns = {"/PaginaPrincipalServlet"})
-public class PaginaPrincipalServlet extends HttpServlet {
-   
-    @EJB CategoriaFacade cf;
-    @EJB SubastaFacade sf;
-    @EJB ProductoFacade pf;
-    @EJB UsuarioFacade uf;
-
+@WebServlet(name = "FiltroPaginaPrincipalServlet", urlPatterns = {"/FiltroPaginaPrincipalServlet"})
+public class FiltroPaginaPrincipalServlet extends HttpServlet {
+       @EJB UsuarioFacade uf;
+       @EJB ProductoFacade pf;
+       @EJB CategoriaFacade cf;
     /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
      *
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       //Esto borrar despues
+        String id = request.getParameter("id");
+       Usuario user = this.uf.find(Integer.parseInt(id));
        
-        Usuario user = this.uf.find(1);
-        request.setAttribute("usuario",user);
-
-        //----------------
-             
        
-     
-      List <Categoria> categorias = this.cf.findAll();
+       String filtro = request.getParameter("filtro");
+       String titulo = request.getParameter("busqueda");
        
-             
-     
-       request.setAttribute("usuario",user); 
-       request.setAttribute("categorias",categorias);
-      
-
-      
+       Boolean fav=false,comp = false;
+       List <Producto> productos = this.pf.findAll();
         
-      List <Producto> productos = this.pf.findAll();
-      
-      //List <Subasta> subastas = this.sf.findAll();
-      
-      /*
-      long millis = System.currentTimeMillis();
-      java.util.Date now = new java.util.Date(millis);
-      
-       //si la subasta está activa, lo enseñamos como producto
-      for (Subasta s: subastas){
-           if (s.getFechaCierre().compareTo(now) <=1 ){
-               productos.add(s.getProducto());
-           }
-       }
        
-
-     */ 
-        
-      
        
-      request.setAttribute("fav",false);
-      request.setAttribute("comp",false);      
-      request.setAttribute("categorias",categorias);
-      request.setAttribute("productos",productos);
-      request.getRequestDispatcher("paginaPrincipal.jsp").forward(request,response);
+      
+       request.setAttribute("productos",productos);
+       request.setAttribute("fav",fav);
+       request.setAttribute("comp",comp);
 
+       request.getRequestDispatcher("/paginaPrinipal.jps").forward(request,response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
