@@ -13,15 +13,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import proyectoTAW.dao.UsuarioFacade;
+import proyectoTAW.dao.ProductoFacade;
+import proyectoTAW.entity.Producto;
 
 /**
  *
- * @author 34636
+ * @author amigo
  */
-@WebServlet(name = "QuitarFavoritoServlet", urlPatterns = {"/QuitarFavoritoServlet"})
-public class QuitarFavoritoServlet extends HttpServlet {
-    @EJB UsuarioFacade usuarioFacade;
+@WebServlet(name = "EliminarProductoVendedorServlet", urlPatterns = {"/EliminarProductoVendedorServlet"})
+public class EliminarProductoVendedorServlet extends HttpServlet {
+    @EJB ProductoFacade pFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,13 +34,14 @@ public class QuitarFavoritoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String str = request.getParameter("id");
+        String idUser= request.getParameter("idUser");
         
-        String idProducto = request.getParameter("idProducto");
-        String idUsuario = request.getParameter("idUsuario");
+        Producto producto = this.pFacade.find(Integer.parseInt(str));
         
-        this.usuarioFacade.favouriteList(0,idUsuario,idProducto);
-        response.sendRedirect(request.getContextPath() + "/PaginaPrincpalServlet");  
+        this.pFacade.remove(producto);
         
+        response.sendRedirect(request.getContextPath() + "/NuevoProductoServlet?id=1" );
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

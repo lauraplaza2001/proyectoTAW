@@ -7,21 +7,28 @@ package proyectoTAW.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import proyectoTAW.dao.CategoriaFacade;
+import proyectoTAW.dao.ProductoFacade;
 import proyectoTAW.dao.UsuarioFacade;
+import proyectoTAW.entity.Producto;
+import proyectoTAW.entity.Usuario;
 
 /**
  *
  * @author 34636
  */
-@WebServlet(name = "QuitarFavoritoServlet", urlPatterns = {"/QuitarFavoritoServlet"})
-public class QuitarFavoritoServlet extends HttpServlet {
-    @EJB UsuarioFacade usuarioFacade;
+@WebServlet(name = "FiltroPaginaPrincipalServlet", urlPatterns = {"/FiltroPaginaPrincipalServlet"})
+public class FiltroPaginaPrincipalServlet extends HttpServlet {
+       @EJB UsuarioFacade uf;
+       @EJB ProductoFacade pf;
+       @EJB CategoriaFacade cf;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,13 +40,24 @@ public class QuitarFavoritoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String id = request.getParameter("id");
+       Usuario user = this.uf.find(Integer.parseInt(id));
+       
+       
+       String filtro = request.getParameter("filtro");
+       String titulo = request.getParameter("busqueda");
+       
+       Boolean fav=false,comp = false;
+       List <Producto> productos = this.pf.findAll();
         
-        String idProducto = request.getParameter("idProducto");
-        String idUsuario = request.getParameter("idUsuario");
-        
-        this.usuarioFacade.favouriteList(0,idUsuario,idProducto);
-        response.sendRedirect(request.getContextPath() + "/PaginaPrincpalServlet");  
-        
+       
+       
+      
+       request.setAttribute("productos",productos);
+       request.setAttribute("fav",fav);
+       request.setAttribute("comp",comp);
+
+       request.getRequestDispatcher("/paginaPrinipal.jps").forward(request,response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -89,23 +89,47 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         } else {
             return lista.get(0);
         
-        }   
-   }}
+        }
+   }
+   //Todavía no se si funciona
     public void favouriteList(int add, String idUsuario, String idProducto) {
           
+        Query q;
         switch (add){
             case(1):
              //Query para añadir el producto a favoritos
+             
+              q = this.getEntityManager().createQuery("INSERT INTO PRDOUCTOS_FAVORITOS VALUES ( :idUsuario, :idProducto");
+              
              break;
-             default:
               //Query para quitar el producto de la lista de 
+             default:  
+             
+              q = this.getEntityManager().createQuery("DELETE FROM PRDOUCTOS_FAVORITOS WHERE Usuario_idUsuario = :idUsuario AND Producto_idProducto = :idProducto");
              break;
              
         }
-       
-    }
+    }   
 
-
-}
+   public List<Producto> getProductosVendedor(String idUser){
+       Query q;
+       int id = Integer.parseInt(idUser);
+        q = this.getEntityManager().createQuery("select p from Subasta s join s.producto p where s.creador.idUsuario =:id");
+        q.setParameter("id", id);
     
-
+        return q.getResultList();
+   }
+   
+   public List<Subasta> getSubastasVendedor(String idUser){
+       Query q ;
+       //int id = Integer.parseInt(idUser);
+       int id= 1;
+       q=this.getEntityManager().createQuery("select s from Subasta s where s.creador.idUsuario = :id");
+                                              
+       q.setParameter("id", id);
+       return q.getResultList();
+   }
+   
+   
+   
+}

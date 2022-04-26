@@ -7,21 +7,26 @@ package proyectoTAW.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import proyectoTAW.dao.UsuarioFacade;
+import proyectoTAW.dao.CategoriaFacade;
+import proyectoTAW.dao.ProductoFacade;
+import proyectoTAW.entity.Categoria;
+import proyectoTAW.entity.Producto;
 
 /**
  *
- * @author 34636
+ * @author amigo
  */
-@WebServlet(name = "QuitarFavoritoServlet", urlPatterns = {"/QuitarFavoritoServlet"})
-public class QuitarFavoritoServlet extends HttpServlet {
-    @EJB UsuarioFacade usuarioFacade;
+@WebServlet(name = "EditorSubastaServlet", urlPatterns = {"/EditorSubastaServlet"})
+public class EditorSubastaServlet extends HttpServlet {
+    @EJB CategoriaFacade  cFacade;
+    @EJB ProductoFacade pFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,13 +38,18 @@ public class QuitarFavoritoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String idUser = (String) request.getParameter("idUser");
+        String id = (String) request.getParameter("id");
         
-        String idProducto = request.getParameter("idProducto");
-        String idUsuario = request.getParameter("idUsuario");
+        Producto prod = this.pFacade.find(Integer.parseInt(id));
+        List<Categoria> categorias = this.cFacade.findAll();
+ 
+        request.setAttribute("producto", prod); 
+        request.setAttribute("categorias", categorias);
+        request.setAttribute("user", idUser);
         
-        this.usuarioFacade.favouriteList(0,idUsuario,idProducto);
-        response.sendRedirect(request.getContextPath() + "/PaginaPrincpalServlet");  
-        
+       
+        request.getRequestDispatcher("editorProductoSubasta.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
