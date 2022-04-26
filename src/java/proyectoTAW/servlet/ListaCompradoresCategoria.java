@@ -6,24 +6,18 @@ package proyectoTAW.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import proyectoTAW.dao.CategoriaFacade;
-import proyectoTAW.entity.Categoria;
 
 /**
  *
- * @author Ferni
+ * @author agujr
  */
-@WebServlet(name = "ListasCompradoresServlet", urlPatterns = {"/ListasCompradoresServlet"})
-public class ListasCompradoresServlet extends HttpServlet {
-    
-    @EJB CategoriaFacade cFacade;
+@WebServlet(name = "ListaCompradoresCategoria", urlPatterns = {"/ListaCompradoresCategoria"})
+public class ListaCompradoresCategoria extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,11 +30,19 @@ public class ListasCompradoresServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        List<Categoria> categorias = this.cFacade.findAll();
-        
-        request.setAttribute("categorias", categorias); 
-        request.getRequestDispatcher("listasCompradores.jsp").forward(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ListaCompradoresCategoria</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ListaCompradoresCategoria at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

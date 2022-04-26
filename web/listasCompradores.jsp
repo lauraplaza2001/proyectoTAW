@@ -66,22 +66,15 @@
                                 <form action="${pageContext.request.contextPath}/EditorCategoriasServlet">
                                     <ul class="col col-12 list-group list-group-horizontal">
                                         <input name="edit" id="myInputID" type="text" class="list-group-item col-8"value="<%=categoria.getNombre()%>"></input>  
+                                        <li class="p-2">
+                                            <a type="button" class="btn btn-danger" href="${pageContext.request.contextPath}/ListaCompradoresCategoria?id=<%=categoria.getIdCategoria()%>">Ver lista de compradores</a>
+                                        </li>
                                     </ul>
                                 </form>
 
                                 <% }%>
                             </div>  
                         </div>
-                    </div>
-                </div>
-                <div class="col col-6">
-                    <div class="container rows-2">
-                        <div class="container align-items-right">
-                            <form class="d-flex" action="${pageContext.request.contextPath}/NuevaCategoriaServlet" method="post">
-                                <input class="form-control me-2" type="text"autocomplete="off" placeholder="Nueva Categoria" aria-label="New" name="nombre">
-                                <button class="btn btn-outline-success" type="submit">Crear</button>
-                            </form>
-                        </div>  
                     </div>
                 </div>
             </div>
