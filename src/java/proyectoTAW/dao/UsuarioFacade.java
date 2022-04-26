@@ -121,8 +121,10 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
    
    public List<Subasta> getSubastasVendedor(String idUser){
        Query q ;
-       int id = Integer.parseInt(idUser);
-       q=this.getEntityManager().createQuery("select s from Subasta s where s.creador.idUsuario= :id");
+       //int id = Integer.parseInt(idUser);
+       int id= 1;
+       q=this.getEntityManager().createQuery("select s from Subasta s where s.creador.idUsuario = :id");
+                                              
        q.setParameter("id", id);
        return q.getResultList();
    }

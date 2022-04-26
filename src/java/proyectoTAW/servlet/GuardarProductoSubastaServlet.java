@@ -53,6 +53,9 @@ public class GuardarProductoSubastaServlet extends HttpServlet {
         double precio = Double.parseDouble(request.getParameter("price"));
         Usuario user = this.uFacade.find(id);
         
+        String idProducto= (String) request.getParameter("id");
+       // String idProducto = "2";
+        
         /*List<Categoria> categoriasTotales = this.cFacade.findAll();
         List<Categoria> categoriasFinales = new ArrayList<Categoria>();
         
@@ -64,30 +67,54 @@ public class GuardarProductoSubastaServlet extends HttpServlet {
             }
         }*/
 
-        Producto producto = new Producto();
+       
+     
+  
+        if(idProducto == null  || idProducto.isEmpty()){ // si es nulo quiere decir que estamos creandolo
+            Producto producto = new Producto();
 
-        producto.setTitulo(title);
-        producto.setDescripcion(desc);
-        producto.setFoto(foto);
-        producto.setPrecioSalida(precio);
+            producto.setTitulo(title);
+            producto.setDescripcion(desc);
+            producto.setFoto(foto);
+            producto.setPrecioSalida(precio);
+
+   
+            //producto.setCategoriaList(categoriasFinales);
+       
+        
+            Subasta s = new Subasta();
+            s.setCreador(user);
+            s.setPredioActual(precio);
+            s.setProducto(producto);
+            Date d =new Date();
+            s.setFechaCierre(d);
+            
+            
+           this.pFacade.create(producto);
+            this.sFacade.create(s);
+        }else { // si no es nulo, estamos editandolo
+            Producto producto = this.pFacade.find(Integer.parseInt(idProducto));
+
+            producto.setTitulo(title);
+            producto.setDescripcion(desc);
+            producto.setFoto(foto);
+            producto.setPrecioSalida(precio);
 
    
         //producto.setCategoriaList(categoriasFinales);
-       
+       // Subasta s = this.sFacade. // saco esa subasta 
         
-        Subasta s = new Subasta();
-        s.setCreador(user);
-        s.setPredioActual(precio);
-        s.setProducto(producto);
-        Date d =new Date();
-        s.setFechaCierre(d);
-     
-  
-        
+      //  s.setPredioActual(precio);
+       // Date d =new Date();
+     //   s.setFechaCierre(d);
+            
+            
+            this.pFacade.edit(producto);
+          //  this.sFacade.edit(s);
+        } // si no es nuevo quiere decir que lo estamos editando
         
 
-        this.pFacade.create(producto);
-        this.sFacade.create(s);
+   
         
         
         

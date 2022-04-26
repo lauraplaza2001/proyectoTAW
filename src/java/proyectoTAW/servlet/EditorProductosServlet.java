@@ -41,7 +41,7 @@ public class EditorProductosServlet extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String idUser = request.getParameter("idUser");
+      
         String id = request.getParameter("id");
         
         Producto prod = this.pFacade.find(Integer.parseInt(id));
@@ -50,9 +50,7 @@ public class EditorProductosServlet extends HttpServlet {
         request.setAttribute("producto", prod); 
         request.setAttribute("categorias", categorias);
         
-        if(idUser!=null && !idUser.isEmpty()){
-            request.setAttribute("idUser", idUser);
-        }
+    
         request.getRequestDispatcher("editorProducto.jsp").forward(request, response);
         
     }

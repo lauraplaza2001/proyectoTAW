@@ -29,4 +29,6 @@ public class SubastaFacade extends AbstractFacade<Subasta> {
         super(Subasta.class);
     }
     
+    
+    
 }
