@@ -91,6 +91,7 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         
         }
    }
+   //Todavía no se si funciona
     public void favouriteList(int add, String idUsuario, String idProducto) {
           
         Query q;
