@@ -20,6 +20,7 @@ import proyectoTAW.dao.SubastaFacade;
 import proyectoTAW.dao.UsuarioFacade;
 import proyectoTAW.entity.Categoria;
 import proyectoTAW.entity.Producto;
+import proyectoTAW.entity.Subasta;
 import proyectoTAW.entity.Usuario;
 
 /**
@@ -44,46 +45,45 @@ public class PaginaPrincipalServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
        //Esto borrar despues
-       
+       //El usuario debe de encontrarse de la sesión
+        Integer id = 1;
         Usuario user = this.uf.find(1);
         request.setAttribute("usuario",user);
-
+        
         //----------------
              
        
-     
-      List <Categoria> categorias = this.cf.findAll();
-       
-             
-     
+       Boolean fav=false,comp=false;
+       String listaTipo = "PRODUCTOS EN SUBASTA";
+       List <Categoria> categorias = this.cf.findAll();
        request.setAttribute("usuario",user); 
        request.setAttribute("categorias",categorias);
-      
-
-      
-        
-      List <Producto> productos = this.pf.findAll();
-      
-      //List <Subasta> subastas = this.sf.findAll();
-      
-      /*
-      long millis = System.currentTimeMillis();
-      java.util.Date now = new java.util.Date(millis);
-      
-       //si la subasta está activa, lo enseñamos como producto
-      for (Subasta s: subastas){
-           if (s.getFechaCierre().compareTo(now) <=1 ){
-               productos.add(s.getProducto());
-           }
-       }
        
+       //List <Subasta> subastas = this.sf.findSubastaActiva();
+       List <Producto> productos = this.pf.findAll();
 
-     */ 
-        
+      String filtro = request.getParameter("filtro");
+      String titulo = request.getParameter("busqueda");
       
-       
-      request.setAttribute("fav",false);
-      request.setAttribute("comp",false);      
+      if ( filtro == null || filtro.equals("todos")  ){
+           
+       }else if (filtro.equals("favoritos")){
+           
+           listaTipo = "PRODUCTOS DE SUBASTAS EN FAVORITO";
+           fav=true;
+       } else if (filtro.equals("comprados")){
+           listaTipo = "PRODUCTOS YA COMPRADOS"; 
+          comp=true;
+       }else{ //Filtlrado por una categoría
+           listaTipo = "PRODUCTOS DE SUBASTA DE LA CATEGORÍA: " + filtro;       
+          
+          
+      }
+      
+      
+      request.setAttribute("listaTipo",listaTipo);
+      request.setAttribute("fav",fav);
+      request.setAttribute("comp",comp);      
       request.setAttribute("categorias",categorias);
       request.setAttribute("productos",productos);
       request.getRequestDispatcher("paginaPrincipal.jsp").forward(request,response);
