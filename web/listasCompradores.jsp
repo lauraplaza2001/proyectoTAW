@@ -65,7 +65,7 @@
                                 %>
                                 <form action="${pageContext.request.contextPath}/EditorCategoriasServlet">
                                     <ul class="col col-12 list-group list-group-horizontal">
-                                        <input name="edit" id="myInputID" type="text" class="list-group-item col-8"value="<%=categoria.getNombre()%>"></input>  
+                                        <li name="edit" id="myInputID" class="list-group-item col-8"><%=categoria.getNombre()%></li>  
                                         <li class="p-2">
                                             <a type="button" class="btn btn-danger" href="${pageContext.request.contextPath}/ListaCompradoresCategoria?id=<%=categoria.getIdCategoria()%>">Ver lista de compradores</a>
                                         </li>
