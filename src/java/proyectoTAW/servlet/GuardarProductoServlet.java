@@ -51,16 +51,11 @@ public class GuardarProductoServlet extends HttpServlet {
         String foto = (String) request.getParameter("image");
         double precio = Double.parseDouble(request.getParameter("price"));
         
-        /*List<Categoria> categoriasTotales = this.cFacade.findAll();
+        String[] categorias = (String[]) request.getParameterValues("categorias");
         List<Categoria> categoriasFinales = new ArrayList<Categoria>();
-        
-        for(Categoria c : categoriasTotales){
-            String categoria = ((String) request.getParameter(c.getIdCategoria()+""));
-            if(categoria != null && (categoria.equalsIgnoreCase("true"))){
-                System.out.println(c.getNombre());
-                categoriasFinales.add(c);
-            }
-        }*/
+        for(int i = 0; i<categorias.length; i++){
+            categoriasFinales.add(this.cFacade.find(Integer.parseInt(categorias[i])));
+        }
 
         Producto producto = this.pFacade.find(id);
 
@@ -68,7 +63,7 @@ public class GuardarProductoServlet extends HttpServlet {
         producto.setDescripcion(desc);
         producto.setFoto(foto);
         producto.setPrecioSalida(precio);
-        //producto.setCategoriaList(categoriasFinales);
+        producto.setCategoriaList(categoriasFinales);
 
         this.pFacade.edit(producto);
 

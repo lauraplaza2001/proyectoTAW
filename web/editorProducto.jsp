@@ -84,7 +84,7 @@
                                 %>
 
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" value="true" id="<%= c.getIdCategoria()%>" <%= !producto.getCategoriaList().contains(c)? "": "checked" %>>
+                                    <input class="form-check-input" name="categorias" type="checkbox" value="<%= c.getIdCategoria()%>" <%= !producto.getCategoriaList().contains(c)? "": "checked" %>>
                                     <label class="form-check-label" for="<%= c.getIdCategoria()%>">
                                         <%= c.getNombre()%>
                                     </label>
