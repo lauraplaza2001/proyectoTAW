@@ -54,25 +54,29 @@ public class PaginaPrincipalServlet extends ProjectoTAWServlet {
      
       String filtro = request.getParameter("filtro");
       String titulo = request.getParameter("busqueda");
+      if (titulo == null)titulo = "";
+      
      //String id = request.getParameter("id"); 
-      int id =1;//borrar después
-      Usuario user = this.uf.find(id); 
-      
-      
-      List <Producto> productos = this.pf.findProductsSubastaActiva();
-      //List <Producto> productos = null;
+      String id ="1";//borrar después
+      Usuario user = this.uf.find(Integer.parseInt(id)); 
+      List <Producto> productos = null;
       
       //FILTROS ####################################
       if ( filtro == null || filtro.equals("todos")  ){
-            // productos = this.pf.findProductsSubastaActiva();
+          
+          productos = this.pf.findProductsSubastaActiva("",titulo);
+         
        }else if (filtro.equals("favoritos")){
-           
+           productos = this.pf.findFavouriteProductList(id);
            listaTipo = "PRODUCTOS DE SUBASTAS EN FAVORITO";
            fav=true;
        } else if (filtro.equals("comprados")){
+           productos = this.pf.findProductsComprados(id, titulo);
            listaTipo = "PRODUCTOS YA COMPRADOS"; 
            comp=true;
        }else{ //Filtlrado por una categoría
+           
+           productos = this.pf.findProductsSubastaActiva(filtro,titulo);
            listaTipo = "PRODUCTOS DE SUBASTA DE LA CATEGORÍA: " + filtro;       
                   
       }

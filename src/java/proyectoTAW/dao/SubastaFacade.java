@@ -35,9 +35,7 @@ public class SubastaFacade extends AbstractFacade<Subasta> {
 
     public List<Subasta> findSubastaActiva() {
        Query q;
-       
-        
-       
+             
        q = this.getEntityManager().createQuery("SELECT s FROM Subasta s  WHERE s.fechaCierre >= :today",Subasta.class);
        q.setParameter("today",new Date());
        
