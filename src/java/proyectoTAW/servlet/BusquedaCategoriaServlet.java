@@ -41,8 +41,6 @@ public class BusquedaCategoriaServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         String busqueda = request.getParameter("busqueda");
-
-        List<Categoria> inicial = (List) this.cFacade.findAll();
         
         List<Categoria> categorias = this.cFacade.getCategoriasLike(busqueda);
 
