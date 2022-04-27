@@ -28,7 +28,7 @@ import proyectoTAW.entity.Usuario;
  * @author 34636
  */
 @WebServlet(name = "PaginaPrincipalServlet", urlPatterns = {"/PaginaPrincipalServlet"})
-public class PaginaPrincipalServlet extends HttpServlet {
+public class PaginaPrincipalServlet extends ProjectoTAWServlet {
    
     @EJB CategoriaFacade cf;
     @EJB SubastaFacade sf;
@@ -44,47 +44,46 @@ public class PaginaPrincipalServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       //Esto borrar despues
-       //El usuario debe de encontrarse de la sesión
-        Integer id = 1;
-        Usuario user = this.uf.find(1);
-        request.setAttribute("usuario",user);
+        //if (comprobarSession()){
         
-        //----------------
              
-       
-       Boolean fav=false,comp=false;
-       String listaTipo = "PRODUCTOS EN SUBASTA";
-       List <Categoria> categorias = this.cf.findAll();
-       request.setAttribute("usuario",user); 
-       request.setAttribute("categorias",categorias);
-       
-       //List <Subasta> subastas = this.sf.findSubastaActiva();
-       List <Producto> productos = this.pf.findAll();
-
+      //Datos ###############################
+      Boolean fav=false,comp=false;
+      String listaTipo = "PRODUCTOS EN SUBASTA";
+      List <Categoria> categorias = this.cf.findAll();
+     
       String filtro = request.getParameter("filtro");
       String titulo = request.getParameter("busqueda");
+     //String id = request.getParameter("id"); 
+      int id =1;//borrar después
+      Usuario user = this.uf.find(id); 
       
+      
+      List <Producto> productos = this.pf.findProductsSubastaActiva();
+      //List <Producto> productos = null;
+      
+      //FILTROS ####################################
       if ( filtro == null || filtro.equals("todos")  ){
-           
+            // productos = this.pf.findProductsSubastaActiva();
        }else if (filtro.equals("favoritos")){
            
            listaTipo = "PRODUCTOS DE SUBASTAS EN FAVORITO";
            fav=true;
        } else if (filtro.equals("comprados")){
            listaTipo = "PRODUCTOS YA COMPRADOS"; 
-          comp=true;
+           comp=true;
        }else{ //Filtlrado por una categoría
            listaTipo = "PRODUCTOS DE SUBASTA DE LA CATEGORÍA: " + filtro;       
-          
-          
+                  
       }
       
+      request.setAttribute("usuario",user); //Quitar después
+      request.setAttribute("categorias",categorias);
       
       request.setAttribute("listaTipo",listaTipo);
       request.setAttribute("fav",fav);
       request.setAttribute("comp",comp);      
-      request.setAttribute("categorias",categorias);
+      
       request.setAttribute("productos",productos);
       request.getRequestDispatcher("paginaPrincipal.jsp").forward(request,response);
 

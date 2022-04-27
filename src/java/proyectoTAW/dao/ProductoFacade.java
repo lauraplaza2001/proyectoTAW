@@ -6,6 +6,7 @@
 package proyectoTAW.dao;
 
 
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -66,53 +67,32 @@ public class ProductoFacade extends AbstractFacade<Producto> {
     }
 
     //Todavía no se si funciona
+    /*
     public List<Producto> findProductList(int filtro, String idUsuario) {
        Query q;
-       List <Producto> res = null;
+       
         switch (filtro) {
             case (1): //devoler productos favoritos de usuario con id idUsuario
                 
                 //Obtengo una lisra de id de productos favotios por el usuario
-                q = this.getEntityManager().createQuery("select Producto_idProducto from productos_favoritos WHERE Usuario_idUsuario = :idUsuario"); 
-                q.setParameter("idUsuario", '%' + idUsuario + '%');
-                
-                List <String> idProductosFavoritos = q.getResultList();
-                //Busco a que productos corresponden y lo añado a mi lisra
-                for (String id : idProductosFavoritos){
-                   
-                    res.add(this.find(Integer.parseInt(id)));
-                }
-                
+              
                 break;
             default: //devolver productos comprados de usuario con id idUsuario
                 
-                //busco las subastas en las que ha participado y es el mayor postor
-                q = this.getEntityManager().createQuery("select * from subasta WHERE mayorPostor = :idUsuario",Subasta.class);
-                q.setParameter("idUsuario", '%' + idUsuario + '%');
-                
-                List <Subasta> subastasMayorPostor = q.getResultList();
-                //Busco a que productos corresponden y lo añado a mi lista si la fecha está finalizada
-                
-                for (Subasta s : subastasMayorPostor){
-                    long millis = System.currentTimeMillis();
-                    java.util.Date now = new java.util.Date(millis);
-                    
-                    if (s.getFechaCierre().compareTo(now) >=1 ){
-                        Producto producto = s.getProducto(); //obtengo el producto
-                        res.add(producto);
-                    }
-                    
-                }
+         
                 break;
         }
          return res;
     }
+*/
 
-   
-  
+    public List<Producto> findProductsSubastaActiva() {
+       Query q;
+       
+       q = this.getEntityManager().createQuery("SELECT p FROM Subasta s JOIN s.producto p  WHERE s.fechaCierre >= :today",Producto.class);
+       q.setParameter("today",new Date());
+       
+       return q.getResultList();
+    }
 
-   
- 
-
- 
 }
