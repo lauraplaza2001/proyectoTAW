@@ -58,8 +58,20 @@ public class BusquedaProductosVendedorServlet extends HttpServlet {
       
       // ahora mismo tengo todos los productos filtrados, pero solo quiero mostrar los que estén subastados
       List<Producto> productosFiltrados= new ArrayList<>();
-      List<Subasta> subastasUsuario = this.uFacade.getSubastasVendedor("1"); // aquí hay que pasarle el id del usuario
-      
+     // List<Subasta> subastasUsuario = this.uFacade.getSubastasVendedor("1"); // aquí hay que pasarle el id del usuario
+     
+     Usuario u = uFacade.find(1);
+     List<Subasta> subastasUsuario= new ArrayList<>();
+     
+      for(Producto p : productos) {
+          List<Subasta> subastas= p.getSubastaList();
+         for (Subasta s : subastas ) {
+             subastasUsuario.add(s);
+         }
+      }
+     
+     
+     
       if(subastasUsuario.size()==0 || productos.size() ==0){
           productosFiltrados = null;
       }else{

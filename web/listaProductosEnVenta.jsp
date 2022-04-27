@@ -78,12 +78,13 @@
                 for (Producto producto : productos) {
             %>
             <div class="col col-4 p-3">
-                <form class="border"action="${pageContext.request.contextPath}/EditorSubastaServlet?idUser=1">
+                <form class="border"action="${pageContext.request.contextPath}/EditorSubastaServlet?idUser=1&id=<%= producto.getIdProducto()%>" method="get">
                     <ul class="list-group list-group-vertical">
                         <li class="list-group-item"><%= producto.getTitulo()%></li>
                         <img  class="fluid" src="<%= producto.getFoto()%>"
                              <li class="p-2">
-                            <button  type="submit" name="id" value="<%= producto.getIdProducto()%>" class="btn btn-warning" >Editar</button>
+                          
+                            <a type="button"class="btn btn-warning" href="${pageContext.request.contextPath}/EditorSubastaServlet?idUser=1&id=<%= producto.getIdProducto()%>"> Editar</a>
                             <a type="button" class="btn btn-danger" href="${pageContext.request.contextPath}/EliminarProductoVendedorServlet?id=<%=producto.getIdProducto()%>&idUser=1">Eliminar</a>
                         </li>
                     </ul>
