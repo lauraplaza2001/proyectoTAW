@@ -5,9 +5,11 @@
  */
 package proyectoTAW.dao;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import proyectoTAW.entity.Producto;
 import proyectoTAW.entity.Subasta;
 
 /**
@@ -27,6 +29,11 @@ public class SubastaFacade extends AbstractFacade<Subasta> {
 
     public SubastaFacade() {
         super(Subasta.class);
+    }
+
+    public List<Subasta> findSubastaActiva() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
     
     

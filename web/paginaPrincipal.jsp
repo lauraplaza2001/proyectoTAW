@@ -28,9 +28,10 @@
             response.sendRedirect(request.getContextPath()); }*/
          Usuario user = (Usuario)request.getAttribute("usuario"); //PROVISIONAL
       %>
+      
     <body>
-        
-        <header>
+      
+       <header>
         <div class="container">
                     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                         <a class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
@@ -38,15 +39,16 @@
                         </a>
 
                         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                              <li><a href="#" class="nav-link px-2 link-secondary">Bienvenido <%= user.getNombreUsuario()  %></a></li> 
+                            <li><a href="#" class="nav-link px-2 link-secondary">Bienvenido <%= user.getNombreUsuario()  %></a></li>
+                            
                         </ul>
 
                         <div class="dropdown text-end">
 
                             </a>
                             <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                                <li><a class="dropdown-item" href="#">Configuración</a></li>
-                                 <li><a class="dropdown-item" href="editorUsuarios.jsp">Perfil</a></li>
+                                <li><a class="dropdown-item" href="#">Configuración</a></li>                                
+                                <li><a class="dropdown-item" href="editorUsuarios.jsp">Perfil</a></li>
                                 <li><a class="dropdown-item" href="NuevoProductoServlet">Productos</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="inicioSesion.jsp">Cerrar Sesión</a></li>
@@ -54,29 +56,30 @@
                         </div>
                     </div>
                 </div>
-                                                    
-      </header>
-                        
+    </header>
+                                
+       
+           
         <div class="container">
             <h3>FILTRO</h3> 
                 <div class="row">
                     <div class="col col-6">
                         <div class="container rows-2">
                             <div class="input-group-prepend">
-                                 <form class="d-flex" action="${pageContext.request.contextPath}/FiltroPaginaPrincipalServlet" method="get">
+                                 <form class="d-flex" action="${pageContext.request.contextPath}/PaginaPrincipalServlet" method="get">
                                      
-                                     <input type="hidden"name="id" value ="<%= user ==null?"": user.getIdUsuario() %>"/>
+                                     <input type="hidden"name="id" value ="1"/>
                                         <select class="custom-select" name="filtro" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         
-                                            <option selected value ="1"> Todos los productos </option>
-                                            <option  value="1">Favoritos</option>
-                                            <option value="1">Comprados</option>
+                                            <option selected value ="todos"> Todos los productos </option>
+                                            <option  value="favoritos">Favoritos</option>
+                                            <option value="comprados">Comprados</option>
                                             <% 
                                              for (Categoria c: categorias){
 
 
                                              %>
-                                                <option value="1"> <%= c.getNombre() %> </option>
+                                                <option value="<%=c.getNombre()%>"> <%= c.getNombre() %> </option>
                                              <%
                                              }
                                              %>
@@ -96,7 +99,8 @@
                                              
                                   
            <div class="row">
-          <h3>PRODUCTOS EN SUBASTA</h3>
+               <% String tit = (String)request.getAttribute("listaTipo"); %>
+          <h3><%= tit %></h3> <%-- Poner que lista estas pasando --%>
             <%
                 Boolean fav = (Boolean)request.getAttribute("fav");
                 Boolean comp = (Boolean)request.getAttribute("comp");
@@ -106,7 +110,7 @@
                  for (Producto producto : productos) {
             %>
             <div class="col col-4 p-3">
-                  <%--<h3>PRODUCTOS EN SUBASTA</h3>   --%>    
+                  <%--<h3</h3>   --%>    
                     <ul class="list-group list-group-vertical">
                         <li class="list-group-item"><%= producto.getTitulo()%></li>
                         <img  class="fluid" src="<%= producto.getFoto()%>"
