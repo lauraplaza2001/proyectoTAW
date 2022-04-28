@@ -36,7 +36,7 @@
         </header>
     <body>
         <%= strError %>
-        <form method="POST" action="iniciarSesionServler" class="row g-3 needs-validation" novalidate>
+        <form method="POST" action="iniciarSesionServlet" class="row g-3 needs-validation" novalidate>
             <span class="input-group-text justify-content-center ">
                 <div class="col-md-3">
 
@@ -54,6 +54,7 @@
              <div class="col-12">
                     <button type="submit" class="btn btn-primary">Iniciar Sesión!</button>
                  </div>
+        </form>
             
             
       <script>    // Example starter JavaScript for disabling form submissions if there are invalid fields

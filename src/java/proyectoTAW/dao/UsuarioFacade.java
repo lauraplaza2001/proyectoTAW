@@ -78,7 +78,8 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
    public Usuario comprobarUsuario(String usuario, String psw) {
         Query q;
         
-        q = this.getEntityManager().createQuery("select u from Usuario u where u.nombreUsuario  = :nombreUsuario and" + "u.contrasena = :contrasena");
+        q = this.getEntityManager().createQuery("select u from Usuario u where u.nombreUsuario  = :nombreUsuario and "
+                + "u.contrasena = :contrasena");
         
         q.setParameter("usuario",usuario);
         q.setParameter("contrasena", psw);
