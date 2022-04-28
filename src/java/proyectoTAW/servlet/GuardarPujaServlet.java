@@ -7,8 +7,6 @@ package proyectoTAW.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,12 +24,11 @@ import proyectoTAW.entity.Usuario;
  *
  * @author amigo
  */
-@WebServlet(name = "BusquedaProductosVendedorServlet", urlPatterns = {"/BusquedaProductosVendedorServlet"})
-public class BusquedaProductosVendedorServlet extends HttpServlet {
-    @EJB ProductoFacade pFacade;
-    @EJB SubastaFacade sFacade;
-    @EJB UsuarioFacade uFacade;
-    
+@WebServlet(name = "GuardarPujaServlet", urlPatterns = {"/GuardarPujaServlet"})
+public class GuardarPujaServlet extends HttpServlet {
+       @EJB SubastaFacade sFacade;
+       @EJB UsuarioFacade uFacade;
+       @EJB ProductoFacade pFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -43,55 +40,48 @@ public class BusquedaProductosVendedorServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        int idSubasta = Integer.parseInt(request.getParameter("idSubasta"));
+        int idMayorPostor=Integer.parseInt(request.getParameter("mayorPostor"));
+     
+        String strError;
+        Usuario u = this.uFacade.find(idMayorPostor);
+        Subasta s = this.sFacade.find(idSubasta);
+        
+        
+        
+        String precioPuja = request.getParameter("precioPuja");
+        if(precioPuja!=null && !precioPuja.isEmpty()){
+             double apuesta = Double.parseDouble(precioPuja);
+             if( s.getPredioActual() < apuesta){ //
+                 s.setPredioActual(apuesta); // solo debo poder pujar
+                 s.setMayorPostor(u);
+                     sFacade.edit(s);
+                 strError = "Enhorabuena, has pujado " + precioPuja + " euros";
+                 
+             }else{
+            strError = "No puedes pujar un precio menor a la puja mayor";
+        }
+            
+        }else{
+            strError = "*Indique cantidad a pujar";            
+        }
+        
+        
+        Subasta subasta = s;
+        Producto producto = s.getProducto();
     
-      List<Producto> productos;
-      String like = (String) request.getParameter("busqueda");
-      Integer filtro = Integer.parseInt(request.getParameter("filtro"));
-  
-      if(like != null){
-          
-          productos = this.pFacade.findFiltered(filtro, like);       
-          
-      }else{
-          productos = this.pFacade.findAll();
-      }
-      
-      // ahora mismo tengo todos los productos filtrados, pero solo quiero mostrar los que estén subastados
-      List<Producto> productosFiltrados= new ArrayList<>();
-     // List<Subasta> subastasUsuario = this.uFacade.getSubastasVendedor("1"); // aquí hay que pasarle el id del usuario
-     
-     Usuario u = uFacade.find(1);
-     List<Subasta> subastasUsuario= new ArrayList<>();
-     
-      for(Producto p : productos) {
-          List<Subasta> subastas= p.getSubastaList();
-         for (Subasta s : subastas ) {
-             subastasUsuario.add(s);
-         }
-      }
-     
-     
-     
-      if(subastasUsuario.size()==0 || productos.size() ==0){
-          productosFiltrados = null;
-      }else{
-          for(int i = 0 ; i< subastasUsuario.size(); i++){
-              for (int j = 0 ; j < productos.size(); j++){
-                 if(subastasUsuario.get(i).getProducto().getIdProducto().equals(productos.get(j).getIdProducto())) {
-                      productosFiltrados.add(productos.get(j));
-                  }
-              }
-          }
-          
-          
-      }
-      //if(subastasUsuario.get(i).getProducto().getIdProducto().equals(productos.get(j).getIdProducto())) {
-      
-      request.setAttribute("productos", productosFiltrados);
-      request.getRequestDispatcher("listaProductosEnVenta.jsp").forward(request, response);
-      
-      
-      
+        
+        request.setAttribute("subasta",subasta);
+        request.setAttribute("producto", producto);
+       // request.setAttribute("idUsuario", request.getParameter("idUsuario"));
+        request.setAttribute("idUsuario", "1");
+        
+        
+        request.setAttribute("error", strError);
+    request.getRequestDispatcher("pujas.jsp").forward(request, response);
+       
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

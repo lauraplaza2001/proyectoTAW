@@ -17,9 +17,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import proyectoTAW.dao.CategoriaFacade;
 import proyectoTAW.dao.ProductoFacade;
 import proyectoTAW.dao.SubastaFacade;
 import proyectoTAW.dao.UsuarioFacade;
+import proyectoTAW.entity.Categoria;
 import proyectoTAW.entity.Producto;
 import proyectoTAW.entity.Subasta;
 import proyectoTAW.entity.Usuario;
@@ -33,6 +35,7 @@ public class GuardarProductoSubastaServlet extends HttpServlet {
     @EJB ProductoFacade pFacade;
     @EJB UsuarioFacade uFacade;
     @EJB SubastaFacade sFacade;
+    @EJB CategoriaFacade cFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -54,20 +57,19 @@ public class GuardarProductoSubastaServlet extends HttpServlet {
         Usuario user = this.uFacade.find(id);
         
         String idProducto= (String) request.getParameter("id");
-       // String idProducto = "2";
         
-        /*List<Categoria> categoriasTotales = this.cFacade.findAll();
+        List<Categoria> categoriasTotales = this.cFacade.findAll();
         List<Categoria> categoriasFinales = new ArrayList<Categoria>();
+        categoriasFinales.add(this.cFacade.find(1));
         
-        for(Categoria c : categoriasTotales){
-            String categoria = ((String) request.getParameter(c.getIdCategoria()+""));
-            if(categoria != null && (categoria.equalsIgnoreCase("true"))){
-                System.out.println(c.getNombre());
+     /*   for(Categoria c : categoriasTotales){
+            String categoria = ((String) request.getParameter(c.getIdCategoria().toString()));
+            if(categoria != null &&   categoria.equalsIgnoreCase("true")){
                 categoriasFinales.add(c);
             }
-        }*/
+        }
 
-       
+      */ 
      
   
         if(idProducto == null  || idProducto.isEmpty()){ // si es nulo quiere decir que estamos creandolo
@@ -79,7 +81,7 @@ public class GuardarProductoSubastaServlet extends HttpServlet {
             producto.setPrecioSalida(precio);
 
    
-            //producto.setCategoriaList(categoriasFinales);
+            producto.setCategoriaList(categoriasFinales);
        
         
             Subasta s = new Subasta();
@@ -101,7 +103,7 @@ public class GuardarProductoSubastaServlet extends HttpServlet {
             producto.setPrecioSalida(precio);
 
    
-        //producto.setCategoriaList(categoriasFinales);
+        producto.setCategoriaList(categoriasFinales);
        // Subasta s = this.sFacade. // saco esa subasta 
         
       //  s.setPredioActual(precio);

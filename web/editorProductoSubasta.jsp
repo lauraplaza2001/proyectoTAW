@@ -37,7 +37,7 @@
 
                 </div>
                 <div class="col-md-7 col-lg-8">
-                    <form class="needs-validation" novalidate action="${pageContext.request.contextPath}/GuardarProductoSubastaServlet?idProducto=2&id=1">
+                    <form class="needs-validation" novalidate action="${pageContext.request.contextPath}/GuardarProductoSubastaServlet">
                         <div class="row g-3">
                             <div class="col-sm-12">
                                 <label for="name" class="form-label">Titulo del Producto</label>
