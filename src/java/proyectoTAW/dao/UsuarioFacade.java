@@ -78,7 +78,8 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
    public Usuario comprobarUsuario(String usuario, String psw) {
         Query q;
         
-        q = this.getEntityManager().createQuery("select u from Usuario u where u.nombreUsuario  = :nombreUsuario and" + "u.contrasena = :contrasena");
+        q = this.getEntityManager().createQuery("select u from Usuario u where u.nombreUsuario  = :nombreUsuario and "
+                + "u.contrasena = :contrasena");
         
         q.setParameter("usuario",usuario);
         q.setParameter("contrasena", psw);
@@ -100,12 +101,17 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
              //Query para añadir el producto a favoritos
              
               q = this.getEntityManager().createQuery("INSERT INTO PRDOUCTOS_FAVORITOS VALUES ( :idUsuario, :idProducto");
+              q.setParameter("idUsuario",idUsuario);
+              q.setParameter("idProducto",idProducto);
+              
               
              break;
               //Query para quitar el producto de la lista de 
              default:  
              
               q = this.getEntityManager().createQuery("DELETE FROM PRDOUCTOS_FAVORITOS WHERE Usuario_idUsuario = :idUsuario AND Producto_idProducto = :idProducto");
+              q.setParameter("idUsuario",idUsuario);
+              q.setParameter("idProducto",idProducto);
              break;
              
         }

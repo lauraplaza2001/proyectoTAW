@@ -5,6 +5,7 @@
  */
 package proyectoTAW.dao;
 
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -33,9 +34,15 @@ public class SubastaFacade extends AbstractFacade<Subasta> {
     }
 
     public List<Subasta> findSubastaActiva() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       Query q;
+             
+       q = this.getEntityManager().createQuery("SELECT s FROM Subasta s  WHERE s.fechaCierre >= :today",Subasta.class);
+       q.setParameter("today",new Date());
+       
+       return q.getResultList();
         
     }
+   
 
     
     

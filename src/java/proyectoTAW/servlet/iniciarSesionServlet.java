@@ -22,7 +22,7 @@ import proyectoTAW.entity.Usuario;
  * @author 34636
  */
 @WebServlet(name = "iniciarSesionServlet", urlPatterns = {"/iniciarSesionServlet"})
-public class iniciarSesionServlet extends HttpServlet {
+public class IniciarSesionServlet extends HttpServlet {
     
     @EJB UsuarioFacade usuarioFacade;
             
@@ -37,10 +37,12 @@ public class iniciarSesionServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
        String username = request.getParameter("userName");
        String psw = request.getParameter("inputPassword");
        
        Usuario usuario = this.usuarioFacade.comprobarUsuario(username,psw);
+       
        if (usuario == null){
          String strError = "El usuario o la clave son incorrectos";
             request.setAttribute("error", strError);
@@ -48,7 +50,18 @@ public class iniciarSesionServlet extends HttpServlet {
         } else {
             HttpSession session = request.getSession();
             session.setAttribute("usuario", usuario);
-            response.sendRedirect(request.getContextPath() + "/PaginaPrincpalServlet");                
+            //session.setAttribute("tipoUsuario", usuario.getTipoUsuario());
+            switch(usuario.getTipoUsuario().toString()){
+                case "Administrador":
+                    response.sendRedirect(request.getContextPath() + "/PaginaPrincpalServlet");
+                    break;
+                case "Marketing":
+                    response.sendRedirect(request.getContextPath() + "/PaginaPrincpalServlet");
+                    break;
+                default:
+                    response.sendRedirect(request.getContextPath() + "/PaginaPrincpalServlet");
+                    break;
+            }               
         }   
        
     }
