@@ -24,12 +24,8 @@
         <%
 
             ProductoDTO producto = (ProductoDTO) request.getAttribute("producto");
-            List<CategoriaDTO> categorias = (List) request.getAttribute("categorias");
-            /*
-            for(CategoriaDTO c:producto.getCategoriaList()){
-                System.out.println(c.getNombre());
-            }
-            */
+            List<CategoriaDTO> categorias = (List) request.getAttribute("categorias");  
+            
         %>
 
         <div class="container">
@@ -88,7 +84,7 @@
                                 %>
 
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" name="categorias" type="checkbox" value="<%= c.getIdCategoria()%>" <%= !producto.getCategoriaList().contains(c)? "": "checked" %>>
+                                    <input class="form-check-input" name="categorias" type="checkbox" value="<%= c.getIdCategoria()%>" <%= !producto.containsCategory(c)? "": "checked" %>>
                                     <label class="form-check-label" for="<%= c.getIdCategoria()%>">
                                         <%= c.getNombre()%>
                                     </label>

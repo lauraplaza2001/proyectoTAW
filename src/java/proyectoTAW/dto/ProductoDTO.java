@@ -92,4 +92,12 @@ public class ProductoDTO {
     public void setCategoriaList(List<CategoriaDTO> categoriaList){
         this.categoriaList = categoriaList;
     }
+    
+    public boolean containsCategory(CategoriaDTO cat){
+        boolean result = false;
+        for(CategoriaDTO c: this.getCategoriaList()){
+            if(cat.getNombre().equalsIgnoreCase(c.getNombre())) result = true;
+        }
+        return result;
+    }
 }
