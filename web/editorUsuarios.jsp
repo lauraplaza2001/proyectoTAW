@@ -4,8 +4,8 @@
     Author     : juanm
 --%>
 
-<%@page import="proyectoTAW.entity.Usuario"%>
-<%@page import="proyectoTAW.entity.Categoria"%>
+
+<%@page import="proyectoTAW.dto.UsuarioDTO"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!doctype html>
@@ -73,13 +73,13 @@
                         </form>
                     </div>
 
-                    <%    List<Usuario> usuarios = (List) request.getAttribute("usuarios");
+                    <%    List<UsuarioDTO> usuarios = (List) request.getAttribute("usuarios");
                           
                     %>
                     <div class="container p-3">
                         <div class="row">
                             <%
-                                for (Usuario usuario : usuarios) {
+                                for (UsuarioDTO usuario : usuarios) {
                             %>
                             <form action="${pageContext.request.contextPath}/EditorUsuariosServlet">
                                 <ul class="col col-12 list-group list-group-horizontal">

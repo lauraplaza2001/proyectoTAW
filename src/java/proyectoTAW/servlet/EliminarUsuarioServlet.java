@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import proyectoTAW.dao.UsuarioFacade;
 import proyectoTAW.entity.Usuario;
+import proyectoTAW.service.UsuarioService;
 
 /**
  *
@@ -33,16 +34,14 @@ public class EliminarUsuarioServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     
-    @EJB UsuarioFacade uFacade;
+    @EJB UsuarioService uService;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
         String str = request.getParameter("id");
-        
-        Usuario usuario = this.uFacade.find(Integer.parseInt(str));
-        
-        this.uFacade.remove(usuario);
+        this.uService.remove(Integer.parseInt(str));
         
         response.sendRedirect(request.getContextPath() + "/ListaUsuariosServlet?filtro=1");
     }

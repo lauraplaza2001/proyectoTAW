@@ -4,9 +4,9 @@
     Author     : juanm
 --%>
 
-<%@page import="proyectoTAW.entity.Categoria"%>
+<%@page import="proyectoTAW.dto.ProductoDTO"%>
+<%@page import="proyectoTAW.dto.CategoriaDTO"%>
 <%@page import="java.util.List"%>
-<%@page import="proyectoTAW.entity.Producto"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!doctype html>
 <html lang="es">
@@ -23,9 +23,13 @@
 
         <%
 
-            Producto producto = (Producto) request.getAttribute("producto");
-            List<Categoria> categorias = (List) request.getAttribute("categorias");
-
+            ProductoDTO producto = (ProductoDTO) request.getAttribute("producto");
+            List<CategoriaDTO> categorias = (List) request.getAttribute("categorias");
+            /*
+            for(CategoriaDTO c:producto.getCategoriaList()){
+                System.out.println(c.getNombre());
+            }
+            */
         %>
 
         <div class="container">
@@ -80,7 +84,7 @@
                             <div class="col-md-12" name="categorias">
                                 <label for="categorias" class="form-label">Categorias</label></br>
                                 <%
-                                    for (Categoria c : categorias) {
+                                    for (CategoriaDTO c : categorias) {
                                 %>
 
                                 <div class="form-check form-check-inline">

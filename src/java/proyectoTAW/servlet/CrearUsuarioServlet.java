@@ -12,12 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import proyectoTAW.dao.GeneroFacade;
-import proyectoTAW.dao.TipousuarioFacade;
-import proyectoTAW.dao.UsuarioFacade;
-import proyectoTAW.entity.Genero;
-import proyectoTAW.entity.Tipousuario;
-import proyectoTAW.entity.Usuario;
+import proyectoTAW.service.UsuarioService;
 
 /**
  *
@@ -35,10 +30,7 @@ public class CrearUsuarioServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
-    @EJB GeneroFacade gFacade;
-    @EJB TipousuarioFacade tuFacade;
-    @EJB UsuarioFacade uFacade;
+    @EJB UsuarioService uService;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -51,33 +43,10 @@ public class CrearUsuarioServlet extends HttpServlet {
         String city = (String) request.getParameter("city");
         String address = (String) request.getParameter("address");
         int age = Integer.parseInt(request.getParameter("age"));
-        
-        String genero = request.getParameter("gender");
-        Genero gender = this.gFacade.find(genero);
-        
-        String userParameter = (String) request.getParameter("usertype");
-        Tipousuario userType;
-        
-        if(userParameter != null){
-            userType  = this.tuFacade.find(userParameter);
-        }else{
-            userType = this.tuFacade.find("Estandar");
-        }
-        
-        
-        Usuario usuario = new Usuario();
-        
-        usuario.setNombreUsuario(username);
-        usuario.setContrasena(pass);
-        usuario.setNombre(name);
-        usuario.setApellidos(surname);
-        usuario.setCiudad(city);
-        usuario.setDomicilio(address);
-        usuario.setEdad(age);
-        usuario.setGenero(gender);
-        usuario.setTipoUsuario(userType);
-        
-        this.uFacade.create(usuario);
+        String gender = request.getParameter("gender");
+        String userType = (String) request.getParameter("usertype");
+
+        this.uService.crearUsuario(username, pass, name, surname, city, address, age, gender, userType);
         
         response.sendRedirect(request.getContextPath()+"/ListaUsuariosServlet?filtro=1");        
     }

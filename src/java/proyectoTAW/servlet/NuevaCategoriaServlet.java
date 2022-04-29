@@ -12,8 +12,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import proyectoTAW.dao.CategoriaFacade;
 import proyectoTAW.entity.Categoria;
+import proyectoTAW.service.CategoriaService;
 
 /**
  *
@@ -32,19 +32,15 @@ public class NuevaCategoriaServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     
-        @EJB CategoriaFacade cFacade;
+        @EJB CategoriaService cService;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
         String str = request.getParameter("nombre");
-        if(null != str){
-            Categoria categoria = new Categoria();
-            categoria.setNombre(str);
-            
-            cFacade.create(categoria);
-        }
         
+        this.cService.crearCategoria(str);
+   
         response.sendRedirect(request.getContextPath() + "/EditorCategoriasServlet");
     }
 

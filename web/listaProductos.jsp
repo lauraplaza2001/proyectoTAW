@@ -4,6 +4,7 @@
     Author     : juanm
 --%>
 
+<%@page import="proyectoTAW.dto.ProductoDTO"%>
 <%@page import="proyectoTAW.entity.Producto"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -70,8 +71,8 @@
         </div>
         <div class="row">
             <%
-                List<Producto> productos = (List) request.getAttribute("productos");
-                for (Producto producto : productos) {
+                List<ProductoDTO> productos = (List) request.getAttribute("productos");
+                for (ProductoDTO producto : productos) {
             %>
             <div class="col col-4 p-3">
                 <form class="border"action="${pageContext.request.contextPath}/EditorProductosServlet">

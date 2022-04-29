@@ -23,6 +23,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import proyectoTAW.dto.UsuarioDTO;
 
 /**
  *
@@ -42,6 +43,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Usuario.findByCiudad", query = "SELECT u FROM Usuario u WHERE u.ciudad = :ciudad")
     , @NamedQuery(name = "Usuario.findByEdad", query = "SELECT u FROM Usuario u WHERE u.edad = :edad")})
 public class Usuario implements Serializable {
+    
 
     @ManyToMany(mappedBy = "usuarioList")
     private List<Categoria> categoriaList;
@@ -265,5 +267,20 @@ public class Usuario implements Serializable {
     public void setCategoriaList(List<Categoria> categoriaList) {
         this.categoriaList = categoriaList;
     }
-    
+
+    public UsuarioDTO toDTO() {
+        UsuarioDTO u = new UsuarioDTO();
+        u.setApellidos(this.getApellidos());
+        u.setCiudad(this.getCiudad());
+        u.setContrasena(this.getContrasena());
+        u.setDomicilio(this.getDomicilio());
+        u.setEdad(this.getEdad());
+        u.setGenero(this.getGenero().toDTO());
+        u.setIdUsuario(this.getIdUsuario());
+        u.setNombre(this.getNombre());
+        u.setNombreUsuario(this.getNombreUsuario());
+        u.setTipoUsuario(this.getTipoUsuario().toDTO());
+            
+        return u;
+    }
 }

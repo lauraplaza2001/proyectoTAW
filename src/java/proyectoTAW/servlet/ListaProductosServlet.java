@@ -13,8 +13,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import proyectoTAW.dao.ProductoFacade;
-import proyectoTAW.entity.Producto;
+import proyectoTAW.dto.ProductoDTO;
+import proyectoTAW.service.ProductoService;
 
 /**
  *
@@ -32,13 +32,12 @@ public class ListaProductosServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @EJB
-    ProductoFacade pFacade;
+    @EJB ProductoService pService;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        List<Producto> productos = (List) pFacade.findAll();
+        List<ProductoDTO> productos = this.pService.findAll();
 
         request.setAttribute("productos", productos);
         request.getRequestDispatcher("listaProductos.jsp").forward(request, response);

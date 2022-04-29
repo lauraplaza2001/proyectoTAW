@@ -6,6 +6,7 @@
 package proyectoTAW.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -23,6 +24,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import proyectoTAW.dto.CategoriaDTO;
 
 /**
  *
@@ -36,7 +38,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Categoria.findByIdCategoria", query = "SELECT c FROM Categoria c WHERE c.idCategoria = :idCategoria")
     , @NamedQuery(name = "Categoria.findByNombre", query = "SELECT c FROM Categoria c WHERE c.nombre = :nombre")})
 public class Categoria implements Serializable {
-
+    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -129,5 +131,23 @@ public class Categoria implements Serializable {
     public String toString() {
         return "proyectoTAW.entity.Categoria[ idCategoria=" + idCategoria + " ]";
     }
+   
+    public CategoriaDTO toDTO() {
+        
+        CategoriaDTO cat = new CategoriaDTO();
+        cat.setIdCategoria(this.getIdCategoria());
+        cat.setNombre(this.getNombre());
+        
+        return cat;
+    }
     
+    public static List<CategoriaDTO> toDTOList(List<Categoria> lista){
+        
+        List<CategoriaDTO> result = new ArrayList<>();
+        for(Categoria c:lista){
+            result.add(c.toDTO());
+        }
+        
+        return result;
+    }
 }

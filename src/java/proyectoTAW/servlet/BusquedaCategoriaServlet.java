@@ -14,8 +14,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import proyectoTAW.dao.CategoriaFacade;
-import proyectoTAW.entity.Categoria;
+import proyectoTAW.dto.CategoriaDTO;
+import proyectoTAW.service.CategoriaService;
 
 /**
  *
@@ -24,8 +24,7 @@ import proyectoTAW.entity.Categoria;
 @WebServlet(name = "BusquedaCategoriaServlet", urlPatterns = {"/BusquedaCategoriaServlet"})
 public class BusquedaCategoriaServlet extends HttpServlet {
 
-    @EJB
-    CategoriaFacade cFacade;
+    @EJB CategoriaService cFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,7 +41,7 @@ public class BusquedaCategoriaServlet extends HttpServlet {
 
         String busqueda = request.getParameter("busqueda");
         
-        List<Categoria> categorias = this.cFacade.getCategoriasLike(busqueda);
+        List<CategoriaDTO> categorias = this.cFacade.getCategoriasLike(busqueda);
 
         request.setAttribute("categorias", categorias);
 

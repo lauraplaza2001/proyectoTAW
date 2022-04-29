@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import proyectoTAW.dao.ProductoFacade;
 import proyectoTAW.entity.Producto;
+import proyectoTAW.service.ProductoService;
 
 /**
  *
@@ -32,17 +33,15 @@ public class EliminarProductoServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @EJB
-    ProductoFacade pFacade;
+    
+    @EJB ProductoService pService;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
         String str = request.getParameter("id");
-        
-        Producto producto = this.pFacade.find(Integer.parseInt(str));
-        
-        this.pFacade.remove(producto);
+    
+        this.pService.remove(Integer.parseInt(str));
         
         response.sendRedirect(request.getContextPath() + "/ListaProductosServlet");
     }

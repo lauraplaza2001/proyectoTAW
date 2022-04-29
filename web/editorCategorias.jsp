@@ -4,6 +4,7 @@
     Author     : juanm
 --%>
 
+<%@page import="proyectoTAW.dto.CategoriaDTO"%>
 <%@page import="proyectoTAW.entity.Categoria"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -59,12 +60,12 @@
                                 <button class="btn btn-outline-success" type="submit">Buscar</button>
                             </form>
                         </div>
-                        <%    List<Categoria> categorias = (List) request.getAttribute("categorias");
+                        <%    List<CategoriaDTO> categorias = (List) request.getAttribute("categorias");
                         %>
                         <div class="container p-3">
                             <div class="row">
                                 <%
-                                    for (Categoria categoria : categorias) {
+                                    for (CategoriaDTO categoria : categorias) {
                                 %>
                                 <form action="${pageContext.request.contextPath}/EditorCategoriasServlet">
                                     <ul class="col col-12 list-group list-group-horizontal">

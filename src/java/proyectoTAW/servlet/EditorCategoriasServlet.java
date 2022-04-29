@@ -14,8 +14,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import proyectoTAW.dto.CategoriaDTO;
 import proyectoTAW.entity.Categoria;
-import proyectoTAW.dao.CategoriaFacade;
+import proyectoTAW.service.CategoriaService;
 
 /**
  *
@@ -26,7 +27,7 @@ import proyectoTAW.dao.CategoriaFacade;
 @WebServlet(urlPatterns = {"/EditorCategoriasServlet"})
 public class EditorCategoriasServlet extends HttpServlet {
 
-        @EJB CategoriaFacade cFacade;
+        @EJB CategoriaService cService;
         
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,13 +45,9 @@ public class EditorCategoriasServlet extends HttpServlet {
         String id = request.getParameter("id");
         String edit = request.getParameter("edit");
         
-        if(id != null && edit != null){
-            Categoria cat = this.cFacade.find(Integer.parseInt(id));
-            cat.setNombre(edit);
-            this.cFacade.edit(cat);
-        }
+        this.cService.editarCategoria(id, edit);
         
-        List<Categoria> categorias = this.cFacade.findAll();
+        List<CategoriaDTO> categorias = this.cService.findAll();
         
         request.setAttribute("categorias", categorias); 
         request.getRequestDispatcher("editorCategorias.jsp").forward(request, response);
