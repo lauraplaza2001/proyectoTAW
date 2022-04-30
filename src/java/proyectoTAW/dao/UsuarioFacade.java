@@ -81,7 +81,7 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         q = this.getEntityManager().createQuery("select u from Usuario u where u.nombreUsuario  = :nombreUsuario and "
                 + "u.contrasena = :contrasena");
         
-        q.setParameter("usuario",usuario);
+        q.setParameter("nombreUsuario",usuario);
         q.setParameter("contrasena", psw);
         
         List<Usuario> lista = q.getResultList();
