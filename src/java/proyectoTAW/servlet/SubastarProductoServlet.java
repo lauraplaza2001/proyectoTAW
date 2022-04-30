@@ -58,7 +58,7 @@ public class SubastarProductoServlet extends HttpServlet {
         request.setAttribute("usuario", u);
   //      request.setAttribute("producto", prod); 
         request.setAttribute("categorias", categorias);
-        request.getRequestDispatcher("crearProducto.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/jsp/crearProducto.jsp").forward(request, response);
         
         
     }

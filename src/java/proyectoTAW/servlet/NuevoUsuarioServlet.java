@@ -55,7 +55,7 @@ public class NuevoUsuarioServlet extends HttpServlet {
             request.setAttribute("admin", "false");
         }
         
-        request.getRequestDispatcher("registroUsuario.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/jsp/registroUsuario.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -6,12 +6,10 @@
 package proyectoTAW.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import proyectoTAW.dao.CategoriaFacade;
@@ -20,7 +18,6 @@ import proyectoTAW.dao.SubastaFacade;
 import proyectoTAW.dao.UsuarioFacade;
 import proyectoTAW.entity.Categoria;
 import proyectoTAW.entity.Producto;
-import proyectoTAW.entity.Subasta;
 import proyectoTAW.entity.Usuario;
 
 /**
@@ -89,7 +86,7 @@ public class PaginaPrincipalServlet extends ProjectoTAWServlet {
       request.setAttribute("comp",comp);      
       
       request.setAttribute("productos",productos);
-      request.getRequestDispatcher("paginaPrincipal.jsp").forward(request,response);
+      request.getRequestDispatcher("/WEB-INF/jsp/paginaPrincipal.jsp").forward(request,response);
 
     }
 

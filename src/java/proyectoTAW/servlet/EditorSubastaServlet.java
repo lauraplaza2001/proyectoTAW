@@ -49,7 +49,7 @@ public class EditorSubastaServlet extends HttpServlet {
         request.setAttribute("user", idUser);
         
        
-        request.getRequestDispatcher("editorProductoSubasta.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/jsp/editorProductoSubasta.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

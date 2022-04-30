@@ -50,7 +50,7 @@ public class EditorProductosServlet extends HttpServlet {
         request.setAttribute("categorias", categorias);
         
     
-        request.getRequestDispatcher("editorProducto.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/jsp/editorProducto.jsp").forward(request, response);
         
     }
 

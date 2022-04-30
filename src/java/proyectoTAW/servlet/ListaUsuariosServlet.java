@@ -45,7 +45,7 @@ public class ListaUsuariosServlet extends HttpServlet {
       List<UsuarioDTO> usuarios = this.uService.getCategoriasLike(like, filtro);
      
       request.setAttribute("usuarios", usuarios);
-      request.getRequestDispatcher("editorUsuarios.jsp").forward(request, response);
+      request.getRequestDispatcher("/WEB-INF/jsp/editorUsuarios.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

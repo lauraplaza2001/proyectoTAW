@@ -45,7 +45,7 @@ public class BusquedaCategoriaServlet extends HttpServlet {
 
         request.setAttribute("categorias", categorias);
 
-        request.getRequestDispatcher("editorCategorias.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/jsp/editorCategorias.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -49,7 +49,7 @@ public class BusquedaProductosServlet extends HttpServlet {
       productos = this.pFacade.findFiltered(filtro, like);
     
       request.setAttribute("productos", productos);
-      request.getRequestDispatcher("listaProductos.jsp").forward(request, response);
+      request.getRequestDispatcher("/WEB-INF/jsp/listaProductos.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
