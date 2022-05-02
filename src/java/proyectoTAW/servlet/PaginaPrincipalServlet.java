@@ -52,8 +52,7 @@ public class PaginaPrincipalServlet extends ProjectoTAWServlet {
       String titulo = request.getParameter("busqueda");
       if (titulo == null)titulo = "";
       
-     //String id = request.getParameter("id"); 
-      String id ="1";//borrar después
+      String id = request.getParameter("id"); 
       UsuarioDTO user = this.us.find(Integer.parseInt(id)); 
       List <ProductoDTO> productos = null;
       
@@ -66,7 +65,7 @@ public class PaginaPrincipalServlet extends ProjectoTAWServlet {
            productos = this.ps.productosFavoritos(Integer.parseInt(id),titulo);
            listaTipo = "PRODUCTOS DE SUBASTAS EN FAVORITO " + categoria;
            fav=true;
-       } else if (filtro.equals("comprados")){
+       } else{// if (filtro.equals("comprados")){
            productos = this.ps.productosComprados(Integer.parseInt(id),titulo);
            listaTipo = "PRODUCTOS YA COMPRADOS " + categoria; 
            comp=true;

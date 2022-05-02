@@ -76,7 +76,9 @@ public class ProductoFacade extends AbstractFacade<Producto> {
        q = this.getEntityManager().createQuery("Select p from Usuario u JOIN u.productoList p WHERE  u.idUsuario = :idUser AND p.titulo LIKE :busqueda", Producto.class);
        q.setParameter("idUser",id);
        q.setParameter("busqueda","%" + titulo +"%");
+        
        return q.getResultList(); 
+       
     }
     //No funciona de momento
     public List <Producto> findProductsComprados(int idUsuario, String titulo){
