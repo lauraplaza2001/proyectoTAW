@@ -61,7 +61,7 @@ public class PaginaPrincipalServlet extends ProjectoTAWServlet {
       //FILTROS ####################################
       if ( filtro == null || filtro.equals("todos")  ){
           
-          productos = this.pf.findProductsSubastaActiva("",titulo);
+          productos = this.pf.findProductsSubastaActiva(titulo);
          
        }else if (filtro.equals("favoritos")){
            productos = this.pf.findFavouriteProductList(id);
@@ -73,7 +73,7 @@ public class PaginaPrincipalServlet extends ProjectoTAWServlet {
            comp=true;
        }else{ //Filtlrado por una categoría
            
-           productos = this.pf.findProductsSubastaActiva(filtro,titulo);
+           //productos = this.pf.findProductsSubastaActiva(filtro,titulo);
            listaTipo = "PRODUCTOS DE SUBASTA DE LA CATEGORÍA: " + filtro;       
                   
       }
