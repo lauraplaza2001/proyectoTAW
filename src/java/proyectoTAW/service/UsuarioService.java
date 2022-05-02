@@ -76,4 +76,8 @@ public class UsuarioService {
 
         return usuarios;
     }
+    public UsuarioDTO find (int id){
+          
+        return this.uFacade.find(id).toDTO();
+    }
 }

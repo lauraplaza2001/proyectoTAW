@@ -92,31 +92,7 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         
         }
    }
-   //Todavía no se si funciona
-    public void addfavouriteList( String idUsuario, String idProducto) {
-          
-        Query q;
-      
-          
-             //Query para añadir el producto a favoritos
-             
-              q = this.getEntityManager().createQuery("INSERT INTO PRDOUCTOS_FAVORITOS VALUES ( :idUsuario, :idProducto");
-              q.setParameter("idUsuario",idUsuario);
-              q.setParameter("idProducto",idProducto);
-              
-              
-            
-                  
-             
-        }
-       
-    public void deleteFromFavouriteList(String idUsuario, String idProducto){
-         //Query para quitar el producto de la lista de    
-            Query q;
-              q = this.getEntityManager().createQuery("DELETE FROM PRDOUCTOS_FAVORITOS WHERE Usuario_idUsuario = :idUsuario AND Producto_idProducto = :idProducto");
-              q.setParameter("idUsuario",idUsuario);
-              q.setParameter("idProducto",idProducto);
-}
+
    public List<Producto> getProductosVendedor(String idUser){
        Query q;
        int id = Integer.parseInt(idUser);

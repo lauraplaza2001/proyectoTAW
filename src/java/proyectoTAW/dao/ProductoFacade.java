@@ -68,21 +68,22 @@ public class ProductoFacade extends AbstractFacade<Producto> {
 
     //Todavía no se si funciona
     
-    public List<Producto> findFavouriteProductList(String id) {
+    public List<Producto> findFavouriteProductList(int id, String titulo) {
         //SELECT p.* from Producto p JOIN productos_favoritos pf ON p.idProducto = pf.Producto_idProducto WHERE pf.Usuario_idUsuario = 1;
        Query q;
        
-       q = this.getEntityManager().createQuery("SELECT p FROM  productos_favoritos  pf JOIN pf.Producto_idProducto p  WHERE pf.Usuario_idUsuario = :idUser ",Producto.class);
+
+       q = this.getEntityManager().createQuery("Select p from Usuario u JOIN u.productoList p WHERE  u.idUsuario = :idUser AND p.titulo LIKE :busqueda", Producto.class);
        q.setParameter("idUser",id);
-        
+       q.setParameter("busqueda","%" + titulo +"%");
        return q.getResultList(); 
     }
-    
-    public List <Producto> findProductsComprados(String idUsuario, String titulo){
+    //No funciona de momento
+    public List <Producto> findProductsComprados(int idUsuario, String titulo){
         Query q;
-        //
+                                                                                           
         q = this.getEntityManager().createQuery("SELECT p FROM Subasta s JOIN s.producto p WHERE s.fechaCierre <= :today  AND s.mayorPostor = :user AND s.fechaCierre != null AND p.titulo like :busqueda");
-        
+        //q = this.getEntityManager().createQuery("")
         q.setParameter("today",new Date());
         q.setParameter("busqueda","%" + titulo +"%");
         q.setParameter("user",idUsuario);
@@ -102,10 +103,11 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         
        Query q;
        
-       q = this.getEntityManager().createQuery("SELECT p FROM Subasta s JOIN s.producto p  WHERE s.fechaCierre >= :today AND p.titulo LIKE :busqueda",Producto.class);
-       
+       //q = this.getEntityManager().createQuery("SELECT p FROM Subasta s JOIN s.producto p JOIN p.categoriaList c  WHERE s.fechaCierre >= :today AND p.titulo LIKE :busqueda AND c.nombre LIKE :categoria",Producto.class);
+       q = this.getEntityManager().createQuery("SELECT p FROM Subasta s JOIN s.producto p WHERE s.fechaCierre >= :today AND p.titulo LIKE :busqueda",Producto.class);
        q.setParameter("today",new Date());
        q.setParameter("busqueda","%" + titulo +"%");
+       //q.setParameter("categoria","%" + categoria +"%");
        
       
        return q.getResultList();

@@ -4,9 +4,10 @@
     Author     : 34636
 --%>
 
-<%@page import="proyectoTAW.entity.Producto"%>
-<%@page import="proyectoTAW.entity.Usuario"%>
-<%@page import="proyectoTAW.entity.Categoria"%>
+
+<%@page import="proyectoTAW.dto.ProductoDTO"%>
+<%@page import="proyectoTAW.dto.UsuarioDTO"%>
+<%@page import="proyectoTAW.dto.CategoriaDTO"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -20,14 +21,14 @@
         <title>Pagina principal</title>
     </head>
     <%
-        List<Categoria> categorias = (List)request.getAttribute("categorias");
+        List<CategoriaDTO> categorias = (List)request.getAttribute("categorias");
         
         
        /* Usuario user = (Usuario)session.getAttribute("usuario");
         if (user == null) {
             response.sendRedirect(request.getContextPath());
         }*/
-         Usuario user = (Usuario)request.getAttribute("usuario"); //PROVISIONAL
+         UsuarioDTO user = (UsuarioDTO)request.getAttribute("usuario"); //PROVISIONAL
       %>
       
     <body>
@@ -81,8 +82,14 @@
                                             <option selected value ="todos"> Todos los productos </option>
                                             <option  value="favoritos">Favoritos</option>
                                             <option value="comprados">Comprados</option>
-                                            <% 
-                                             for (Categoria c: categorias){
+                                           
+
+                                        
+                                    </select>
+                                    <select class="custom-select" name="categoria" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <option value="">Todas las categorias</option>
+                                         <% 
+                                             for (CategoriaDTO c: categorias){
 
 
                                              %>
@@ -90,11 +97,10 @@
                                              <%
                                              }
                                              %>
-
-                                        
-                                    </select>
+                                    </select> 
+                                    
                                                 
-                                    <input class="form-control me-2" type="search" autocomplete="off" placeholder="Nombre de producto" aria-label="Search" name="busqueda">
+                                    <input type="search" autocomplete="off" placeholder="Nombre de producto" aria-label="Search" name="busqueda">
                                                               
                                     <button class="btn btn-outline-success" type="submit">Filtrar</button>
                                                                    
@@ -113,9 +119,9 @@
                 Boolean fav = (Boolean)request.getAttribute("fav");
                 Boolean comp = (Boolean)request.getAttribute("comp");
                 
-                List<Producto> productos = (List) request.getAttribute("productos");
+                List<ProductoDTO> productos = (List) request.getAttribute("productos");
                 if (productos != null){
-                 for (Producto producto : productos) {
+                 for (ProductoDTO producto : productos) {
             %>
             <div class="col col-4 p-3">
                   <%--<h3</h3>   --%>    

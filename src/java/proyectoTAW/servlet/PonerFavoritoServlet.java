@@ -36,7 +36,7 @@ public class PonerFavoritoServlet extends HttpServlet {
         String idProducto = request.getParameter("idProducto");
         String idUsuario = request.getParameter("idUsuario");
         
-        this.usuarioFacade.addfavouriteList(idUsuario,idProducto);
+        
         response.sendRedirect(request.getContextPath() + "/PaginaPrincpalServlet");  
         
     }
