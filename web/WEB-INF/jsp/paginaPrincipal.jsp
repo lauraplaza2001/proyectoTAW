@@ -116,6 +116,7 @@
                 
                 List<Producto> productos = (List) request.getAttribute("productos");
                 if (productos != null){
+               
                  for (Producto producto : productos) {
             %>
             <div class="col col-4 p-3">

@@ -4,6 +4,7 @@
     Author     : amigo
 --%>
 
+<%@page import="proyectoTAW.entity.Usuario"%>
 <%@page import="proyectoTAW.entity.Subasta"%>
 <%@page import="proyectoTAW.entity.Producto"%>
 <%@page import="java.util.List"%>
@@ -56,7 +57,8 @@
             <%
                 Producto producto = (Producto) request.getAttribute("producto");
                 Subasta s = (Subasta) request.getAttribute("subasta");
-                String idUsuario = (String) request.getAttribute("idUsuario");
+                Usuario user = (Usuario)session.getAttribute("usuario"); 
+                int idUsuario = user.getIdUsuario();
                 String error = (String) request.getAttribute("error");
                 if (error == null) error = "";
                 

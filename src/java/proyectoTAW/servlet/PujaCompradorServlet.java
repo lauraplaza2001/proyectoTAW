@@ -44,16 +44,10 @@ public class PujaCompradorServlet extends HttpServlet {
       // Producto producto = pFacade.find(Integer.parseInt(idProducto));
        Subasta subasta = sFacade.find(2);
        
+      // Subasta subastaActiva = sFacade.findSubastaActiva(Producto p);
        
         request.setAttribute("subasta",subasta);
         request.setAttribute("producto", producto);
-       // request.setAttribute("idUsuario", request.getParameter("idUsuario"));
-        request.setAttribute("idUsuario", "1");
-        
-        
-   
-        
-        
         
         String error = (String) request.getAttribute("error");
         if( error == null || error.isEmpty()){
