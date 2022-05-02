@@ -75,7 +75,10 @@
         <div class="row">
             <%
                 List<Producto> productos = (List) request.getAttribute("productos");
-                for (Producto producto : productos) {
+                if(productos!=null) {
+                   for (Producto producto : productos) { 
+              
+                
             %>
             <div class="col col-4 p-3">
                 <form class="border"action="${pageContext.request.contextPath}/EditorSubastaServlet?idUser=1&id=<%= producto.getIdProducto()%>" method="get">
@@ -90,7 +93,8 @@
                     </ul>
                 </form>
             </div>
-            <% }%>
+            <% }
+              }%>
         </div>
     </div>
 </div>

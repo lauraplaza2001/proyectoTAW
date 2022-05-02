@@ -64,7 +64,7 @@ public class BusquedaProductosVendedorServlet extends HttpServlet {
      List<Subasta> subastasUsuario= new ArrayList<>();
      
       for(Producto p : productos) {
-          List<Subasta> subastas= p.getSubastaList();
+          List<Subasta> subastas= this.sFacade.findSubastasDelProducto(p.getIdProducto()) ;  // select s from subasta where s.producto.idProducto=
          for (Subasta s : subastas ) {
              subastasUsuario.add(s);
          }

@@ -7,10 +7,14 @@ package proyectoTAW.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -48,80 +52,89 @@ public class GuardarProductoSubastaServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
        
-        //int id = Integer.parseInt(request.getParameter("id")); // id del usuario
-        int id = 1;
-        String title = (String) request.getParameter("name");
-        String desc = (String) request.getParameter("descripcion");
-        String foto = (String) request.getParameter("image");
-        double precio = Double.parseDouble(request.getParameter("price"));
-        Usuario user = this.uFacade.find(id);
+        try {
+            int id = Integer.parseInt(request.getParameter("idUser")); // id del usuario
+            String title = (String) request.getParameter("name");
+            String desc = (String) request.getParameter("descripcion");
+            String foto = (String) request.getParameter("image");
+            double precio = Double.parseDouble(request.getParameter("price"));
+            String idProducto= (String) request.getParameter("id");
+            Usuario user = this.uFacade.find(id);
+           //String strFecha = (String) request.getParameter("fecha");
+            String strFecha = "2022-12-12";
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            Date fecha;
+            fecha = formato.parse(strFecha);
+            
+            
+            
+            String [] categorias = request.getParameterValues("categorias");
+            
+            List<Categoria> categoriasTotales = this.cFacade.findAll();
+            List<Categoria> categoriasFinales = new ArrayList<Categoria>();
         
-        String idProducto= (String) request.getParameter("id");
-        
-        List<Categoria> categoriasTotales = this.cFacade.findAll();
-        List<Categoria> categoriasFinales = new ArrayList<Categoria>();
-        categoriasFinales.add(this.cFacade.find(1));
-        
-     /*   for(Categoria c : categoriasTotales){
-            String categoria = ((String) request.getParameter(c.getIdCategoria().toString()));
-            if(categoria != null &&   categoria.equalsIgnoreCase("true")){
-                categoriasFinales.add(c);
+      
+            for(Categoria c : categoriasTotales){
+                for(String ci : categorias){
+                    if(c.getIdCategoria().toString().equals(ci)){
+                       categoriasFinales.add(c);
+                            
+                    }
+                    
+                }    
             }
-        }
-
-      */ 
-     
   
-        if(idProducto == null  || idProducto.isEmpty()){ // si es nulo quiere decir que estamos creandolo
-            Producto producto = new Producto();
-
-            producto.setTitulo(title);
-            producto.setDescripcion(desc);
-            producto.setFoto(foto);
-            producto.setPrecioSalida(precio);
-
-   
-            producto.setCategoriaList(categoriasFinales);
-       
-        
-            Subasta s = new Subasta();
-            s.setCreador(user);
-            s.setPredioActual(precio);
-            s.setProducto(producto);
-            Date d =new Date();
-            s.setFechaCierre(d);
             
             
-           this.pFacade.create(producto);
-            this.sFacade.create(s);
-        }else { // si no es nulo, estamos editandolo
-            Producto producto = this.pFacade.find(Integer.parseInt(idProducto));
-
-            producto.setTitulo(title);
-            producto.setDescripcion(desc);
-            producto.setFoto(foto);
-            producto.setPrecioSalida(precio);
-
-   
-        producto.setCategoriaList(categoriasFinales);
-       // Subasta s = this.sFacade. // saco esa subasta 
-        
-      //  s.setPredioActual(precio);
-       // Date d =new Date();
-     //   s.setFechaCierre(d);
+            
+            if(idProducto == null  || idProducto.isEmpty()){ // si es nulo quiere decir que estamos creandolo
+                Producto producto = new Producto();
+                
+                producto.setTitulo(title);
+                producto.setDescripcion(desc);
+                producto.setFoto(foto);
+                producto.setPrecioSalida(precio);
+                producto.setCategoriaList(categoriasFinales);
+                
+            
+                
+                Subasta s = new Subasta();
+                s.setCreador(user);
+                s.setPredioActual(precio);
+                s.setProducto(producto);
+                s.setFechaCierre(fecha);
+                
+                
+                
+                this.pFacade.create(producto);
+                this.sFacade.create(s);
+                
+                
+            }else { // si no es nulo, estamos editandolo
+                Producto producto = this.pFacade.find(Integer.parseInt(idProducto));
+                
+                producto.setTitulo(title);
+                producto.setDescripcion(desc);
+                producto.setFoto(foto);
+                producto.setPrecioSalida(precio); // esto está mal porqie no se modifica el precio de salida
+                producto.setCategoriaList(categoriasFinales);
+               
+      //NO VOY A PERMITIR QUE SE MODIFIQUE LA FECHA DE CIERRE
+              //  Subasta s = sFacade.findSubastasDelProducto(producto.getIdProducto()).get(0);
+                
+                 // s.setPredioActual(precio);
+               //   s.setFechaCierre(fecha);
+                
+                
+                this.pFacade.edit(producto);
+              //   this.sFacade.edit(s);
+            } 
             
             
-            this.pFacade.edit(producto);
-          //  this.sFacade.edit(s);
-        } // si no es nuevo quiere decir que lo estamos editando
-        
-
-   
-        
-        
-        
-
-        response.sendRedirect(request.getContextPath() + "/NuevoProductoServlet?id=1");
+            response.sendRedirect(request.getContextPath() + "/NuevoProductoServlet?id=1");
+        } catch (ParseException ex) {
+            Logger.getLogger(GuardarProductoSubastaServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
        
         

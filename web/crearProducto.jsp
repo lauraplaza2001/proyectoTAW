@@ -38,7 +38,8 @@
 
                 </div>
                 <div class="col-md-7 col-lg-8">
-                    <form class="needs-validation" novalidate action="${pageContext.request.contextPath}/GuardarProductoSubastaServlet?id=1">
+                    <form class="needs-validation" novalidate action="${pageContext.request.contextPath}/GuardarProductoSubastaServlet">
+                        <input type="hidden" name="idUser" id= "idUser" value="1" />
                         <div class="row g-3">
                             <div class="col-sm-12">
                                 <label for="name" class="form-label">Titulo del Producto</label>
@@ -77,6 +78,14 @@
                                     Precio inicial obligatorio.
                                 </div>
                             </div> 
+                            
+                            <div class="col-md-8">
+                                <label for="fecha" class="form-label">Fecha de cierre de subasta</label>
+                                <input type="date" id="fecha" value ="" min="2022-01-01" required> </input>
+                             
+                                <div class="invalid-feedback">
+                                    Fecha de cierre de subasta obligatorio
+                                </div>
 
                             <div class="col-md-12" name="categorias">
                                 <label for="categorias" class="form-label">Categorias</label></br>
@@ -85,13 +94,14 @@
                                 %>
 
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" value="true" id="<%= c.getIdCategoria()%>" >
+                                    <input class="form-check-input" name="categorias" id="categorias" type="checkbox" value="<%= c.getIdCategoria()%>" >
                                     <label class="form-check-label" for="<%= c.getIdCategoria()%>">
                                         <%= c.getNombre()%>
                                     </label>
                                 </div>
 
                                 <% } %>
+                         
                             </div>
 
                             <hr class="my-4">

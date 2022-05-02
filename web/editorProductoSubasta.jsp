@@ -4,6 +4,7 @@
     Author     : amigo
 --%>
 
+<%@page import="java.util.Date"%>
 <%@page import="proyectoTAW.entity.Categoria"%>
 <%@page import="java.util.List"%>
 <%@page import="proyectoTAW.entity.Producto"%>
@@ -14,7 +15,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Registro de usuario</title>
+        <title>Edición de producto subastado</title>
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
@@ -25,6 +26,8 @@
 
             Producto producto = (Producto) request.getAttribute("producto");
             List<Categoria> categorias = (List) request.getAttribute("categorias");
+            String fecha = "2022-05-05";
+            
 
         %>
 
@@ -38,6 +41,7 @@
                 </div>
                 <div class="col-md-7 col-lg-8">
                     <form class="needs-validation" novalidate action="${pageContext.request.contextPath}/GuardarProductoSubastaServlet">
+                          <input type="hidden" name="idUser" id="idUser" value="1" />
                         <div class="row g-3">
                             <div class="col-sm-12">
                                 <label for="name" class="form-label">Titulo del Producto</label>
@@ -75,16 +79,24 @@
                                 <div class="invalid-feedback">
                                     Precio inicial obligatorio.
                                 </div>
-                            </div> 
+                            </div>    
+                              <div class="col-md-8">
+                                <label for="fecha" class="form-label">Fecha de cierre de subasta</label>
+                                <input type="date" id="start" name="trip-start" value="<%=fecha%>" min="2022-05-01" max="2040-12-31" required> </input>
+                                <div class="invalid-feedback">
+                                    Fecha de cierre de subasta obligatorio
+                                </div>
+                            </div>  
+                             
 
-                            <div class="col-md-12" name="categorias">
+                             <div class="col-md-12" name="categorias">
                                 <label for="categorias" class="form-label">Categorias</label></br>
                                 <%
                                     for (Categoria c : categorias) {
                                 %>
 
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" value="true" id="<%= c.getIdCategoria()%>" <%= !producto.getCategoriaList().contains(c)? "": "checked" %>>
+                                    <input class="form-check-input" name="categorias" id="categorias" type="checkbox" value="<%= c.getIdCategoria()%>" <%= !producto.getCategoriaList().contains(c)? "": "checked" %>>
                                     <label class="form-check-label" for="<%= c.getIdCategoria()%>">
                                         <%= c.getNombre()%>
                                     </label>
@@ -92,7 +104,7 @@
 
                                 <% } %>
                             </div>
-
+                            
                             <hr class="my-4">
 
                             <button class="w-100 btn btn-primary btn-lg" type="submit" name="id" value="<%= producto.getIdProducto()%>">Finalizar Edición</button>
