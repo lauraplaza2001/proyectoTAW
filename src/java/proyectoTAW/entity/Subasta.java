@@ -22,6 +22,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
+import proyectoTAW.dto.SubastaDTO;
 
 /**
  *
@@ -147,5 +148,16 @@ public class Subasta implements Serializable {
     public String toString() {
         return "proyectoTAW.entity.Subasta[ idSubasta=" + idSubasta + " ]";
     }
-    
+
+    public SubastaDTO toDTO(Subasta sub) {
+        SubastaDTO s = new SubastaDTO();
+        s.setCreador(sub.getCreador().toDTO());
+        s.setFechaCierre(sub.getFechaCierre());
+        s.setIdSubasta(sub.getIdSubasta());
+        s.setMayorPostor(sub.getMayorPostor().toDTO());
+        s.setPredioActual(sub.getPredioActual());
+        s.setProducto(sub.getProducto().toDTO());
+
+        return s;
+    }
 }

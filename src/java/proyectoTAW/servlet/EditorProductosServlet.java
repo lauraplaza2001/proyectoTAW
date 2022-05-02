@@ -6,7 +6,6 @@
 package proyectoTAW.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -14,10 +13,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import proyectoTAW.dao.CategoriaFacade;
-import proyectoTAW.dao.ProductoFacade;
-import proyectoTAW.entity.Categoria;
-import proyectoTAW.entity.Producto;
+import proyectoTAW.dto.CategoriaDTO;
+import proyectoTAW.dto.ProductoDTO;
+import proyectoTAW.service.CategoriaService;
+import proyectoTAW.service.ProductoService;
 
 /**
  *
@@ -36,22 +35,22 @@ public class EditorProductosServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     
-    @EJB ProductoFacade pFacade;
-    @EJB CategoriaFacade cFacade;
+    @EJB ProductoService pService;
+    @EJB CategoriaService cService;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
       
         String id = request.getParameter("id");
         
-        Producto prod = this.pFacade.find(Integer.parseInt(id));
-        List<Categoria> categorias = this.cFacade.findAll();
+        ProductoDTO prod = this.pService.find(Integer.parseInt(id));
+        List<CategoriaDTO> categorias = this.cService.findAll();
  
         request.setAttribute("producto", prod); 
         request.setAttribute("categorias", categorias);
         
     
-        request.getRequestDispatcher("editorProducto.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/jsp/editorProducto.jsp").forward(request, response);
         
     }
 

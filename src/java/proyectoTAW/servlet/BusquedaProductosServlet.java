@@ -15,7 +15,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import proyectoTAW.dao.ProductoFacade;
+import proyectoTAW.dto.ProductoDTO;
 import proyectoTAW.entity.Producto;
+import proyectoTAW.service.ProductoService;
 
 /**
  *
@@ -34,26 +36,20 @@ public class BusquedaProductosServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     
-    @EJB ProductoFacade pFacade;
+    @EJB ProductoService pFacade;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
         
-      List<Producto> productos;
+      List<ProductoDTO> productos;
       String like = (String) request.getParameter("busqueda");
       Integer filtro = Integer.parseInt(request.getParameter("filtro"));
-  
-      if(like != null){
-          
-          productos = this.pFacade.findFiltered(filtro, like);       
-          
-      }else{
-          productos = this.pFacade.findAll();
-      }
-      
+     
+      productos = this.pFacade.findFiltered(filtro, like);
+    
       request.setAttribute("productos", productos);
-      request.getRequestDispatcher("listaProductos.jsp").forward(request, response);
+      request.getRequestDispatcher("/WEB-INF/jsp/listaProductos.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

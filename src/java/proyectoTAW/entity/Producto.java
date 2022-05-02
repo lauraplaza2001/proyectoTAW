@@ -25,6 +25,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import proyectoTAW.dto.ProductoDTO;
 
 /**
  *
@@ -41,6 +42,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Producto.findByFoto", query = "SELECT p FROM Producto p WHERE p.foto = :foto")
     , @NamedQuery(name = "Producto.findByPrecioSalida", query = "SELECT p FROM Producto p WHERE p.precioSalida = :precioSalida")})
 public class Producto implements Serializable {
+    
 
     @JoinTable(name = "productos_favoritos", joinColumns = {
         @JoinColumn(name = "Producto_idProducto", referencedColumnName = "idProducto")}, inverseJoinColumns = {
@@ -185,4 +187,15 @@ public class Producto implements Serializable {
         this.usuarioList = usuarioList;
     }
     
+    public ProductoDTO toDTO() {
+        ProductoDTO pr = new ProductoDTO();
+        pr.setDescripcion(this.getDescripcion());
+        pr.setFoto(this.getFoto());
+        pr.setIdProducto(this.getIdProducto());
+        pr.setPrecioSalida(this.getPrecioSalida());
+        pr.setTitulo(this.getTitulo());
+        pr.setCategoriaList(Categoria.toDTOList(this.getCategoriaList()));
+        
+        return pr;
+    }
 }

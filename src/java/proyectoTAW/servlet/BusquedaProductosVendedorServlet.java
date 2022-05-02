@@ -88,7 +88,7 @@ public class BusquedaProductosVendedorServlet extends HttpServlet {
       //if(subastasUsuario.get(i).getProducto().getIdProducto().equals(productos.get(j).getIdProducto())) {
       
       request.setAttribute("productos", productosFiltrados);
-      request.getRequestDispatcher("listaProductosEnVenta.jsp").forward(request, response);
+      request.getRequestDispatcher("/WEB-INF/jsp/listaProductosEnVenta.jsp").forward(request, response);
       
       
       

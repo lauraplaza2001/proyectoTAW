@@ -20,6 +20,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import proyectoTAW.dto.TipousuarioDTO;
 
 /**
  *
@@ -93,4 +94,10 @@ public class Tipousuario implements Serializable {
         this.usuarioList = usuarioList;
     }
     
+    public TipousuarioDTO toDTO() {
+        TipousuarioDTO tu = new TipousuarioDTO();
+        tu.setTipoUsuario(this.getTipoUsuario());
+        
+        return tu;
+    }
 }

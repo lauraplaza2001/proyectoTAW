@@ -1,0 +1,40 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package proyectoTAW.service;
+
+import java.util.ArrayList;
+import java.util.List;
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
+import proyectoTAW.dao.SubastaFacade;
+import proyectoTAW.dto.SubastaDTO;
+import proyectoTAW.entity.Subasta;
+
+/**
+ *
+ * @author juanm
+ */
+@Stateless
+public class SubastaService {
+    
+    
+    @EJB SubastaFacade sFacade;
+
+    
+    public List<SubastaDTO> toDTOList(List<Subasta> lista){
+        
+        List<SubastaDTO> result = null;
+        
+        if(lista != null){
+            result = new ArrayList<>();
+            for(Subasta c :lista){
+                result.add(c.toDTO(c));
+            }
+        }
+        
+        return result;
+    }
+}

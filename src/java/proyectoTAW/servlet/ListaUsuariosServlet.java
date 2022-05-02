@@ -13,8 +13,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import proyectoTAW.dao.UsuarioFacade;
-import proyectoTAW.entity.Usuario;
+import proyectoTAW.dto.UsuarioDTO;
+import proyectoTAW.service.UsuarioService;
 
 /**
  *
@@ -33,23 +33,19 @@ public class ListaUsuariosServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     
-        @EJB UsuarioFacade uFacade;
+        @EJB UsuarioService uService;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
         
-      List<Usuario> usuarios;
+      
       String like = (String) request.getParameter("busqueda");
       Integer filtro = Integer.parseInt(request.getParameter("filtro"));
   
-      if(like != null){
-          usuarios = this.uFacade.findFiltered(filtro, like);
-      }else{
-          usuarios = this.uFacade.findAll();
-      }
+      List<UsuarioDTO> usuarios = this.uService.getCategoriasLike(like, filtro);
      
       request.setAttribute("usuarios", usuarios);
-      request.getRequestDispatcher("editorUsuarios.jsp").forward(request, response);
+      request.getRequestDispatcher("/WEB-INF/jsp/editorUsuarios.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

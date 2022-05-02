@@ -37,7 +37,7 @@ public class QuitarFavoritoServlet extends HttpServlet {
         String idProducto = request.getParameter("idProducto");
         String idUsuario = request.getParameter("idUsuario");
         
-        this.usuarioFacade.favouriteList(0,idUsuario,idProducto);
+        this.usuarioFacade.deleteFromFavouriteList(idUsuario,idProducto);
         response.sendRedirect(request.getContextPath() + "/PaginaPrincpalServlet");  
         
     }

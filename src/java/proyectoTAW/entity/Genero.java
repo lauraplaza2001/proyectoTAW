@@ -20,6 +20,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import proyectoTAW.dto.GeneroDTO;
 
 /**
  *
@@ -32,6 +33,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Genero.findAll", query = "SELECT g FROM Genero g")
     , @NamedQuery(name = "Genero.findByGenero", query = "SELECT g FROM Genero g WHERE g.genero = :genero")})
 public class Genero implements Serializable {
+    
+
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -91,5 +94,12 @@ public class Genero implements Serializable {
     public String toString() {
         return "proyectoTAW.entity.Genero[ genero=" + genero + " ]";
     }
-    
+
+    GeneroDTO toDTO() {
+        GeneroDTO g = new GeneroDTO();
+
+        g.setGenero(this.getGenero());
+        
+        return g;
+    }
 }

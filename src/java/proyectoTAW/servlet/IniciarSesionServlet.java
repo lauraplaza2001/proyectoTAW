@@ -6,23 +6,26 @@
 package proyectoTAW.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import proyectoTAW.dto.CategoriaDTO;
-import proyectoTAW.entity.Categoria;
-import proyectoTAW.service.CategoriaService;
+import javax.servlet.http.HttpSession;
+import proyectoTAW.dao.UsuarioFacade;
+import proyectoTAW.entity.Usuario;
 
 /**
  *
- * @author juanm
+ * @author 34636
  */
-@WebServlet(name = "EliminarCategoriaServlet", urlPatterns = {"/EliminarCategoriaServlet"})
-public class EliminarCategoriaServlet extends HttpServlet {
-
+@WebServlet(name = "iniciarSesionServlet", urlPatterns = {"/iniciarSesionServlet"})
+public class IniciarSesionServlet extends HttpServlet {
+    
+    @EJB UsuarioFacade usuarioFacade;
+            
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -32,17 +35,35 @@ public class EliminarCategoriaServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
-    @EJB CategoriaService cService;
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String str = request.getParameter("id");
-  
-        this.cService.remove(Integer.parseInt(str));
-        
-        response.sendRedirect(request.getContextPath() + "/EditorCategoriasServlet");
+       String username = (String) request.getParameter("userName");
+       String psw = (String) request.getParameter("inputPassword");
+       
+       Usuario usuario = this.usuarioFacade.comprobarUsuario(username,psw);
+       
+       if (usuario == null){
+         String strError = "El usuario o la clave son incorrectos";
+            request.setAttribute("error", strError);
+            request.getRequestDispatcher("inicioSesion.jsp").forward(request, response);                
+        } else {
+            HttpSession session = request.getSession();
+            session.setAttribute("usuario", usuario);
+            //session.setAttribute("tipoUsuario", usuario.getTipoUsuario());
+            switch(usuario.getTipoUsuario().toString()){
+                case "Administrador":
+                    response.sendRedirect(request.getContextPath() + "/PaginaPrincipalServlet");
+                    break;
+                case "Marketing":
+                    response.sendRedirect(request.getContextPath() + "/PaginaPrincipalServlet");
+                    break;
+                default:
+                    response.sendRedirect(request.getContextPath() + "/PaginaPrincipalServlet");
+                    break;
+            }               
+        }   
+       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

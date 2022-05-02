@@ -4,9 +4,9 @@
     Author     : juanm
 --%>
 
-<%@page import="proyectoTAW.entity.Categoria"%>
+<%@page import="proyectoTAW.dto.ProductoDTO"%>
+<%@page import="proyectoTAW.dto.CategoriaDTO"%>
 <%@page import="java.util.List"%>
-<%@page import="proyectoTAW.entity.Producto"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!doctype html>
 <html lang="es">
@@ -23,9 +23,9 @@
 
         <%
 
-            Producto producto = (Producto) request.getAttribute("producto");
-            List<Categoria> categorias = (List) request.getAttribute("categorias");
-
+            ProductoDTO producto = (ProductoDTO) request.getAttribute("producto");
+            List<CategoriaDTO> categorias = (List) request.getAttribute("categorias");  
+            
         %>
 
         <div class="container">
@@ -80,11 +80,11 @@
                             <div class="col-md-12" name="categorias">
                                 <label for="categorias" class="form-label">Categorias</label></br>
                                 <%
-                                    for (Categoria c : categorias) {
+                                    for (CategoriaDTO c : categorias) {
                                 %>
 
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" name="categorias" type="checkbox" value="<%= c.getIdCategoria()%>" <%= !producto.getCategoriaList().contains(c)? "": "checked" %>>
+                                    <input class="form-check-input" name="categorias" type="checkbox" value="<%= c.getIdCategoria()%>" <%= !producto.containsCategory(c)? "": "checked" %>>
                                     <label class="form-check-label" for="<%= c.getIdCategoria()%>">
                                         <%= c.getNombre()%>
                                     </label>

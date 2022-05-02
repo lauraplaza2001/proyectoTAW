@@ -6,19 +6,14 @@
 package proyectoTAW.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import proyectoTAW.dao.CategoriaFacade;
-import proyectoTAW.dao.ProductoFacade;
-import proyectoTAW.entity.Categoria;
-import proyectoTAW.entity.Producto;
+import proyectoTAW.service.CategoriaService;
+import proyectoTAW.service.ProductoService;
 
 /**
  *
@@ -36,11 +31,9 @@ public class GuardarProductoServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @EJB
-    ProductoFacade pFacade;
-
-    @EJB
-    CategoriaFacade cFacade;
+    
+    @EJB ProductoService pService;
+    @EJB CategoriaService cService;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -49,23 +42,10 @@ public class GuardarProductoServlet extends HttpServlet {
         String title = (String) request.getParameter("name");
         String desc = (String) request.getParameter("descripcion");
         String foto = (String) request.getParameter("image");
-        double precio = Double.parseDouble(request.getParameter("price"));
-        
+        double precio = Double.parseDouble(request.getParameter("price")); 
         String[] categorias = (String[]) request.getParameterValues("categorias");
-        List<Categoria> categoriasFinales = new ArrayList<Categoria>();
-        for(int i = 0; i<categorias.length; i++){
-            categoriasFinales.add(this.cFacade.find(Integer.parseInt(categorias[i])));
-        }
 
-        Producto producto = this.pFacade.find(id);
-
-        producto.setTitulo(title);
-        producto.setDescripcion(desc);
-        producto.setFoto(foto);
-        producto.setPrecioSalida(precio);
-        producto.setCategoriaList(categoriasFinales);
-
-        this.pFacade.edit(producto);
+        this.pService.edit(id, title, desc, foto, precio, this.cService.createlistFromIds(categorias));
 
         response.sendRedirect(request.getContextPath() + "/ListaProductosServlet");
 
