@@ -22,7 +22,7 @@ import proyectoTAW.entity.Usuario;
  * @author 34636
  */
 @WebServlet(name = "iniciarSesionServlet", urlPatterns = {"/iniciarSesionServlet"})
-public class IniciarSesionServlet extends HttpServlet {
+public class iniciarSesionServlet extends HttpServlet {
     
     @EJB UsuarioFacade usuarioFacade;
             

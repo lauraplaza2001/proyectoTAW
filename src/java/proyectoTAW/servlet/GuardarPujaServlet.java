@@ -79,7 +79,7 @@ public class GuardarPujaServlet extends HttpServlet {
         
         
         request.setAttribute("error", strError);
-    request.getRequestDispatcher("pujas.jsp").forward(request, response);
+    request.getRequestDispatcher("/WEB-INF/jsp/pujas.jsp").forward(request, response);
        
         
     }

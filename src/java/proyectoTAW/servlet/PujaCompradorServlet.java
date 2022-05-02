@@ -66,7 +66,7 @@ public class PujaCompradorServlet extends HttpServlet {
         
         
         
-        request.getRequestDispatcher("pujas.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/jsp/pujas.jsp").forward(request, response);
         
     }
 
