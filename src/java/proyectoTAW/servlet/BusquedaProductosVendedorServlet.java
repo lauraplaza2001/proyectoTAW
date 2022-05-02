@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import proyectoTAW.dao.ProductoFacade;
 import proyectoTAW.dao.SubastaFacade;
 import proyectoTAW.dao.UsuarioFacade;
@@ -58,20 +59,13 @@ public class BusquedaProductosVendedorServlet extends HttpServlet {
       
       // ahora mismo tengo todos los productos filtrados, pero solo quiero mostrar los que estén subastados
       List<Producto> productosFiltrados= new ArrayList<>();
-     // List<Subasta> subastasUsuario = this.uFacade.getSubastasVendedor("1"); // aquí hay que pasarle el id del usuario
-     
-     Usuario u = uFacade.find(1);
-     List<Subasta> subastasUsuario= new ArrayList<>();
-     
-      for(Producto p : productos) {
-          List<Subasta> subastas= this.sFacade.findSubastasDelProducto(p.getIdProducto()) ;  // select s from subasta where s.producto.idProducto=
-         for (Subasta s : subastas ) {
-             subastasUsuario.add(s);
-         }
-      }
      
      
-     
+      HttpSession session = request.getSession();
+      Usuario u =  (Usuario) session.getAttribute("usuario");
+       List<Subasta> subastasUsuario = this.uFacade.getSubastasVendedor(u.getIdUsuario()); // aquí hay que pasarle el id del usuario
+       
+       
       if(subastasUsuario.size()==0 || productos.size() ==0){
           productosFiltrados = null;
       }else{
@@ -85,13 +79,9 @@ public class BusquedaProductosVendedorServlet extends HttpServlet {
           
           
       }
-      //if(subastasUsuario.get(i).getProducto().getIdProducto().equals(productos.get(j).getIdProducto())) {
       
       request.setAttribute("productos", productosFiltrados);
       request.getRequestDispatcher("/WEB-INF/jsp/listaProductosEnVenta.jsp").forward(request, response);
-      
-      
-      
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

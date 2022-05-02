@@ -53,7 +53,7 @@ public class iniciarSesionServlet extends HttpServlet {
             //session.setAttribute("tipoUsuario", usuario.getTipoUsuario());
             switch(usuario.getTipoUsuario().toString()){
                 case "Administrador":
-                    response.sendRedirect(request.getContextPath() + "/PaginaPrincipalServlet");
+                    response.sendRedirect(request.getContextPath() + "/ListaProductosServlet");
                     break;
                 case "Marketing":
                     response.sendRedirect(request.getContextPath() + "/PaginaPrincipalServlet");

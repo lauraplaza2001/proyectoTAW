@@ -26,6 +26,9 @@
           //  Usuario usuario = (Usuario) request.getAttribute("usuario");
            // Producto producto = (Producto) request.getAttribute("producto");
             List<Categoria> categorias = (List) request.getAttribute("categorias");
+          
+            Usuario usuario =  (Usuario) session.getAttribute("usuario");
+        
 
         %>
 
@@ -39,7 +42,7 @@
                 </div>
                 <div class="col-md-7 col-lg-8">
                     <form class="needs-validation" novalidate action="${pageContext.request.contextPath}/GuardarProductoSubastaServlet">
-                        <input type="hidden" name="idUser" id= "idUser" value="1" />
+                        <input type="hidden" name="idUser" id= "idUser" value="<%=usuario.getIdUsuario()%>" />
                         <div class="row g-3">
                             <div class="col-sm-12">
                                 <label for="name" class="form-label">Titulo del Producto</label>

@@ -37,16 +37,12 @@ public class PujaCompradorServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-      // String idSubasta= request.getParameter("idSubasta");
-       //String idProducto = request.getParameter("idProducto");
       
-      // Subasta subasta = sFacade.find(Integer.parseInt(idSubasta));
-     //  Producto producto = pFacade.find(Integer.parseInt(idProducto));
+        String idProducto = (String) request.getParameter("idProducto");
         
-        
+        Producto producto = pFacade.find(Integer.parseInt(idProducto));
+      // Producto producto = pFacade.find(Integer.parseInt(idProducto));
        Subasta subasta = sFacade.find(2);
-       Producto producto = pFacade.find(2);
-        
        
        
         request.setAttribute("subasta",subasta);
@@ -57,15 +53,14 @@ public class PujaCompradorServlet extends HttpServlet {
         
    
         
+        
+        
         String error = (String) request.getAttribute("error");
         if( error == null || error.isEmpty()){
             error = "";
         }
         
         request.setAttribute("error", error);
-        
-        
-        
         request.getRequestDispatcher("/WEB-INF/jsp/pujas.jsp").forward(request, response);
         
     }
