@@ -12,13 +12,12 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import proyectoTAW.dao.CategoriaFacade;
-import proyectoTAW.dao.ProductoFacade;
-import proyectoTAW.dao.SubastaFacade;
-import proyectoTAW.dao.UsuarioFacade;
-import proyectoTAW.entity.Categoria;
-import proyectoTAW.entity.Producto;
-import proyectoTAW.entity.Usuario;
+import proyectoTAW.dto.CategoriaDTO;
+import proyectoTAW.dto.ProductoDTO;
+import proyectoTAW.dto.UsuarioDTO;
+import proyectoTAW.service.CategoriaService;
+import proyectoTAW.service.ProductoService;
+import proyectoTAW.service.UsuarioService;
 
 /**
  *
@@ -27,10 +26,9 @@ import proyectoTAW.entity.Usuario;
 @WebServlet(name = "PaginaPrincipalServlet", urlPatterns = {"/PaginaPrincipalServlet"})
 public class PaginaPrincipalServlet extends ProjectoTAWServlet {
    
-    @EJB CategoriaFacade cf;
-    @EJB SubastaFacade sf;
-    @EJB ProductoFacade pf;
-    @EJB UsuarioFacade uf;
+    @EJB CategoriaService cs;
+    @EJB ProductoService ps;
+    @EJB UsuarioService us;
 
     /**
      *
@@ -46,37 +44,33 @@ public class PaginaPrincipalServlet extends ProjectoTAWServlet {
              
       //Datos ###############################
       Boolean fav=false,comp=false;
-      String listaTipo = "PRODUCTOS EN SUBASTA";
-      List <Categoria> categorias = this.cf.findAll();
+      String listaTipo = "PRODUCTOS EN SUBASTA: ";
+      List <CategoriaDTO> categorias = this.cs.findAll();
      
       String filtro = request.getParameter("filtro");
+      String categoria = request.getParameter("categoria");
       String titulo = request.getParameter("busqueda");
       if (titulo == null)titulo = "";
       
      //String id = request.getParameter("id"); 
       String id ="1";//borrar después
-      Usuario user = this.uf.find(Integer.parseInt(id)); 
-      List <Producto> productos = null;
+      UsuarioDTO user = this.us.find(Integer.parseInt(id)); 
+      List <ProductoDTO> productos = null;
       
       //FILTROS ####################################
       if ( filtro == null || filtro.equals("todos")  ){
           
-          productos = this.pf.findProductsSubastaActiva(titulo);
-         
+          productos = this.ps.productosSubastaActiva(titulo);
+          listaTipo+= categoria;
        }else if (filtro.equals("favoritos")){
-           productos = this.pf.findFavouriteProductList(id);
-           listaTipo = "PRODUCTOS DE SUBASTAS EN FAVORITO";
+           productos = this.ps.productosFavoritos(Integer.parseInt(id),titulo);
+           listaTipo = "PRODUCTOS DE SUBASTAS EN FAVORITO " + categoria;
            fav=true;
        } else if (filtro.equals("comprados")){
-           productos = this.pf.findProductsComprados(id, titulo);
-           listaTipo = "PRODUCTOS YA COMPRADOS"; 
+           productos = this.ps.productosComprados(Integer.parseInt(id),titulo);
+           listaTipo = "PRODUCTOS YA COMPRADOS " + categoria; 
            comp=true;
-       }else{ //Filtlrado por una categoría
-           
-           //productos = this.pf.findProductsSubastaActiva(filtro,titulo);
-           listaTipo = "PRODUCTOS DE SUBASTA DE LA CATEGORÍA: " + filtro;       
-                  
-      }
+       }
       
       request.setAttribute("usuario",user); //Quitar después
       request.setAttribute("categorias",categorias);
