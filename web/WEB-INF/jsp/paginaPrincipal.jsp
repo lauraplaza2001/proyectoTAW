@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="proyectoTAW.entity.Usuario"%>
 <%@page import="proyectoTAW.dto.ProductoDTO"%>
 <%@page import="proyectoTAW.dto.UsuarioDTO"%>
 <%@page import="proyectoTAW.dto.CategoriaDTO"%>
@@ -24,11 +25,11 @@
         List<CategoriaDTO> categorias = (List)request.getAttribute("categorias");
         
         
-       /* Usuario user = (Usuario)session.getAttribute("usuario");
+       Usuario user = (Usuario)session.getAttribute("usuario");
         if (user == null) {
             response.sendRedirect(request.getContextPath());
-        }*/
-         UsuarioDTO user = (UsuarioDTO)request.getAttribute("usuario"); //PROVISIONAL
+        }
+         
       %>
       
     <body>
@@ -47,7 +48,7 @@
                         <li><a href="<%= request.getContextPath()%>/ListaUsuariosServlet?filtro=1" class="nav-link px-2 link-dark">Clientes</a></li>
                         <li><a href="<%= request.getContextPath()%>/ListaProductosServlet" class="nav-link px-2 link-dark">Productos</a></li>
                         <li><a href="<%= request.getContextPath()%>/EditorCategoriasServlet" class="nav-link px-2 link-dark">Categorías</a></li>
-                         <li><a href="<%= request.getContextPath()%>/NuevoProductoServlet" class="nav-link px-2 link-primary">Mis productos</a></li>
+                         <li><a href="<%= request.getContextPath()%>/NuevoProductoServlet" class="nav-link px-2 link-dark">Mis productos</a></li>
                         <li> <p class="text-success">Bienvenido <%= user.getNombreUsuario() %></p> </li>
                     </ul>
 
