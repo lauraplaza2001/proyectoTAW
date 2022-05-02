@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import proyectoTAW.dao.CategoriaFacade;
 import proyectoTAW.dao.ProductoFacade;
 import proyectoTAW.dao.UsuarioFacade;
@@ -42,21 +43,8 @@ public class SubastarProductoServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
      
-       // int idUsuario = Integer.parseInt(request.getParameter("usuario"));
-       
-         Usuario u = uFacade.find(1);
-       
         
-        
-        
-        
-      //  String id = request.getParameter("id");
-        
-       // Producto prod = this.pFacade.find(Integer.parseInt(id));
         List<Categoria> categorias = this.cFacade.findAll();
- 
-        request.setAttribute("usuario", u);
-  //      request.setAttribute("producto", prod); 
         request.setAttribute("categorias", categorias);
         request.getRequestDispatcher("/WEB-INF/jsp/crearProducto.jsp").forward(request, response);
         

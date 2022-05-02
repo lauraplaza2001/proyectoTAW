@@ -13,19 +13,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import proyectoTAW.dao.ProductoFacade;
+import proyectoTAW.dao.SubastaFacade;
 import proyectoTAW.dao.UsuarioFacade;
+import proyectoTAW.entity.Producto;
+import proyectoTAW.entity.Subasta;
 import proyectoTAW.entity.Usuario;
 
 /**
  *
- * @author 34636
+ * @author amigo
  */
-@WebServlet(name = "iniciarSesionServlet", urlPatterns = {"/iniciarSesionServlet"})
-public class IniciarSesionServlet extends HttpServlet {
-    
-    @EJB UsuarioFacade usuarioFacade;
-            
+@WebServlet(name = "GuardarPujaServlet", urlPatterns = {"/GuardarPujaServlet"})
+public class GuardarPujaServlet extends HttpServlet {
+       @EJB SubastaFacade sFacade;
+       @EJB UsuarioFacade uFacade;
+       @EJB ProductoFacade pFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,32 +41,47 @@ public class IniciarSesionServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-       String username = (String) request.getParameter("userName");
-       String psw = (String) request.getParameter("inputPassword");
+        int idSubasta = Integer.parseInt(request.getParameter("idSubasta"));
+        int idMayorPostor=Integer.parseInt(request.getParameter("mayorPostor"));
+     
+        String strError;
+        Usuario u = this.uFacade.find(idMayorPostor);
+        Subasta s = this.sFacade.find(idSubasta);
+        
+        
+        
+        String precioPuja = request.getParameter("precioPuja");
+        if(precioPuja!=null && !precioPuja.isEmpty()){
+             double apuesta = Double.parseDouble(precioPuja);
+             if( s.getPredioActual() < apuesta){ //
+                 s.setPredioActual(apuesta); // solo debo poder pujar
+                 s.setMayorPostor(u);
+                     sFacade.edit(s);
+                 strError = "Enhorabuena, has pujado " + precioPuja + " euros";
+                 
+             }else{
+            strError = "No puedes pujar un precio menor a la puja mayor";
+        }
+            
+        }else{
+            strError = "*Indique cantidad a pujar";            
+        }
+        
+        
+        Subasta subasta = s;
+        Producto producto = s.getProducto();
+    
+        
+        request.setAttribute("subasta",subasta);
+        request.setAttribute("producto", producto);
+       // request.setAttribute("idUsuario", request.getParameter("idUsuario"));
+        request.setAttribute("idUsuario", "1");
+        
+        
+        request.setAttribute("error", strError);
+    request.getRequestDispatcher("/WEB-INF/jsp/pujas.jsp").forward(request, response);
        
-       Usuario usuario = this.usuarioFacade.comprobarUsuario(username,psw);
-       
-       if (usuario == null){
-         String strError = "El usuario o la clave son incorrectos";
-            request.setAttribute("error", strError);
-            request.getRequestDispatcher("inicioSesion.jsp").forward(request, response);                
-        } else {
-            HttpSession session = request.getSession();
-            session.setAttribute("usuario", usuario);
-            //session.setAttribute("tipoUsuario", usuario.getTipoUsuario());
-            switch(usuario.getTipoUsuario().toString()){
-                case "Administrador":
-                    response.sendRedirect(request.getContextPath() + "/PaginaPrincipalServlet");
-                    break;
-                case "Marketing":
-                    response.sendRedirect(request.getContextPath() + "/PaginaPrincipalServlet");
-                    break;
-                default:
-                    response.sendRedirect(request.getContextPath() + "/PaginaPrincipalServlet");
-                    break;
-            }               
-        }   
-       
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -113,4 +113,7 @@ public class ProductoFacade extends AbstractFacade<Producto> {
        return q.getResultList();
  
     }
+    
+    
+   
 }

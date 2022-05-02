@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import proyectoTAW.dao.ProductoFacade;
 import proyectoTAW.dao.SubastaFacade;
 import proyectoTAW.dao.UsuarioFacade;
@@ -39,11 +40,12 @@ public class NuevoProductoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+         HttpSession session = request.getSession();
+           Usuario usuario =  (Usuario) session.getAttribute("usuario");
        
-        String idUser = request.getParameter("id");
-    
+     
         //List<Producto> productos = uFacade.find(1).getProductoList();
-        List<Producto> productos =  this.uFacade.getProductosVendedor(idUser);
+        List<Producto> productos =  this.uFacade.getProductosVendedor(usuario.getIdUsuario());
         request.setAttribute("productos", productos);
         request.getRequestDispatcher("/WEB-INF/jsp/listaProductosEnVenta.jsp").forward(request, response);
     }

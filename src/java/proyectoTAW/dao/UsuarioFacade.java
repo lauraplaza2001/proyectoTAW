@@ -93,21 +93,24 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         }
    }
 
-   public List<Producto> getProductosVendedor(String idUser){
+
+ 
+
+   public List<Producto> getProductosVendedor(int id){
+
        Query q;
-       int id = Integer.parseInt(idUser);
+      
         q = this.getEntityManager().createQuery("select p from Subasta s join s.producto p where s.creador.idUsuario =:id");
         q.setParameter("id", id);
     
         return q.getResultList();
    }
    
-   public List<Subasta> getSubastasVendedor(String idUser){
+   public List<Subasta> getSubastasVendedor(int id){
        Query q ;
        //int id = Integer.parseInt(idUser);
-       int id= 1;
-       q=this.getEntityManager().createQuery("select s from Subasta s where s.creador.idUsuario = :id");
-                                              
+    
+       q=this.getEntityManager().createQuery("select s from Subasta s where s.creador.idUsuario = :id");                                          
        q.setParameter("id", id);
        return q.getResultList();
    }

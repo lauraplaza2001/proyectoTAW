@@ -7,8 +7,6 @@ package proyectoTAW.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,23 +14,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import proyectoTAW.dao.ProductoFacade;
-import proyectoTAW.dao.SubastaFacade;
 import proyectoTAW.dao.UsuarioFacade;
-import proyectoTAW.entity.Producto;
-import proyectoTAW.entity.Subasta;
 import proyectoTAW.entity.Usuario;
 
 /**
  *
- * @author amigo
+ * @author 34636
  */
-@WebServlet(name = "BusquedaProductosVendedorServlet", urlPatterns = {"/BusquedaProductosVendedorServlet"})
-public class BusquedaProductosVendedorServlet extends HttpServlet {
-    @EJB ProductoFacade pFacade;
-    @EJB SubastaFacade sFacade;
-    @EJB UsuarioFacade uFacade;
+@WebServlet(name = "iniciarSesionServlet", urlPatterns = {"/iniciarSesionServlet"})
+public class iniciarSesionServlet extends HttpServlet {
     
+    @EJB UsuarioFacade usuarioFacade;
+            
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -44,44 +37,33 @@ public class BusquedaProductosVendedorServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    
-      List<Producto> productos;
-      String like = (String) request.getParameter("busqueda");
-      Integer filtro = Integer.parseInt(request.getParameter("filtro"));
-  
-      if(like != null){
-          
-          productos = this.pFacade.findFiltered(filtro, like);       
-          
-      }else{
-          productos = this.pFacade.findAll();
-      }
-      
-      // ahora mismo tengo todos los productos filtrados, pero solo quiero mostrar los que estén subastados
-      List<Producto> productosFiltrados= new ArrayList<>();
-     
-     
-      HttpSession session = request.getSession();
-      Usuario u =  (Usuario) session.getAttribute("usuario");
-       List<Subasta> subastasUsuario = this.uFacade.getSubastasVendedor(u.getIdUsuario()); // aquí hay que pasarle el id del usuario
+        
+       String username = (String) request.getParameter("userName");
+       String psw = (String) request.getParameter("inputPassword");
        
+       Usuario usuario = this.usuarioFacade.comprobarUsuario(username,psw);
        
-      if(subastasUsuario.size()==0 || productos.size() ==0){
-          productosFiltrados = null;
-      }else{
-          for(int i = 0 ; i< subastasUsuario.size(); i++){
-              for (int j = 0 ; j < productos.size(); j++){
-                 if(subastasUsuario.get(i).getProducto().getIdProducto().equals(productos.get(j).getIdProducto())) {
-                      productosFiltrados.add(productos.get(j));
-                  }
-              }
-          }
-          
-          
-      }
-      
-      request.setAttribute("productos", productosFiltrados);
-      request.getRequestDispatcher("/WEB-INF/jsp/listaProductosEnVenta.jsp").forward(request, response);
+       if (usuario == null){
+         String strError = "El usuario o la clave son incorrectos";
+            request.setAttribute("error", strError);
+            request.getRequestDispatcher("inicioSesion.jsp").forward(request, response);                
+        } else {
+            HttpSession session = request.getSession();
+            session.setAttribute("usuario", usuario);
+            //session.setAttribute("tipoUsuario", usuario.getTipoUsuario());
+            switch(usuario.getTipoUsuario().toString()){
+                case "Administrador":
+                    response.sendRedirect(request.getContextPath() + "/ListaProductosServlet");
+                    break;
+                case "Marketing":
+                    response.sendRedirect(request.getContextPath() + "/PaginaPrincipalServlet");
+                    break;
+                default:
+                    response.sendRedirect(request.getContextPath() + "/PaginaPrincipalServlet");
+                    break;
+            }               
+        }   
+       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

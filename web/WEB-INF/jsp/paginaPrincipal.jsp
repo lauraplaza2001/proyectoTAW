@@ -47,6 +47,7 @@
                         <li><a href="<%= request.getContextPath()%>/ListaUsuariosServlet?filtro=1" class="nav-link px-2 link-dark">Clientes</a></li>
                         <li><a href="<%= request.getContextPath()%>/ListaProductosServlet" class="nav-link px-2 link-dark">Productos</a></li>
                         <li><a href="<%= request.getContextPath()%>/EditorCategoriasServlet" class="nav-link px-2 link-dark">Categorías</a></li>
+                         <li><a href="<%= request.getContextPath()%>/NuevoProductoServlet" class="nav-link px-2 link-primary">Mis productos</a></li>
                         <li> <p class="text-success">Bienvenido <%= user.getNombreUsuario() %></p> </li>
                     </ul>
 
@@ -137,7 +138,7 @@
                             
                              </a>
                            <a type="button" class="btn btn-outline-success" 
-                           <% if (!comp){ %>     href=""> Participar en subasta
+                           <% if (!comp){ %>     href="${pageContext.request.contextPath}/PujaCompradorServlet?idProducto=<%=producto.getIdProducto()%>"> Participar en subasta
                            <% } else{ %>         href="${pageContext.request.contextPath}/QuitarCompradoServlet?idProducto=<%= producto.getIdProducto()%>&idUsuario=<%=user.getIdUsuario() %>" class="btn btn-warning" >Quitar de comprados</button> 
                            <%} %>
                            </a>

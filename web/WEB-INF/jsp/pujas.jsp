@@ -1,10 +1,10 @@
 <%-- 
-    Document   : listaProductosEnVenta
-    Created on : 20-abr-2022, 12:01:08
+    Document   : pujas
+    Created on : 27-abr-2022, 23:21:24
     Author     : amigo
 --%>
 
-<%@page import="proyectoTAW.entity.Usuario"%>
+<%@page import="proyectoTAW.entity.Subasta"%>
 <%@page import="proyectoTAW.entity.Producto"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -29,12 +29,11 @@
                     </a>
 
                     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                        <li><a href="<%= request.getContextPath()%>/PaginaPrincipalServlet" class="nav-link px-2 link-secondary">Página Principal</a></li>
+                        <li><a href="<%= request.getContextPath()%>/NuevoProductoServlet?id=1" class="nav-link px-2 link-secondary">Página Principal</a></li>
                         <li><a href="#" class="nav-link px-2 link-dark">Inventario</a></li>
                         <li><a href="<%= request.getContextPath()%>/ListaUsuariosServlet?filtro=1" class="nav-link px-2 link-dark">Clientes</a></li>
                         <li><a href="<%= request.getContextPath()%>/ListaProductosServlet" class="nav-link px-2 link-primary">Productos</a></li>
                         <li><a href="<%= request.getContextPath()%>/EditorCategoriasServlet" class="nav-link px-2 link-dark">Categorías</a></li>
-                        <li><a href="<%= request.getContextPath()%>/NuevoProductoServlet" class="nav-link px-2 link-primary">Mis productos</a></li>
                     </ul>
 
                     <div class="dropdown text-end">
@@ -52,56 +51,50 @@
             </div>
         </header>
         <div class="container">
-            <div class="row">
-                <div class="col col-6">
-                    <div class="container rows-2">
-                        <div class="input-group-prepend">
-                            <form class="d-flex" action="${pageContext.request.contextPath}/BusquedaProductosVendedorServlet?id=1" method="get">
-                                <select class="custom-select" name="filtro" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <option selected value="1">Tipo de Búsqueda<option
-                                <option value="1">Nombre</option>
-                                <option value="2">Categoría</option>
-                            </select>
-
-                            <input class="form-control me-2" type="search" autocomplete="off" placeholder="Busqueda..." aria-label="Search" name="busqueda">
-                            <button class="btn btn-outline-success" type="submit">Buscar</button>
-                            
-                            <a type="button" class="btn btn-danger" href="${pageContext.request.contextPath}/SubastarProductoServlet">Subastar producto</a>
-                            
-                           
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+       
         <div class="row">
             <%
-           
-           Usuario usuario =  (Usuario) session.getAttribute("usuario");
-           
-           
-           
-                List<Producto> productos = (List) request.getAttribute("productos");
-                if(productos!=null) {
-                   for (Producto producto : productos) { 
-              
+                Producto producto = (Producto) request.getAttribute("producto");
+                Subasta s = (Subasta) request.getAttribute("subasta");
+                String idUsuario = (String) request.getAttribute("idUsuario");
+                String error = (String) request.getAttribute("error");
+                if (error == null) error = "";
                 
+     
             %>
-            <div class="col col-4 p-3">
-                <form class="border"action="${pageContext.request.contextPath}/EditorSubastaServlet?idUser=1&id=<%= producto.getIdProducto()%>" method="get">
+            <div class="col col-10 p-3">
+                <form class="border"action="${pageContext.request.contextPath}/GuardarPujaServlet">
+                    
+                    
+                    
                     <ul class="list-group list-group-vertical">
                         <li class="list-group-item"><%= producto.getTitulo()%></li>
-                        <img  class="fluid" src="<%= producto.getFoto()%>"
-                             <li class="p-2">
+                        <ul class="p-3">
+                         <img  class="fluid" src="<%= producto.getFoto()%>">
+                         <ul class="p-3">
+                        <input type="hidden" name="idSubasta" id="idSubasta" value="<%= s.getIdSubasta() %>" />
+                        <input type="hidden" name="mayorPostor" id="mayorPostor" value="<%= idUsuario %>" />
+                     
+                   
+                       
+                             <li class="list-group-item"><%= producto.getDescripcion() %></li>
+                             <ul class="p-3"> 
+                             <li class="list-group-item"> Fecha de cierre de subasta : <%= s.getFechaCierre() %></li>
+                         
+                             <li class="list-group-item"> Puja mayor : <%= s.getPredioActual() %> € </li>
+                              <ul class="p-3"> 
+                             Cantidad a pujar :  <input type="text" name="precioPuja" id="apuesta" value="" /> €
+                             <button class="btn btn-outline-success" type="submit">Pujar</button>
                           
-                            <a type="button"class="btn btn-warning" href="${pageContext.request.contextPath}/EditorSubastaServlet?idUser=1&id=<%= producto.getIdProducto()%>"> Editar</a>
-                            <a type="button" class="btn btn-danger" href="${pageContext.request.contextPath}/EliminarProductoVendedorServlet?id=<%=producto.getIdProducto()%>&idUser=1">Eliminar</a>
+                             <lu class="p-3">  <%=error%></lu>
+                              
+                         
+                         
                         </li>
                     </ul>
                 </form>
             </div>
-            <% }
-              }%>
+                             
         </div>
     </div>
 </div>
