@@ -10,9 +10,12 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import proyectoTAW.dao.GeneroFacade;
+import proyectoTAW.dao.ProductoFacade;
 import proyectoTAW.dao.TipousuarioFacade;
 import proyectoTAW.dao.UsuarioFacade;
+import proyectoTAW.dto.ProductoDTO;
 import proyectoTAW.dto.UsuarioDTO;
+import proyectoTAW.entity.Producto;
 import proyectoTAW.entity.Usuario;
 
 /**
@@ -28,6 +31,7 @@ public class UsuarioService {
     GeneroFacade gFacade;
     @EJB
     TipousuarioFacade tuFacade;
+    @EJB ProductoFacade pFacade;
 
     public List<UsuarioDTO> toDTOList(List<Usuario> lista) {
 
@@ -79,5 +83,26 @@ public class UsuarioService {
     public UsuarioDTO find (int id){
           
         return this.uFacade.find(id).toDTO();
+    }
+
+    public void insertarProducto(String idUsuario, String idProducto) {
+       Producto producto = this.pFacade.find(idProducto);
+       Usuario usuario = this.uFacade.find(idProducto);
+       
+       usuario.getProductoList().add(producto);
+       producto.getUsuarioList().add(usuario);
+       
+       this.uFacade.edit(usuario);
+       this.pFacade.edit(producto);
+    }
+    public void eliminarProducto(String idUsuario, String idProducto) {
+       Producto producto = this.pFacade.find(idProducto);
+       Usuario usuario = this.uFacade.find(idProducto);
+       
+       usuario.getProductoList().remove(producto);
+       producto.getUsuarioList().remove(usuario);
+       
+       this.uFacade.edit(usuario);
+       this.pFacade.edit(producto);
     }
 }

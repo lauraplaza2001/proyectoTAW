@@ -52,21 +52,22 @@ public class PaginaPrincipalServlet extends ProjectoTAWServlet {
       String titulo = request.getParameter("busqueda");
       if (titulo == null)titulo = "";
       
-      String id = request.getParameter("id"); 
+      String id = request.getParameter("id");
+     
       UsuarioDTO user = this.us.find(Integer.parseInt(id)); 
       List <ProductoDTO> productos = null;
       
       //FILTROS ####################################
       if ( filtro == null || filtro.equals("todos")  ){
           
-          productos = this.ps.productosSubastaActiva(titulo);
+          productos = this.ps.productosSubastaActiva(titulo,categoria);
           listaTipo+= categoria;
        }else if (filtro.equals("favoritos")){
-           productos = this.ps.productosFavoritos(Integer.parseInt(id),titulo);
+           productos = this.ps.productosFavoritos(new Integer (id),titulo,categoria);
            listaTipo = "PRODUCTOS DE SUBASTAS EN FAVORITO " + categoria;
            fav=true;
        } else{// if (filtro.equals("comprados")){
-           productos = this.ps.productosComprados(Integer.parseInt(id),titulo);
+           productos = this.ps.productosComprados(new Integer (id),titulo,categoria);
            listaTipo = "PRODUCTOS YA COMPRADOS " + categoria; 
            comp=true;
        }

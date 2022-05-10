@@ -25,11 +25,12 @@
         List<CategoriaDTO> categorias = (List)request.getAttribute("categorias");
         
         
-       Usuario user = (Usuario)session.getAttribute("usuario");
+       /*Usuario user = (Usuario)session.getAttribute("usuario");
         if (user == null) {
             response.sendRedirect(request.getContextPath());
-        }
-         
+        }*/
+        
+         UsuarioDTO user = (UsuarioDTO)request.getAttribute("usuario");
       %>
       
     <body>
@@ -38,23 +39,26 @@
             <div class="container">
                 <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                     <a class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
-                        <img src="<%= request.getContextPath()%>/Images/logoipsum-logo-50.svg" alt="..." width="32" height="32" class="rounded-circle">
+                        <img src="/Images/logoipsum-logo-50.svg" alt="..." width="32" height="32" class="rounded-circle">
                     </a>
                         
                     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                         
                         <li><a href="/PaginaPrincipalServlet" class="nav-link px-2 link-primary">Página Principal</a></li>
-                        <li><a href="#" class="nav-link px-2 link-dark">Inventario</a></li>
-                        <li><a href="<%= request.getContextPath()%>/ListaUsuariosServlet?filtro=1" class="nav-link px-2 link-dark">Clientes</a></li>
-                        <li><a href="<%= request.getContextPath()%>/ListaProductosServlet" class="nav-link px-2 link-dark">Productos</a></li>
-                        <li><a href="<%= request.getContextPath()%>/EditorCategoriasServlet" class="nav-link px-2 link-dark">Categorías</a></li>
-                         <li><a href="<%= request.getContextPath()%>/NuevoProductoServlet" class="nav-link px-2 link-dark">Mis productos</a></li>
+                        <% if (user.getTipoUsuario().getTipoUsuario().equals("admin")){%>
+                            
+                        
+                        <li><a href="<%= request.getContextPath()%>/ListaUsuariosServlet?filtro=1" class="nav-link px-2 link-dark">Clientes</a></li> <%-- solo puede ir si es admin --%>
+                        <li><a href="<%= request.getContextPath()%>/ListaProductosServlet" class="nav-link px-2 link-dark">Productos</a></li> <%-- solo puede ir si es admin --%>
+                        <li><a href="<%= request.getContextPath()%>/EditorCategoriasServlet" class="nav-link px-2 link-dark">Categorías</a></li> <%-- solo puede ir si es admin --%>
+                         <li><a href="<%= request.getContextPath()%>/NuevoProductoServlet" class="nav-link px-2 link-dark">Mis productos</a></li> <%-- solo puede ir si es admin --%>
                         <li> <p class="text-success">Bienvenido <%= user.getNombreUsuario() %></p> </li>
+                        <%}%>
                     </ul>
 
                     <div class="dropdown text-end">
                         <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="<%= request.getContextPath()%>/Images/list.svg" alt="..." width="32" height="32" class="rounded-circle">
+                            <img src="/Images/list.svg" alt="..." width="32" height="32" class="rounded-circle">
                         </a>
                         <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
                             <li><a class="dropdown-item" href="#">Configuración</a></li>

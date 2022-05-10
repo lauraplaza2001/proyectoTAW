@@ -6,14 +6,13 @@
 package proyectoTAW.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import proyectoTAW.dao.UsuarioFacade;
+import proyectoTAW.service.UsuarioService;
 
 /**
  *
@@ -21,7 +20,8 @@ import proyectoTAW.dao.UsuarioFacade;
  */
 @WebServlet(name = "QuitarFavoritoServlet", urlPatterns = {"/QuitarFavoritoServlet"})
 public class QuitarFavoritoServlet extends HttpServlet {
-    @EJB UsuarioFacade usuarioFacade;
+    @EJB UsuarioService us;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,6 +36,8 @@ public class QuitarFavoritoServlet extends HttpServlet {
         
         String idProducto = request.getParameter("idProducto");
         String idUsuario = request.getParameter("idUsuario");
+        
+       this.us.eliminarProducto(idUsuario, idProducto);
         
         
         response.sendRedirect(request.getContextPath() + "/PaginaPrincpalServlet");  

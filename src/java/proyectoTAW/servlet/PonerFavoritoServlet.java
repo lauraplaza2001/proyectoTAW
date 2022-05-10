@@ -13,7 +13,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import proyectoTAW.dao.ProductoFacade;
 import proyectoTAW.dao.UsuarioFacade;
+import proyectoTAW .dto.ProductoDTO;
+import proyectoTAW.dto.UsuarioDTO;
+import proyectoTAW.service.ProductoService;
+import proyectoTAW.service.UsuarioService;
 
 /**
  *
@@ -21,7 +26,8 @@ import proyectoTAW.dao.UsuarioFacade;
  */
 @WebServlet(name = "PonerFavoritoServlet", urlPatterns = {"/PonerFavoritoServlet"})
 public class PonerFavoritoServlet extends HttpServlet {
-    @EJB  UsuarioFacade usuarioFacade;
+    @EJB  UsuarioService us;
+    @EJB  ProductoService ps;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -35,7 +41,10 @@ public class PonerFavoritoServlet extends HttpServlet {
             throws ServletException, IOException {
         String idProducto = request.getParameter("idProducto");
         String idUsuario = request.getParameter("idUsuario");
-        
+               
+        this.us.insertarProducto(idUsuario,idProducto);
+       
+       
         
         response.sendRedirect(request.getContextPath() + "/PaginaPrincpalServlet");  
         
