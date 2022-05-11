@@ -83,10 +83,13 @@ public class ProductoFacade extends AbstractFacade<Producto> {
        Query q;
        
 
-       q = this.getEntityManager().createQuery("Select p from Usuario u JOIN u.productoList p WHERE  u.idUsuario = :idUser AND p.titulo LIKE :busqueda", Producto.class);
+      q = this.getEntityManager().createQuery("SELECT DISTINCT p FROM Producto p, Subasta s JOIN p.categoriaList c  JOIN p.usuarioList u  WHERE u.idUsuario =:idUser AND s.fechaCierre >= :today AND p.titulo LIKE :busqueda and c.nombre LIKE :categoria",Producto.class);
+       
+       q.setParameter("today",new Date());
        q.setParameter("idUser",idUsuario);
        q.setParameter("busqueda","%" + titulo +"%");
-        
+       q.setParameter("categoria","%" + categoria +"%");
+       
        return q.getResultList(); 
        
     }
@@ -112,22 +115,13 @@ public class ProductoFacade extends AbstractFacade<Producto> {
 
 
     public List<Producto> findProductsSubastaActiva(String titulo,String categoria) {     
-        /*
-          SELECT DISTINCT p.* from Producto p 
-            JOIN subasta s  ON p.idProducto = s.producto
-            JOIN categoriasproducto cp ON cp.idProducto= p.idProducto
-            JOIN categoria c ON cp.idCategoria = cp.idCategoria
-            WHERE c.nombre LIKE "%%" AND s.fechaCierre >= sysdate() AND p.titulo LIKE "%%"
-        */
-        
+      
        Query q;
        
-      
-       q = this.getEntityManager().createQuery("SELECT p FROM Subasta s JOIN s.producto p WHERE s.fechaCierre >= :today AND p.titulo LIKE :busqueda",Producto.class);
-     
+       q = this.getEntityManager().createQuery("SELECT DISTINCT p FROM Producto p, Subasta s JOIN p.categoriaList c WHERE s.fechaCierre >= :today AND p.titulo LIKE :busqueda and c.nombre LIKE :categoria",Producto.class);
        q.setParameter("today",new Date());
        q.setParameter("busqueda","%" + titulo +"%");
-       //q.setParameter("categoria","%" + categoria +"%");
+       q.setParameter("categoria","%" + categoria +"%");
        
       
        return q.getResultList();

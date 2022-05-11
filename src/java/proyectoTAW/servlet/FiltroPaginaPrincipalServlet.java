@@ -6,10 +6,12 @@
 package proyectoTAW.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import proyectoTAW.dto.CategoriaDTO;
@@ -23,19 +25,20 @@ import proyectoTAW.service.UsuarioService;
  *
  * @author 34636
  */
-@WebServlet(name = "PaginaPrincipalServlet", urlPatterns = {"/PaginaPrincipalServlet"})
-public class PaginaPrincipalServlet extends ProjectoTAWServlet {
-   
-    @EJB CategoriaService cs;
+@WebServlet(name = "FiltroPaginaPrincipalServlet", urlPatterns = {"/FiltroPaginaPrincipalServlet"})
+public class FiltroPaginaPrincipalServlet extends HttpServlet {
+  @EJB CategoriaService cs;
     @EJB ProductoService ps;
     @EJB UsuarioService us;
 
     /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
      *
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -44,16 +47,36 @@ public class PaginaPrincipalServlet extends ProjectoTAWServlet {
              
       //Datos ###############################
       Boolean fav=false,comp=false;
-      String listaTipo = "PRODUCTOS EN SUBASTA: ";
+      String listaTipo = "PRODUCTOS EN SUBASTA ";
       List <CategoriaDTO> categorias = this.cs.findAll();
-    
+     
+      String filtro = request.getParameter("filtro");
+      
+      String categoria = request.getParameter("categoria");
+      if (categoria == null)categoria="";
+      
+      String titulo = request.getParameter("busqueda");
+      if (titulo == null)titulo = "";
       
       String id = request.getParameter("id");
-     
+      
       UsuarioDTO user = this.us.find(Integer.parseInt(id)); 
-      List <ProductoDTO> productos = this.ps.productosSubastaActiva("","");
+      List <ProductoDTO> productos = this.ps.productosSubastaActiva(titulo,categoria);
 
       
+      //FILTROS ####################################         
+        
+        if (filtro.equals("favoritos")){
+           productos = this.ps.productosFavoritos(new Integer (id),titulo,categoria);
+           listaTipo = "PRODUCTOS DE SUBASTAS EN FAVORITO " ;
+           fav=true;
+       } else if (filtro.equals("comprados")){
+           productos = this.ps.productosComprados(new Integer (id),titulo,categoria);
+           listaTipo = "PRODUCTOS YA COMPRADOS " + categoria; 
+           comp=true;
+       }
+        if (!categoria.equals("") ) listaTipo+= " DE CATEGORIA '"+ categoria.toUpperCase() +"'";
+        if(!titulo.equals(""))listaTipo+= " QUE CONTENGAN  '"  + titulo.toUpperCase() +"' ";
       
       request.setAttribute("usuario",user); //Quitar después
       request.setAttribute("categorias",categorias);
@@ -64,7 +87,7 @@ public class PaginaPrincipalServlet extends ProjectoTAWServlet {
       
       request.setAttribute("productos",productos);
       request.getRequestDispatcher("/WEB-INF/jsp/paginaPrincipal.jsp").forward(request,response);
-
+       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

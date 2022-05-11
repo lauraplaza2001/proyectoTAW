@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="proyectoTAW.dto.SubastaDTO"%>
 <%@page import="proyectoTAW.entity.Usuario"%>
 <%@page import="proyectoTAW.dto.ProductoDTO"%>
 <%@page import="proyectoTAW.dto.UsuarioDTO"%>
@@ -80,7 +81,7 @@
                     <div class="col col-6">
                         <div class="container rows-2">
                             <div class="input-group-prepend">
-                                 <form class="d-flex" action="${pageContext.request.contextPath}/PaginaPrincipalServlet" method="get">
+                                 <form class="d-flex" action="${pageContext.request.contextPath}/FiltroPaginaPrincipalServlet" method="get">
                                      
                                      <input type="hidden"name="id" value ="1"/>
                                         <select class="custom-select" name="filtro" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -127,10 +128,11 @@
                 
                 List<ProductoDTO> productos = (List) request.getAttribute("productos");
                 if (productos != null){
-                 for (ProductoDTO producto : productos) {
+                 for (ProductoDTO producto : productos) { 
+                    
             %>
             <div class="col col-4 p-3">
-                  <%--<h3</h3>   --%>    
+                <%-- <h3> <%=producto.getSubasta().getPredioActual() %></h3>  --%>
                     <ul class="list-group list-group-vertical">
                         <li class="list-group-item"><%= producto.getTitulo()%></li>
                         <img  class="fluid" src="<%= producto.getFoto()%>"

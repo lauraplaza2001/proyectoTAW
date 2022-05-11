@@ -10,6 +10,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import proyectoTAW.dao.SubastaFacade;
+import proyectoTAW.dto.ProductoDTO;
 import proyectoTAW.dto.SubastaDTO;
 import proyectoTAW.entity.Subasta;
 
@@ -36,5 +37,11 @@ public class SubastaService {
         }
         
         return result;
+    }
+    
+    public SubastaDTO findByProduct(int idProducto){
+        Subasta subasta =  (this.sFacade.findSubastasDelProducto(idProducto).get(0));
+       
+        return subasta.toDTO(subasta);
     }
 }
