@@ -44,4 +44,18 @@ public class SubastaService {
        
         return subasta.toDTO(subasta);
     }
+    
+      public List <SubastaDTO> SubastaActiva(String titulo,String categoria){
+        List <Subasta> result = this.sFacade.findSubastaActivaFiltro(titulo,categoria);
+        return this.toDTOList(result);
+    }
+    public List <SubastaDTO> SubastaProductosFavoritos (int id, String titulo,String categoria){
+         List <Subasta> result = this.sFacade.findSubastaWithFavouriteProductList(id, titulo,categoria);
+        return this.toDTOList(result);
+    }
+     public List <SubastaDTO> SubastaProductosComprados (int id, String titulo,String categoria){
+         List <Subasta> result = this.sFacade.findSubastaWithProductsComprados(id, titulo,categoria);
+        return this.toDTOList(result);
+    }
+
 }

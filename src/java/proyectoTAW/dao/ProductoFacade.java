@@ -66,20 +66,10 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         return q.getResultList();
     }
 
-    //Todavía no se si funciona
+ /*
     
     public List<Producto> findFavouriteProductList(int idUsuario, String titulo,String categoria) {
-        /*
-         SELECT a.* FROM producto a 
-        JOIN productos_favoritos pf ON pf.Producto_idProducto = a.idProducto
-        WHERE pf.Usuario_idUsuario = "1"
-        AND a.idProducto IN (
-                             SELECT DISTINCT p.idProducto from Producto p 
-            JOIN subasta s  ON p.idProducto = s.producto
-            JOIN categoriasproducto cp ON cp.idProducto= p.idProducto
-            JOIN categoria c ON cp.idCategoria = cp.idCategoria
-            WHERE c.nombre LIKE "%%" AND s.fechaCierre >= sysdate() AND p.titulo LIKE "%%" )
-        */
+       
        Query q;
        
 
@@ -95,13 +85,7 @@ public class ProductoFacade extends AbstractFacade<Producto> {
     }
     //No funciona de momento
     public List <Producto> findProductsComprados(int idUsuario, String titulo,String categoria){
-        /*
-        SELECT DISTINCT p.idProducto from Producto p 
-            JOIN subasta s  ON p.idProducto = s.producto
-            JOIN categoriasproducto cp ON cp.idProducto= p.idProducto
-            JOIN categoria c ON cp.idCategoria = cp.idCategoria
-            WHERE c.nombre LIKE "%%" AND s.fechaCierre >= sysdate() AND p.titulo LIKE "%%" AND s.mayorPostor = "1"
-        */
+       
         Query q;
                                                                                            
         q = this.getEntityManager().createQuery("SELECT p FROM Subasta s JOIN s.producto p WHERE s.fechaCierre <= :today  AND s.mayorPostor = :user AND s.fechaCierre != null AND p.titulo like :busqueda");
@@ -126,6 +110,18 @@ public class ProductoFacade extends AbstractFacade<Producto> {
       
        return q.getResultList();
  
+    }*/
+
+    public Boolean isProductFavourite(int idUsuario, int idProducto) {
+        Query q;
+       
+       q = this.getEntityManager().createQuery("SELECT p FROM Producto p JOIN p.usuarioList u  WHERE u.idUsuario =:idUser AND p.idProducto = :product",Producto.class);
+       q.setParameter("user",idUsuario);
+       q.setParameter("product",idProducto);
+       
+  
+      
+       return !q.getResultList().isEmpty();
     }
     
     

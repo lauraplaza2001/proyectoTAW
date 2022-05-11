@@ -16,9 +16,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import proyectoTAW.dto.CategoriaDTO;
 import proyectoTAW.dto.ProductoDTO;
+import proyectoTAW.dto.SubastaDTO;
 import proyectoTAW.dto.UsuarioDTO;
 import proyectoTAW.service.CategoriaService;
 import proyectoTAW.service.ProductoService;
+import proyectoTAW.service.SubastaService;
 import proyectoTAW.service.UsuarioService;
 
 /**
@@ -28,8 +30,8 @@ import proyectoTAW.service.UsuarioService;
 @WebServlet(name = "FiltroPaginaPrincipalServlet", urlPatterns = {"/FiltroPaginaPrincipalServlet"})
 public class FiltroPaginaPrincipalServlet extends HttpServlet {
   @EJB CategoriaService cs;
-    @EJB ProductoService ps;
     @EJB UsuarioService us;
+    @EJB SubastaService ss;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -61,17 +63,17 @@ public class FiltroPaginaPrincipalServlet extends HttpServlet {
       String id = request.getParameter("id");
       
       UsuarioDTO user = this.us.find(Integer.parseInt(id)); 
-      List <ProductoDTO> productos = this.ps.productosSubastaActiva(titulo,categoria);
+      List <SubastaDTO> subastas = this.ss.SubastaActiva(titulo,categoria);
 
       
       //FILTROS ####################################         
         
         if (filtro.equals("favoritos")){
-           productos = this.ps.productosFavoritos(new Integer (id),titulo,categoria);
+           subastas = this.ss.SubastaProductosFavoritos(new Integer (id),titulo,categoria);
            listaTipo = "PRODUCTOS DE SUBASTAS EN FAVORITO " ;
            fav=true;
        } else if (filtro.equals("comprados")){
-           productos = this.ps.productosComprados(new Integer (id),titulo,categoria);
+           subastas = this.ss.SubastaProductosComprados(new Integer (id),titulo,categoria);
            listaTipo = "PRODUCTOS YA COMPRADOS " + categoria; 
            comp=true;
        }
@@ -85,7 +87,7 @@ public class FiltroPaginaPrincipalServlet extends HttpServlet {
       request.setAttribute("fav",fav);
       request.setAttribute("comp",comp);      
       
-      request.setAttribute("productos",productos);
+      request.setAttribute("subastas",subastas);
       request.getRequestDispatcher("/WEB-INF/jsp/paginaPrincipal.jsp").forward(request,response);
        
     }

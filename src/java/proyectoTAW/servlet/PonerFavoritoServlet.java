@@ -42,7 +42,7 @@ public class PonerFavoritoServlet extends HttpServlet {
         String idProducto = request.getParameter("idProducto");
         String idUsuario = request.getParameter("idUsuario");
                
-        this.us.insertarProducto(idUsuario,idProducto);
+        this.us.insertarProducto(new Integer(idUsuario), new Integer(idProducto));
        
        
         

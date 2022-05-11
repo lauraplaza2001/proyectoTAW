@@ -85,7 +85,7 @@ public class UsuarioService {
         return this.uFacade.find(id).toDTO();
     }
 
-    public void insertarProducto(String idUsuario, String idProducto) {
+    public void insertarProducto(int idUsuario, int idProducto) {
        Producto producto = this.pFacade.find(idProducto);
        Usuario usuario = this.uFacade.find(idProducto);
        
@@ -95,8 +95,8 @@ public class UsuarioService {
        this.uFacade.edit(usuario);
        this.pFacade.edit(producto);
     }
-    public void eliminarProducto(String idUsuario, String idProducto) {
-       Producto producto = this.pFacade.find(idProducto);
+    public void eliminarProducto(int idUsuario, int idProducto) {
+       Producto producto = this.pFacade.find( idProducto);
        Usuario usuario = this.uFacade.find(idProducto);
        
        usuario.getProductoList().remove(producto);

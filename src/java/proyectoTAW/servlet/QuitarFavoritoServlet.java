@@ -37,7 +37,7 @@ public class QuitarFavoritoServlet extends HttpServlet {
         String idProducto = request.getParameter("idProducto");
         String idUsuario = request.getParameter("idUsuario");
         
-       this.us.eliminarProducto(idUsuario, idProducto);
+       this.us.eliminarProducto(new Integer(idUsuario), new Integer(idProducto));
         
         
         response.sendRedirect(request.getContextPath() + "/PaginaPrincpalServlet");  
