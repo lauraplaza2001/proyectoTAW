@@ -68,7 +68,9 @@ public class UsuarioService {
     public void remove(int id) {
         this.uFacade.remove((this.uFacade.find(id)));
     }
-
+    public void edit(int id){
+        this.uFacade.edit((this.uFacade).find(id));
+    }
     public List<UsuarioDTO> getCategoriasLike(String like, Integer filtro) {
         List<UsuarioDTO> usuarios;
 

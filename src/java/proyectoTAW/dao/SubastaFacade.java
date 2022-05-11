@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import proyectoTAW.dto.ProductoDTO;
 import proyectoTAW.entity.Producto;
 import proyectoTAW.entity.Subasta;
 
@@ -59,8 +60,42 @@ public class SubastaFacade extends AbstractFacade<Subasta> {
                 
         return q.getResultList();
     }
+/// CHRIS
+    
+    public List<Subasta> findSubastaActivaFiltro(String titulo, String categoria) {
+         
+        Query q;
+                                                                                                          //OJO SI NO ESTÁ EN NINGUNA CATEGORÍA, EL PRODUCTO NO APARECERÁ
+                                                                                                          /*Esto se debe al mapeado de las clases*/
+       q = this.getEntityManager().createQuery("SELECT DISTINCT s FROM Subasta s JOIN s.producto p LEFT JOIN p.categoriaList c WHERE s.fechaCierre >= :today AND p.titulo LIKE :busqueda and c.nombre LIKE :categoria",Producto.class);
+       q.setParameter("today",new Date());
+       q.setParameter("busqueda","%" + titulo +"%");
+       q.setParameter("categoria","%" + categoria +"%");
+       
+      
+       return q.getResultList();
+    }
+
+    public List<Subasta> findSubastaWithFavouriteProductList(int idUsuario, String titulo, String categoria) {
+         Query q;
+       
+                                                                                                    //OJO SI NO ESTÁ EN NINGUNA CATEGORÍA, EL PRODUCTO NO APARECERÁ
+                                                                                                    /*Esto se debe al mapeado de las clases*/
+      q = this.getEntityManager().createQuery("SELECT DISTINCT s FROM  Subasta s JOIN s.producto p LEFT JOIN p.categoriaList c  JOIN p.usuarioList u  WHERE u.idUsuario =:idUser AND s.fechaCierre >= :today AND p.titulo LIKE :busqueda and c.nombre LIKE :categoria",Producto.class);
+       
+       q.setParameter("today",new Date());
+       q.setParameter("idUser",idUsuario);
+       q.setParameter("busqueda","%" + titulo +"%");
+       q.setParameter("categoria","%" + categoria +"%");
+       
+       return q.getResultList(); 
+    }
+
+    public List<Subasta> findSubastaWithProductsComprados(int id, String titulo, String categoria) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
    
 
-    
-    
+
 }
