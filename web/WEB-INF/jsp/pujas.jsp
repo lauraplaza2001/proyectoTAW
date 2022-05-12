@@ -32,11 +32,21 @@
                     </a>
 
                     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                        <li><a href="<%= request.getContextPath()%>/NuevoProductoServlet?id=1" class="nav-link px-2 link-secondary">Página Principal</a></li>
-                        <li><a href="#" class="nav-link px-2 link-dark">Inventario</a></li>
+                       <li><a href="<%= request.getContextPath()%>/PaginaPrincipalServlet" class="nav-link px-2 link-secondary">Página Principal</a></li>
+
+                        <%  
+                            Usuario u = (Usuario)session.getAttribute("usuario");
+                            if(u.getTipoUsuario().getTipoUsuario().toString().equals("Administrador")){
+                          %>
                         <li><a href="<%= request.getContextPath()%>/ListaUsuariosServlet?filtro=1" class="nav-link px-2 link-dark">Clientes</a></li>
-                        <li><a href="<%= request.getContextPath()%>/ListaProductosServlet" class="nav-link px-2 link-primary">Productos</a></li>
+                        <li><a href="<%= request.getContextPath()%>/ListaProductosServlet" class="nav-link px-2 link-dark">Productos</a></li>
                         <li><a href="<%= request.getContextPath()%>/EditorCategoriasServlet" class="nav-link px-2 link-dark">Categorías</a></li>
+                        
+                        
+                        <% } %>
+                        
+                        <li><a href="<%= request.getContextPath()%>/NuevoProductoServlet" class="nav-link px-2 link-primary">Mis productos</a></li>
+
                     </ul>
 
                     <div class="dropdown text-end">

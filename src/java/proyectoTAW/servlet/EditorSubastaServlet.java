@@ -16,8 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import proyectoTAW.dao.CategoriaFacade;
 import proyectoTAW.dao.ProductoFacade;
+import proyectoTAW.dao.SubastaFacade;
 import proyectoTAW.entity.Categoria;
 import proyectoTAW.entity.Producto;
+import proyectoTAW.entity.Subasta;
 
 /**
  *
@@ -27,6 +29,7 @@ import proyectoTAW.entity.Producto;
 public class EditorSubastaServlet extends HttpServlet {
     @EJB CategoriaFacade  cFacade;
     @EJB ProductoFacade pFacade;
+    @EJB SubastaFacade sFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,15 +42,16 @@ public class EditorSubastaServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String idUser = (String) request.getParameter("idUser");
-        String id = (String) request.getParameter("id");
+        String idProducto = (String) request.getParameter("id");
         
-        Producto prod = this.pFacade.find(Integer.parseInt(id));
+        Producto prod = this.pFacade.find(Integer.parseInt(idProducto));
         List<Categoria> categorias = this.cFacade.findAll();
+        Subasta s = this.sFacade.findSubastaActiva(prod);
  
         request.setAttribute("producto", prod); 
         request.setAttribute("categorias", categorias);
-        request.setAttribute("user", idUser);
-        
+        request.setAttribute("idUser", idUser);
+        request.setAttribute("subasta", s);
        
         request.getRequestDispatcher("/WEB-INF/jsp/editorProductoSubasta.jsp").forward(request, response);
     }

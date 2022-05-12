@@ -59,7 +59,7 @@ public class iniciarSesionServlet extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + "/PaginaPrincipalServlet");
                     break;
                 default:
-                    response.sendRedirect(request.getContextPath() + "/PaginaPrincipalServlet");
+                    response.sendRedirect(request.getContextPath() + "/NuevoProductoServlet");
                     break;
             }               
         }   

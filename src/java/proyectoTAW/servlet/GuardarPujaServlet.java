@@ -76,11 +76,11 @@ public class GuardarPujaServlet extends HttpServlet {
         request.setAttribute("subasta",subasta);
         request.setAttribute("producto", producto);
        // request.setAttribute("idUsuario", request.getParameter("idUsuario"));
-        request.setAttribute("idUsuario", "1");
+      //  request.setAttribute("idUsuario", "1"); NO LO NECESITO PORQUE EN PUJAS.JSP YA TENGO 
         
         
         request.setAttribute("error", strError);
-    request.getRequestDispatcher("/WEB-INF/jsp/pujas.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/jsp/pujas.jsp").forward(request, response);
        
         
     }

@@ -4,6 +4,8 @@
     Author     : amigo
 --%>
 
+<%@page import="proyectoTAW.entity.Usuario"%>
+<%@page import="proyectoTAW.entity.Subasta"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <%@page import="proyectoTAW.entity.Categoria"%>
@@ -24,13 +26,15 @@
     <body class="bg-light">
 
         <%
-
+            Usuario usuario =  (Usuario) session.getAttribute("usuario");
             Producto producto = (Producto) request.getAttribute("producto");
             List<Categoria> categorias = (List) request.getAttribute("categorias");
-            Date fechaDate = (Date)  request.getAttribute("fecha");
+            Subasta subasta = (Subasta) request.getAttribute("subasta");
+           
+            
             
              SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-             String fecha = formato.format(fechaDate);
+             String fecha = formato.format(subasta.getFechaCierre());
           //   String fecha = "2022-05-05";
             
             
@@ -47,7 +51,8 @@
                 </div>
                 <div class="col-md-7 col-lg-8">
                     <form class="needs-validation" novalidate action="${pageContext.request.contextPath}/GuardarProductoSubastaServlet">
-                          <input type="hidden" name="idUser" id="idUser" value="1" />
+                          <input type="hidden" name="idUser" id="idUser" value="<%=usuario.getIdUsuario()%>" />
+                          <input type="hidden" name="subastaId" value="<%= subasta.getIdSubasta()%>" />
                         <div class="row g-3">
                             <div class="col-sm-12">
                                 <label for="name" class="form-label">Titulo del Producto</label>
@@ -88,7 +93,7 @@
                             </div>    
                               <div class="col-md-8">
                                 <label for="fecha" class="form-label">Fecha de cierre de subasta</label>
-                                <input type="date" id="start" name="fecha" value="<%=fecha%>" min="2022-05-01"  required> </input>
+                                <input type="date" id="start" name="fecha" value="<%=fecha%>" min="2022-05-05"  required> </input>
                                 <div class="invalid-feedback">
                                     Fecha de cierre de subasta obligatorio
                                 </div>

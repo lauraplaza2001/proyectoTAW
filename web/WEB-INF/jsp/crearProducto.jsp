@@ -4,6 +4,7 @@
     Author     : amigo
 --%>
 
+<%@page import="java.util.Date"%>
 <%@page import="proyectoTAW.entity.Usuario"%>
 <%@page import="proyectoTAW.entity.Categoria"%>
 <%@page import="proyectoTAW.entity.Categoria"%>
@@ -84,7 +85,7 @@
                             
                             <div class="col-md-8">
                                 <label for="fecha" class="form-label">Fecha de cierre de subasta</label>
-                                <input type="date" name="fecha" id="fecha" value ="" min="01/01/2022" required> </input>
+                                <input type="date" name="fecha" id="fecha" value ="" min="2001-01-01" required> </input>
                              
                                 <div class="invalid-feedback">
                                     Fecha de cierre de subasta obligatorio
@@ -97,7 +98,7 @@
                                 %>
 
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" name="categorias" id="categorias" type="checkbox" value="<%= c.getIdCategoria()%>" >
+                                    <input class="form-check-input" name="categorias" id="categorias" type="checkbox" value="<%= c.getIdCategoria()%>"  >
                                     <label class="form-check-label" for="<%= c.getIdCategoria()%>">
                                         <%= c.getNombre()%>
                                     </label>
