@@ -18,7 +18,7 @@ import proyectoTAW.entity.Categoria;
 
 /**
  *
- * @author Ferni
+ * @author Agustín
  */
 @WebServlet(name = "ListasCompradoresServlet", urlPatterns = {"/ListasCompradoresServlet"})
 public class ListasCategoriasServlet extends HttpServlet {

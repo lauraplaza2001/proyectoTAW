@@ -1,7 +1,7 @@
 <%-- 
     Document   : inicioSesion
     Created on : 10-abr-2022, 20:28:57
-    Author     : chris B
+    Author     : Agustín
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

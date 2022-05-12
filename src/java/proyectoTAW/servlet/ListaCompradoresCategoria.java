@@ -25,7 +25,7 @@ import proyectoTAW.service.UsuarioService;
 
 /**
  *
- * @author agujr
+ * @author Agustín
  */
 @WebServlet(name = "ListaCompradoresCategoria", urlPatterns = {"/ListaCompradoresCategoria"})
 public class ListaCompradoresCategoria extends HttpServlet {
