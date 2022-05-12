@@ -1,7 +1,7 @@
 <%-- 
     Document   : listasCompradores
     Created on : 25 abr 2022, 11:31:57
-    Author     : Ferni
+    Author     : Agustín
 --%>
 
 <%@page import="proyectoTAW.entity.Categoria"%>
@@ -29,7 +29,7 @@
 
                     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                         <li><a href="#" class="nav-link px-2 link-secondary">Página Principal</a></li>
-                        <li><a href="<%= request.getContextPath()%>/ListasCompradoresServlet" class="nav-link px-2 link-dark">Listas de Compradores</a></li>
+                        <li><a href="<%= request.getContextPath()%>/ListasCategoriasServlet" class="nav-link px-2 link-dark">Listas de Categorias</a></li>
                     </ul>
 
                     <div class="dropdown text-end">
@@ -40,7 +40,7 @@
                             <li><a class="dropdown-item" href="#">Configuración</a></li>
                             <li><a class="dropdown-item" href="#">Perfil</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li>
+                            <li><a class="dropdown-item" href="<%= request.getContextPath()%>/CerrarSesionServlet"">Cerrar Sesión</a></li>
                         </ul>
                     </div>
                 </div>

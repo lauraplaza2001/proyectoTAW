@@ -19,7 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "QuitarCompradoServlet", urlPatterns = {"/QuitarCompradoServlet"})
 public class QuitarCompradoServlet extends HttpServlet {
-
+    
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,6 +34,7 @@ public class QuitarCompradoServlet extends HttpServlet {
             throws ServletException, IOException {
         String idProducto = request.getParameter("idProducto");
         String idUsuario = request.getParameter("idUsuario");
+        
         
         //POR HACER
         

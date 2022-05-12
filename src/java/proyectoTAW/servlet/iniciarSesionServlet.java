@@ -19,7 +19,7 @@ import proyectoTAW.entity.Usuario;
 
 /**
  *
- * @author 34636
+ * @author Agustín
  */
 @WebServlet(name = "iniciarSesionServlet", urlPatterns = {"/iniciarSesionServlet"})
 public class iniciarSesionServlet extends HttpServlet {
@@ -51,12 +51,12 @@ public class iniciarSesionServlet extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("usuario", usuario);
             //session.setAttribute("tipoUsuario", usuario.getTipoUsuario());
-            switch(usuario.getTipoUsuario().toString()){
+            switch(usuario.getTipoUsuario().getTipoUsuario()){
                 case "Administrador":
                     response.sendRedirect(request.getContextPath() + "/ListaProductosServlet");
                     break;
                 case "Marketing":
-                    response.sendRedirect(request.getContextPath() + "/PaginaPrincipalServlet");
+                    response.sendRedirect(request.getContextPath() + "/ListasCategoriasServlet");
                     break;
                 default:
                     response.sendRedirect(request.getContextPath() + "/NuevoProductoServlet");

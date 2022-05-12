@@ -24,7 +24,7 @@ public class ProductoService {
 
     @EJB ProductoFacade pFacade;
     @EJB CategoriaFacade cFacade;
-    
+ 
 
     public List<ProductoDTO> toDTOList(List<Producto> lista) {
 
@@ -78,20 +78,10 @@ public class ProductoService {
         this.pFacade.edit(producto);
         
     }
-    public List <ProductoDTO> productosSubastaActiva(String titulo){
-        List <Producto> result = this.pFacade.findProductsSubastaActiva(titulo);
-        return this.toDTOList(result);
-    }
-    public List <ProductoDTO> productosFavoritos (int id, String titulo){
-         List <Producto> result = this.pFacade.findFavouriteProductList(id, titulo);
-        return this.toDTOList(result);
-    }
-     public List <ProductoDTO> productosComprados (int id, String titulo){
-         List <Producto> result = this.pFacade.findProductsComprados(id, titulo);
-        return this.toDTOList(result);
-    }
-    
-    
-    
-    
+  
+     public Boolean isProductFavourite(int idProducto, int idUsuario){
+        return this.pFacade.isProductFavourite(idUsuario,idProducto);
+     }
+  
+     
 }

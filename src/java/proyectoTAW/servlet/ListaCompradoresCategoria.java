@@ -6,15 +6,26 @@ package proyectoTAW.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.Integer.parseInt;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import proyectoTAW.dto.CategoriaDTO;
+import proyectoTAW.dto.SubastaDTO;
+import proyectoTAW.dto.UsuarioDTO;
+import proyectoTAW.entity.Categoria;
+import proyectoTAW.entity.Usuario;
+import proyectoTAW.service.CategoriaService;
+import proyectoTAW.service.SubastaService;
+import proyectoTAW.service.UsuarioService;
 
 /**
  *
- * @author agujr
+ * @author Agustín
  */
 @WebServlet(name = "ListaCompradoresCategoria", urlPatterns = {"/ListaCompradoresCategoria"})
 public class ListaCompradoresCategoria extends HttpServlet {
@@ -28,21 +39,18 @@ public class ListaCompradoresCategoria extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    @EJB CategoriaService categoriaService;
+    @EJB UsuarioService usuarioService;
+    @EJB SubastaService subastaService;
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ListaCompradoresCategoria</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ListaCompradoresCategoria at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        
+        String id = request.getParameter("id");
+        CategoriaDTO categoria = this.categoriaService.find(parseInt(id));
+        
+        //List<SubastaDTO> subastasDeLaCategoria = this.subastaService.
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
