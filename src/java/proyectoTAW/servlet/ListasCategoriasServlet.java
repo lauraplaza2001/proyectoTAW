@@ -20,7 +20,7 @@ import proyectoTAW.entity.Categoria;
  *
  * @author Agustín
  */
-@WebServlet(name = "ListasCompradoresServlet", urlPatterns = {"/ListasCompradoresServlet"})
+@WebServlet(name = "ListasCategoriasServlet", urlPatterns = {"/ListasCategoriasServlet"})
 public class ListasCategoriasServlet extends HttpServlet {
     
     @EJB CategoriaFacade cFacade;

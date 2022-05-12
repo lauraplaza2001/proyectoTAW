@@ -26,7 +26,7 @@
                     </a>
 
                     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                        <li><a href="registroUsuarios.jsp" class="nav-link px-2 link-secondary">No tengo cuenta</a></li>
+                        <li><a href="<%= request.getContextPath()%>/NuevoUsuarioServlet" class="nav-link px-2 link-secondary">No tengo cuenta</a></li>
                         
                     </ul>
 
@@ -51,7 +51,7 @@
                 
                
             </span>
-             <div class="col-12">
+             <div class="col-md-6">
                     <button type="submit" class="btn btn-primary">Iniciar Sesión!</button>
                  </div>
         </form>
