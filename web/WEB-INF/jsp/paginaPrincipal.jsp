@@ -26,12 +26,12 @@
         List<CategoriaDTO> categorias = (List)request.getAttribute("categorias");
         
         
-       /*Usuario user = (Usuario)session.getAttribute("usuario");
+       Usuario user = (Usuario)session.getAttribute("usuario");
         if (user == null) {
             response.sendRedirect(request.getContextPath());
-        }*/
+        }
         
-         UsuarioDTO user = (UsuarioDTO)request.getAttribute("usuario");
+        // UsuarioDTO user = (UsuarioDTO)request.getAttribute("usuario");
       %>
       
     <body>
@@ -65,7 +65,7 @@
                             <li><a class="dropdown-item" href="#">Configuración</a></li>
                             <li><a class="dropdown-item" href="#">Perfil</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li> <%--servlet log out --%>
+                            <li><a class="dropdown-item" href="<%= request.getContextPath()%>/CerrarSesionServlet">Cerrar Sesión</a></li> <%--servlet log out --%>
                         </ul>
                     </div>
                 </div>

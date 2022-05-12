@@ -6,69 +6,37 @@
 package proyectoTAW.servlet;
 
 import java.io.IOException;
-import java.util.List;
-import javax.ejb.EJB;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import proyectoTAW.dto.CategoriaDTO;
-import proyectoTAW.dto.ProductoDTO;
-import proyectoTAW.dto.SubastaDTO;
-import proyectoTAW.dto.UsuarioDTO;
-import proyectoTAW.service.CategoriaService;
-import proyectoTAW.service.ProductoService;
-import proyectoTAW.service.SubastaService;
-import proyectoTAW.service.UsuarioService;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author 34636
  */
-@WebServlet(name = "PaginaPrincipalServlet", urlPatterns = {"/PaginaPrincipalServlet"})
-public class PaginaPrincipalServlet extends ProjectoTAWServlet {
-   
-    @EJB CategoriaService cs;
-    @EJB SubastaService ss;
-    @EJB UsuarioService us;
+@WebServlet(name = "CerrarSesionServlet", urlPatterns = {"/CerrarSesionServlet"})
+public class CerrarSesionServlet extends HttpServlet {
 
     /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
      *
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       if (super.comprobarSession(request,response)){
-            Boolean fav=false,comp=false;
-            String listaTipo = "PRODUCTOS EN SUBASTA ";
-            List <CategoriaDTO> categorias = this.cs.findAll();
-
-
-
-            //String id = request.getParameter("id");
-
-            //UsuarioDTO user = this.us.find(Integer.parseInt(id)); 
-            List <SubastaDTO> subastas = this.ss.SubastaActiva("","");
-
-
-
-
-            //request.setAttribute("usuario",user); //Quitar después
-            request.setAttribute("categorias",categorias);
-
-            request.setAttribute("listaTipo",listaTipo);
-            request.setAttribute("fav",fav);
-            request.setAttribute("comp",comp);      
-
-            request.setAttribute("subastas",subastas);
-            request.getRequestDispatcher("/WEB-INF/jsp/paginaPrincipal.jsp").forward(request,response);
-         }
         
-     
-
+       HttpSession session = request.getSession();
+       session.invalidate();
+       
+       response.sendRedirect("/proyectoTAW/inicioSesion.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

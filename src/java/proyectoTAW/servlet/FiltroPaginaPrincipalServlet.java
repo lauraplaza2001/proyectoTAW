@@ -28,7 +28,7 @@ import proyectoTAW.service.UsuarioService;
  * @author 34636
  */
 @WebServlet(name = "FiltroPaginaPrincipalServlet", urlPatterns = {"/FiltroPaginaPrincipalServlet"})
-public class FiltroPaginaPrincipalServlet extends HttpServlet {
+public class FiltroPaginaPrincipalServlet extends ProjectoTAWServlet {
   @EJB CategoriaService cs;
     @EJB UsuarioService us;
     @EJB SubastaService ss;
@@ -44,10 +44,8 @@ public class FiltroPaginaPrincipalServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //if (comprobarSession()){
-        
-             
-      //Datos ###############################
+      if (super.comprobarSession(request,response)){
+          //Datos ###############################
       Boolean fav=false,comp=false;
       String listaTipo = "PRODUCTOS EN SUBASTA ";
       List <CategoriaDTO> categorias = this.cs.findAll();
@@ -62,7 +60,7 @@ public class FiltroPaginaPrincipalServlet extends HttpServlet {
       
       String id = request.getParameter("id");
       
-      UsuarioDTO user = this.us.find(Integer.parseInt(id)); 
+      //UsuarioDTO user = this.us.find(Integer.parseInt(id)); 
       List <SubastaDTO> subastas = this.ss.SubastaActiva(titulo,categoria);
 
       
@@ -80,7 +78,7 @@ public class FiltroPaginaPrincipalServlet extends HttpServlet {
         if (!categoria.equals("") ) listaTipo+= " DE CATEGORIA '"+ categoria.toUpperCase() +"'";
         if(!titulo.equals(""))listaTipo+= " QUE CONTENGAN  '"  + titulo.toUpperCase() +"' ";
       
-      request.setAttribute("usuario",user); //Quitar después
+      //request.setAttribute("usuario",user); //Quitar después
       request.setAttribute("categorias",categorias);
       
       request.setAttribute("listaTipo",listaTipo);
@@ -89,6 +87,10 @@ public class FiltroPaginaPrincipalServlet extends HttpServlet {
       
       request.setAttribute("subastas",subastas);
       request.getRequestDispatcher("/WEB-INF/jsp/paginaPrincipal.jsp").forward(request,response);
+      }
+        
+             
+      
        
     }
 
