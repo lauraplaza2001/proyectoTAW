@@ -59,8 +59,21 @@ public class SubastaFacade extends AbstractFacade<Subasta> {
                 
         return q.getResultList();
     }
-   
-
     
+     public Subasta findSubastaActiva(Producto p) {
+       Query q;
+       
+       q = this.getEntityManager().createQuery("SELECT s FROM Subasta s JOIN Producto p ON s.producto.idProducto=p.idProducto WHERE s.fechaCierre >= :today and p.idProducto= :productoId");
+       q.setParameter("today",new Date());
+       q.setParameter("productoId", p.getIdProducto());
+       
+    //   q2 = this.getEntityManager().createQuery("SELECT s FROM Subasta s WHERE s.idSubasta= :id");
+      // q2.setParameter("id", p.getIdProducto());
+   
+   List<Subasta> subastas = q.getResultList();
+   if(subastas==null || subastas.isEmpty()) return null;
+      // q2.setParameter("today",new Date());
+       return subastas.get(0);
+    }
     
 }

@@ -84,7 +84,7 @@
                             
                             <div class="col-md-8">
                                 <label for="fecha" class="form-label">Fecha de cierre de subasta</label>
-                                <input type="date" id="fecha" value ="" min="2022-01-01" required> </input>
+                                <input type="date" name="fecha" id="fecha" value ="" min="01/01/2022" required> </input>
                              
                                 <div class="invalid-feedback">
                                     Fecha de cierre de subasta obligatorio

@@ -7,6 +7,7 @@ package proyectoTAW.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,10 +42,9 @@ public class PujaCompradorServlet extends HttpServlet {
         String idProducto = (String) request.getParameter("idProducto");
         
         Producto producto = pFacade.find(Integer.parseInt(idProducto));
-      // Producto producto = pFacade.find(Integer.parseInt(idProducto));
-       Subasta subasta = sFacade.find(2);
-       
-      // Subasta subastaActiva = sFacade.findSubastaActiva(Producto p);
+        
+       Subasta subasta = sFacade.find(2);  
+      // Subasta subasta = sFacade.findSubastaActiva(producto);
        
         request.setAttribute("subasta",subasta);
         request.setAttribute("producto", producto);

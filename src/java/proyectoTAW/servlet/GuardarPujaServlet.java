@@ -43,6 +43,7 @@ public class GuardarPujaServlet extends HttpServlet {
         
         int idSubasta = Integer.parseInt(request.getParameter("idSubasta"));
         int idMayorPostor=Integer.parseInt(request.getParameter("mayorPostor"));
+        String precioPuja = request.getParameter("precioPuja");
      
         String strError;
         Usuario u = this.uFacade.find(idMayorPostor);
@@ -50,7 +51,7 @@ public class GuardarPujaServlet extends HttpServlet {
         
         
         
-        String precioPuja = request.getParameter("precioPuja");
+   
         if(precioPuja!=null && !precioPuja.isEmpty()){
              double apuesta = Double.parseDouble(precioPuja);
              if( s.getPredioActual() < apuesta){ //

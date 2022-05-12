@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="proyectoTAW.entity.Producto"%>
 <%@page import="proyectoTAW.entity.Usuario"%>
 <%@page import="proyectoTAW.dto.ProductoDTO"%>
 <%@page import="proyectoTAW.dto.UsuarioDTO"%>

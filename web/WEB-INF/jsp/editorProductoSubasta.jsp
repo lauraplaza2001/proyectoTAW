@@ -4,6 +4,7 @@
     Author     : amigo
 --%>
 
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <%@page import="proyectoTAW.entity.Categoria"%>
 <%@page import="java.util.List"%>
@@ -26,7 +27,12 @@
 
             Producto producto = (Producto) request.getAttribute("producto");
             List<Categoria> categorias = (List) request.getAttribute("categorias");
-            String fecha = "2022-05-05";
+            Date fechaDate = (Date)  request.getAttribute("fecha");
+            
+             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+             String fecha = formato.format(fechaDate);
+          //   String fecha = "2022-05-05";
+            
             
 
         %>
@@ -82,7 +88,7 @@
                             </div>    
                               <div class="col-md-8">
                                 <label for="fecha" class="form-label">Fecha de cierre de subasta</label>
-                                <input type="date" id="start" name="trip-start" value="<%=fecha%>" min="2022-05-01" max="2040-12-31" required> </input>
+                                <input type="date" id="start" name="fecha" value="<%=fecha%>" min="2022-05-01"  required> </input>
                                 <div class="invalid-feedback">
                                     Fecha de cierre de subasta obligatorio
                                 </div>

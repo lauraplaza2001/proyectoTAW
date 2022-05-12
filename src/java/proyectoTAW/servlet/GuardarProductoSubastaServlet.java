@@ -60,10 +60,13 @@ public class GuardarProductoSubastaServlet extends HttpServlet {
             double precio = Double.parseDouble(request.getParameter("price"));
             String idProducto= (String) request.getParameter("id");
             Usuario user = this.uFacade.find(id);
-           //String strFecha = (String) request.getParameter("fecha");
-            String strFecha = "2022-12-12";
+            
+            
+           String strFecha = (String) request.getParameter("fecha");
+            //String strFecha = "2022-12-12";
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
             Date fecha;
+           
             fecha = formato.parse(strFecha);
             
             
@@ -120,12 +123,10 @@ public class GuardarProductoSubastaServlet extends HttpServlet {
                 producto.setCategoriaList(categoriasFinales);
                
       //NO VOY A PERMITIR QUE SE MODIFIQUE LA FECHA DE CIERRE
-              //  Subasta s = sFacade.findSubastasDelProducto(producto.getIdProducto()).get(0);
+                Subasta s = sFacade.findSubastasDelProducto(producto.getIdProducto()).get(0);
                 
-                 // s.setPredioActual(precio);
-               //   s.setFechaCierre(fecha);
-                
-                
+                  s.setPredioActual(precio);
+                  s.setFechaCierre(fecha);
                 this.pFacade.edit(producto);
               //   this.sFacade.edit(s);
             } 

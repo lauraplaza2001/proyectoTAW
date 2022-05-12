@@ -4,6 +4,8 @@
     Author     : amigo
 --%>
 
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
 <%@page import="proyectoTAW.entity.Usuario"%>
 <%@page import="proyectoTAW.entity.Subasta"%>
 <%@page import="proyectoTAW.entity.Producto"%>
@@ -61,6 +63,11 @@
                 int idUsuario = user.getIdUsuario();
                 String error = (String) request.getAttribute("error");
                 if (error == null) error = "";
+                Date fecha = s.getFechaCierre();
+                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+                String stringFecha = formato.format(fecha);
+                SimpleDateFormat formatoHora= new SimpleDateFormat("HH:mm");
+                String stringHora = formatoHora.format(fecha);
                 
      
             %>
@@ -81,7 +88,7 @@
                        
                              <li class="list-group-item"><%= producto.getDescripcion() %></li>
                              <ul class="p-3"> 
-                             <li class="list-group-item"> Fecha de cierre de subasta : <%= s.getFechaCierre() %></li>
+                             <li class="list-group-item"> Fecha de cierre de subasta : <%= stringFecha + " a las  " + stringHora %></li>
                          
                              <li class="list-group-item"> Puja mayor : <%= s.getPredioActual() %> € </li>
                               <ul class="p-3"> 
