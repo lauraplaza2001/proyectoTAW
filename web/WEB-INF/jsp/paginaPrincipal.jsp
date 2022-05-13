@@ -5,7 +5,6 @@
 --%>
 
 
-<%@page import="proyectoTAW.entity.Producto"%>
 <%@page import="proyectoTAW.dto.SubastaDTO"%>
 <%@page import="proyectoTAW.entity.Usuario"%>
 <%@page import="proyectoTAW.dto.ProductoDTO"%>
@@ -64,7 +63,7 @@
                         </a>
                         <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
                             <li><a class="dropdown-item" href="#">Configuración</a></li>
-                            <li><a class="dropdown-item" href="#">Perfil</a></li>
+                            <li><a class="dropdown-item" href="">Perfil</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="<%= request.getContextPath()%>/CerrarSesionServlet">Cerrar Sesión</a></li> <%--servlet log out --%>
                         </ul>
@@ -138,14 +137,14 @@
                     
             %>
             <div class="col col-4 p-3">
-                <h3> Precio actual: <%= subasta.getPredioActual() %> $</h3>  
+                <h3> Precio actual: <%= subasta.getPredioActual() %> €</h3>  
                     <ul class="list-group list-group-vertical">
                         <li class="list-group-item"><%= subasta.getProducto().getTitulo()%></li>
                         <img  class="fluid" src="<%= subasta.getProducto().getFoto()%>"
                              <li class="p-2">
                              <a type="button" class="btn btn-danger" 
-                                 <%if (!fav && !comp){ %> href="${pageContext.request.contextPath}/PonerFavoritoServlet?idProducto=<%= subasta.getProducto().getIdProducto()%>&idUsuario=<%=user.getIdUsuario()%>">Poner a favoritos
-                                 <%}else if (fav && !comp){ %>  href="${pageContext.request.contextPath}/QuitarFavoritoServlet?idProducto=<%= subasta.getProducto().getIdProducto()%>&idUsuario=<%=user.getIdUsuario()%>">Quitar de favoritos
+                                 <%if (!fav && !comp){ %> href="<%= request.getContextPath()%>/PonerFavoritoServlet?idProducto=<%= subasta.getProducto().getIdProducto()%>&idUsuario=<%=user.getIdUsuario()%>">Poner a favoritos
+                                 <%}else if (fav && !comp){ %>  href="<%= request.getContextPath()%>/QuitarFavoritoServlet?idProducto=<%= subasta.getProducto().getIdProducto()%>&idUsuario=<%=user.getIdUsuario()%>">Quitar de favoritos
                                    
                                  <%}else{%>  hidden> <%}%>
                             
