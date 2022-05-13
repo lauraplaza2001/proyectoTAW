@@ -89,22 +89,37 @@ public class UsuarioService {
 
     public void insertarProducto(int idUsuario, int idProducto) {
        Producto producto = this.pFacade.find(idProducto);
-       Usuario usuario = this.uFacade.find(idProducto);
+       Usuario usuario = this.uFacade.find(idUsuario);
        
-       usuario.getProductoList().add(producto);
-       producto.getUsuarioList().add(usuario);
-       
-       this.uFacade.edit(usuario);
-       this.pFacade.edit(producto);
+       if (!this.pFacade.isProductFavourite(idUsuario, idProducto)){
+            List <Usuario> usuarios = producto.getUsuarioList();
+            List <Producto> productos = usuario.getProductoList();
+            
+            productos.add(producto);
+            usuarios.add(usuario);
+            
+            producto.setUsuarioList(usuarios);
+            usuario.setProductoList(productos);
+
+            this.uFacade.edit(usuario);
+            this.pFacade.edit(producto);
+       }
+      
     }
     public void eliminarProducto(int idUsuario, int idProducto) {
        Producto producto = this.pFacade.find( idProducto);
-       Usuario usuario = this.uFacade.find(idProducto);
+       Usuario usuario = this.uFacade.find(idUsuario);
        
-       usuario.getProductoList().remove(producto);
-       producto.getUsuarioList().remove(usuario);
-       
-       this.uFacade.edit(usuario);
-       this.pFacade.edit(producto);
+       if (this.pFacade.isProductFavourite(idUsuario, idProducto)){
+            List <Usuario> usuarios = producto.getUsuarioList();
+            List <Producto> productos = usuario.getProductoList();
+            
+            productos.remove(producto);
+            usuarios.remove(usuario);
+
+            this.uFacade.edit(usuario);
+            this.pFacade.edit(producto);
+       }
+      
     }
 }

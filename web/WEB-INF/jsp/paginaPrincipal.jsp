@@ -45,8 +45,9 @@
                         
                     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                         
-                        <li><a href="/proyectoTAW/PaginaPrincipalServlet?id=<%=user.getIdUsuario()%>" class="nav-link px-2 link-primary">Página Principal</a></li>
-                        <% if (user.getTipoUsuario().getTipoUsuario().equals("admin")){%>
+                        <li><a href="/proyectoTAW/PaginaPrincipalServlet" class="nav-link px-2 link-primary">Página Principal</a></li>
+                        <li><a href="#" class="nav-link px-2 link-dark">Crear Subasta</a></li>
+                        <% if (user.getTipoUsuario().getTipoUsuario().equals("Administrador")){%>
                             
                         
                         <li><a href="<%= request.getContextPath()%>/ListaUsuariosServlet?filtro=1" class="nav-link px-2 link-dark">Clientes</a></li> <%-- solo puede ir si es admin --%>

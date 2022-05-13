@@ -45,7 +45,8 @@ public class FiltroPaginaPrincipalServlet extends ProjectoTAWServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
       if (super.comprobarSession(request,response)){
-          //Datos ###############################
+          //DATOS 
+          //-----------------------------------------------------------------
       Boolean fav=false,comp=false;
       String listaTipo = "PRODUCTOS EN SUBASTA ";
       List <CategoriaDTO> categorias = this.cs.findAll();
@@ -60,11 +61,12 @@ public class FiltroPaginaPrincipalServlet extends ProjectoTAWServlet {
       
       String id = request.getParameter("id");
       
-      //UsuarioDTO user = this.us.find(Integer.parseInt(id)); 
+      
       List <SubastaDTO> subastas = this.ss.SubastaActiva(titulo,categoria);
 
       
-      //FILTROS ####################################         
+      //FILTROS
+      //-----------------------------------------------------------------
         
         if (filtro.equals("favoritos")){
            subastas = this.ss.SubastaProductosFavoritos(new Integer (id),titulo,categoria);
@@ -78,7 +80,7 @@ public class FiltroPaginaPrincipalServlet extends ProjectoTAWServlet {
         if (!categoria.equals("") ) listaTipo+= " DE CATEGORIA '"+ categoria.toUpperCase() +"'";
         if(!titulo.equals(""))listaTipo+= " QUE CONTENGAN  '"  + titulo.toUpperCase() +"' ";
       
-      //request.setAttribute("usuario",user); //Quitar después
+    //-----------------------------------------------------------------
       request.setAttribute("categorias",categorias);
       
       request.setAttribute("listaTipo",listaTipo);
