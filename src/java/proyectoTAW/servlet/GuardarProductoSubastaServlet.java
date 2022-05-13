@@ -60,12 +60,7 @@ public class GuardarProductoSubastaServlet extends HttpServlet {
             double precio = Double.parseDouble(request.getParameter("price"));
             String idProducto= (String) request.getParameter("id");
             Usuario user = this.uFacade.find(id);
-        //   
-            
-            
-            
-         
-           String strFecha = (String) request.getParameter("fecha");
+             String strFecha = (String) request.getParameter("fecha");
             //String strFecha = "2022-12-12";
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
             Date fecha = formato.parse(strFecha);
@@ -116,6 +111,8 @@ public class GuardarProductoSubastaServlet extends HttpServlet {
                 producto.setPrecioSalida(precio);
                 producto.setCategoriaList(categoriasFinales);
                 
+             
+                
             
                 
                 Subasta s = new Subasta();
@@ -130,13 +127,33 @@ public class GuardarProductoSubastaServlet extends HttpServlet {
                 this.sFacade.create(s);
                 
                 
+                
+                
+                
+                
+                for(Categoria c : categoriasFinales){
+                    List<Producto> p = new ArrayList<>();
+                    p = c.getProductoList();
+                    p.add(producto);
+                    c.setProductoList(p);
+                    this.cFacade.edit(c);
+                }
+              
+                
+            
+                
+                
+                
             }else { // si no es nulo, estamos editandolo
                 Producto producto = this.pFacade.find(Integer.parseInt(idProducto));
+                
+                List<Categoria> categoriasAntiguas = producto.getCategoriaList();
+                
                 
                 producto.setTitulo(title);
                 producto.setDescripcion(desc);
                 producto.setFoto(foto);
-                producto.setPrecioSalida(precio); // esto está mal porqie no se modifica el precio de salida
+                producto.setPrecioSalida(precio); 
                 producto.setCategoriaList(categoriasFinales);
                
       
@@ -151,6 +168,38 @@ public class GuardarProductoSubastaServlet extends HttpServlet {
                 this.pFacade.edit(producto);
                 this.sFacade.edit(subasta);
               
+                
+                
+                
+                
+                
+                
+                // si la categoria antes no estaba y ahroa sí, lo introducimos ene la lsita, sino , lo borramos
+           for(Categoria c : categoriasTotales){
+               if(!categoriasAntiguas.contains(c)  && categoriasFinales.contains(c)){
+                    List<Producto> p = new ArrayList<>();
+                    p = c.getProductoList();
+                    p.add(producto);
+                    c.setProductoList(p);
+                    this.cFacade.edit(c);
+                   
+                   
+               }else if (categoriasAntiguas.contains(c)  && !categoriasFinales.contains(c)){
+                     List<Producto> p = new ArrayList<>();
+                    p = c.getProductoList();
+                    p.remove(producto);
+                    c.setProductoList(p);
+                    this.cFacade.edit(c);
+               }
+               
+               
+               
+           }
+              
+                
+                
+                
+                
             } 
             
             

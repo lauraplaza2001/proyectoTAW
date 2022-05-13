@@ -103,7 +103,7 @@
                              <div class="col-md-12" name="categorias">
                                 <label for="categorias" class="form-label">Categorias</label></br>
                                 <%
-                                    for (Categoria c : categorias) {
+                                    for (Categoria c : categorias) { 
                                 %>
 
                                 <div class="form-check form-check-inline">
