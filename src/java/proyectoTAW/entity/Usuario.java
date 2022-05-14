@@ -273,6 +273,7 @@ public class Usuario implements Serializable {
     }
 
     public UsuarioDTO toDTO() {
+        
         UsuarioDTO u = new UsuarioDTO();
         u.setApellidos(this.getApellidos());
         u.setCiudad(this.getCiudad());

@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -42,6 +43,10 @@ import proyectoTAW.dto.ProductoDTO;
     , @NamedQuery(name = "Producto.findByFoto", query = "SELECT p FROM Producto p WHERE p.foto = :foto")
     , @NamedQuery(name = "Producto.findByPrecioSalida", query = "SELECT p FROM Producto p WHERE p.precioSalida = :precioSalida")})
 public class Producto implements Serializable {
+
+    @JoinColumn(name = "idComprador", referencedColumnName = "idUsuario")
+    @ManyToOne
+    private Usuario idComprador;
     
 
     @JoinTable(name = "productos_favoritos", joinColumns = {
@@ -195,7 +200,19 @@ public class Producto implements Serializable {
         pr.setPrecioSalida(this.getPrecioSalida());
         pr.setTitulo(this.getTitulo());
         pr.setCategoriaList(Categoria.toDTOList(this.getCategoriaList()));
+        if (this.getIdComprador() != null){
+            pr.setComprador(this.getIdComprador().toDTO());
+        }
+        
         
         return pr;
+    }
+
+    public Usuario getIdComprador() {
+        return idComprador;
+    }
+
+    public void setIdComprador(Usuario idComprador) {
+        this.idComprador = idComprador;
     }
 }

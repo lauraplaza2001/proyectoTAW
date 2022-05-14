@@ -20,6 +20,7 @@ public class ProductoDTO {
     private String descripcion;
     private String foto;
     private double precioSalida;
+    private UsuarioDTO comprador;
     private List<CategoriaDTO> categoriaList;
 
     public ProductoDTO() {
@@ -29,12 +30,13 @@ public class ProductoDTO {
         this.idProducto = idProducto;
     }
 
-    public ProductoDTO(Integer idProducto, String titulo, String descripcion, String foto, double precioSalida) {
+    public ProductoDTO(Integer idProducto, String titulo, String descripcion, String foto, double precioSalida, UsuarioDTO comprador) {
         this.idProducto = idProducto;
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.foto = foto;
         this.precioSalida = precioSalida;
+        this.comprador = comprador;
     }
 
     public Integer getIdProducto() {
@@ -75,6 +77,13 @@ public class ProductoDTO {
 
     public void setPrecioSalida(double precioSalida) {
         this.precioSalida = precioSalida;
+    }
+      public UsuarioDTO getComprador() {
+        return comprador;
+    }
+
+    public void setComprador(UsuarioDTO comprador) {
+        this.comprador = comprador;
     }
     
     public List<UsuarioDTO> getUsuarioList() {

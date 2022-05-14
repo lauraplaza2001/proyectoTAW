@@ -11,9 +11,11 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import proyectoTAW.dao.CategoriaFacade;
 import proyectoTAW.dao.ProductoFacade;
+import proyectoTAW.dao.UsuarioFacade;
 import proyectoTAW.dto.ProductoDTO;
 import proyectoTAW.entity.Categoria;
 import proyectoTAW.entity.Producto;
+import proyectoTAW.entity.Usuario;
 
 /**
  *
@@ -24,6 +26,7 @@ public class ProductoService {
 
     @EJB ProductoFacade pFacade;
     @EJB CategoriaFacade cFacade;
+    @EJB UsuarioFacade uFacade;
  
 
     public List<ProductoDTO> toDTOList(List<Producto> lista) {
@@ -82,6 +85,19 @@ public class ProductoService {
      public Boolean isProductFavourite(int idProducto, int idUsuario){
         return this.pFacade.isProductFavourite(idUsuario,idProducto);
      }
+
+    public void eliminarComprado(Integer idProducto) {
+       
+       Producto producto =  this.pFacade.find(idProducto);
+       producto.setIdComprador(null);
+       
+    }
+     public void añadirComprado(Integer idUsuario, Integer idProducto) {
+       Usuario usuario = this.uFacade.find(idUsuario);
+       Producto producto =  this.pFacade.find(idProducto);
+       producto.setIdComprador(usuario);
+       
+    }
   
      
 }

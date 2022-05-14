@@ -10,6 +10,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import proyectoTAW.dao.SubastaFacade;
+import proyectoTAW.dao.UsuarioFacade;
 import proyectoTAW.dto.ProductoDTO;
 import proyectoTAW.dto.SubastaDTO;
 import proyectoTAW.entity.Subasta;
@@ -23,6 +24,7 @@ public class SubastaService {
     
     
     @EJB SubastaFacade sFacade;
+    @EJB UsuarioFacade uFacade;
 
     
     public List<SubastaDTO> toDTOList(List<Subasta> lista){
@@ -54,7 +56,8 @@ public class SubastaService {
         return this.toDTOList(result);
     }
      public List <SubastaDTO> SubastaProductosComprados (int id, String titulo,String categoria){
-         List <Subasta> result = this.sFacade.findSubastaWithProductsComprados(id, titulo,categoria);
+         
+         List <Subasta> result = this.sFacade.findSubastaWithProductsComprados(this.uFacade.find(id), titulo,categoria);
         return this.toDTOList(result);
     }
 
