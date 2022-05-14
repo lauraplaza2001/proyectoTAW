@@ -15,7 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import proyectoTAW.dao.UsuarioFacade;
+import proyectoTAW.dto.UsuarioDTO;
 import proyectoTAW.entity.Usuario;
+import proyectoTAW.service.UsuarioService;
 
 /**
  *
@@ -24,7 +26,7 @@ import proyectoTAW.entity.Usuario;
 @WebServlet(name = "iniciarSesionServlet", urlPatterns = {"/iniciarSesionServlet"})
 public class iniciarSesionServlet extends HttpServlet {
     
-    @EJB UsuarioFacade usuarioFacade;
+    @EJB UsuarioService usuarioService;
             
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,7 +43,7 @@ public class iniciarSesionServlet extends HttpServlet {
        String username = (String) request.getParameter("userName");
        String psw = (String) request.getParameter("inputPassword");
        
-       Usuario usuario = this.usuarioFacade.comprobarUsuario(username,psw);
+       UsuarioDTO usuario = this.usuarioService.comprobarUsuario(username,psw);
        
        if (usuario == null){
          String strError = "El usuario o la clave son incorrectos";

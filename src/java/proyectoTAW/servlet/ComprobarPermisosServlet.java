@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author agujr
+ * @author Agustín
  */
 @WebServlet(name = "ComprobarPermisosServlet", urlPatterns = {"/ComprobarPermisosServlet"})
 public class ComprobarPermisosServlet extends HttpServlet {

@@ -6,6 +6,7 @@
 package proyectoTAW.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -43,6 +44,9 @@ import proyectoTAW.dto.UsuarioDTO;
     , @NamedQuery(name = "Usuario.findByCiudad", query = "SELECT u FROM Usuario u WHERE u.ciudad = :ciudad")
     , @NamedQuery(name = "Usuario.findByEdad", query = "SELECT u FROM Usuario u WHERE u.edad = :edad")})
 public class Usuario implements Serializable {
+
+    @ManyToMany(mappedBy = "usuarioList")
+    private List<Lista> listaList;
     
 
     @ManyToMany(mappedBy = "usuarioList")
@@ -282,5 +286,23 @@ public class Usuario implements Serializable {
         u.setTipoUsuario(this.getTipoUsuario().toDTO());
             
         return u;
+    }
+    
+    public static List<UsuarioDTO> toDTOList(List<Usuario> lista){
+        List<UsuarioDTO> result = new ArrayList<>();
+        for(Usuario c:lista){
+            result.add(c.toDTO());
+        }
+        
+        return result;
+    }
+
+    @XmlTransient
+    public List<Lista> getListaList() {
+        return listaList;
+    }
+
+    public void setListaList(List<Lista> listaList) {
+        this.listaList = listaList;
     }
 }

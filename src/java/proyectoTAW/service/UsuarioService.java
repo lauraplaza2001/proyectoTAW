@@ -122,4 +122,8 @@ public class UsuarioService {
        }
       
     }
+
+    public UsuarioDTO comprobarUsuario(String username, String psw) {
+        return this.uFacade.comprobarUsuario(username, psw).toDTO();
+    }
 }
