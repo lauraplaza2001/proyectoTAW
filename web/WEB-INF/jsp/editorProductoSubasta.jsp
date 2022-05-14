@@ -30,6 +30,7 @@
             Producto producto = (Producto) request.getAttribute("producto");
             List<Categoria> categorias = (List) request.getAttribute("categorias");
             Subasta subasta = (Subasta) request.getAttribute("subasta");
+            String error = (String)request.getAttribute("errorCategorias");
            
             
             
@@ -111,11 +112,19 @@
                                     <label class="form-check-label" for="<%= c.getIdCategoria()%>">
                                         <%= c.getNombre()%>
                                     </label>
+                                    
                                 </div>
 
                                 <% } %>
+                          
                             </div>
                             
+                          <% if (error!=null && !error.isEmpty()) {%>
+                                    
+                                <h4 style="color:#FF0000">  <%=error%> </h4>
+                               <% }%>
+
+                                
                             <hr class="my-4">
 
                             <button class="w-100 btn btn-primary btn-lg" type="submit" name="id" value="<%= producto.getIdProducto()%>">Finalizar Edición</button>

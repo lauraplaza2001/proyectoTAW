@@ -52,7 +52,7 @@ public class EditorSubastaServlet extends HttpServlet {
         request.setAttribute("categorias", categorias);
         request.setAttribute("idUser", idUser);
         request.setAttribute("subasta", s);
-       
+        request.setAttribute("errorCategorias", "");
         request.getRequestDispatcher("/WEB-INF/jsp/editorProductoSubasta.jsp").forward(request, response);
     }
 

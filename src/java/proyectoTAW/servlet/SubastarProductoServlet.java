@@ -46,6 +46,7 @@ public class SubastarProductoServlet extends HttpServlet {
         
         List<Categoria> categorias = this.cFacade.findAll();
         request.setAttribute("categorias", categorias);
+        request.setAttribute("errorCategorias", "");
         request.getRequestDispatcher("/WEB-INF/jsp/crearProducto.jsp").forward(request, response);
         
         

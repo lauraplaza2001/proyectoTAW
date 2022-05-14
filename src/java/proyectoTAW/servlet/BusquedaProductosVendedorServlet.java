@@ -48,14 +48,9 @@ public class BusquedaProductosVendedorServlet extends HttpServlet {
       List<Producto> productos;
       String like = (String) request.getParameter("busqueda");
       Integer filtro = Integer.parseInt(request.getParameter("filtro"));
-  
-      if(like != null){
-          
-          productos = this.pFacade.findFiltered(filtro, like);       
-          
-      }else{
-          productos = this.pFacade.findAll();
-      }
+      
+      
+       productos = this.pFacade.findFiltered(filtro, like);    
       
       // ahora mismo tengo todos los productos filtrados, pero solo quiero mostrar los que estén subastados
       List<Producto> productosFiltrados= new ArrayList<>();
@@ -63,10 +58,26 @@ public class BusquedaProductosVendedorServlet extends HttpServlet {
      
       HttpSession session = request.getSession();
       Usuario u =  (Usuario) session.getAttribute("usuario");
-       List<Subasta> subastasUsuario = this.uFacade.getSubastasVendedor(u.getIdUsuario()); // aquí hay que pasarle el id del usuario
+      List<Subasta> subastasUsuario = this.uFacade.getSubastasVendedor(u.getIdUsuario()); // aquí hay que pasarle el id del usuario
+       
+      
+       
+   
+          for(Producto p : productos){
+           for(Subasta s : subastasUsuario){
+               if( s.getProducto()!=null && s.getProducto().getIdProducto().equals( p.getIdProducto())){
+                   productosFiltrados.add(p);
+               }
+           }
+       } 
        
        
-      if(subastasUsuario.size()==0 || productos.size() ==0){
+  
+       
+       
+       /*
+       
+      if(subastasUsuario.size()==0 || productos.size() ==0 || subastasUsuario.isEmpty() || subastasUsuario==null || productos.isEmpty() || productos == null){
           productosFiltrados = null;
       }else{
           for(int i = 0 ; i< subastasUsuario.size(); i++){
@@ -79,6 +90,10 @@ public class BusquedaProductosVendedorServlet extends HttpServlet {
           
           
       }
+      
+      
+      */
+      
       
       request.setAttribute("productos", productosFiltrados);
       request.getRequestDispatcher("/WEB-INF/jsp/listaProductosEnVenta.jsp").forward(request, response);

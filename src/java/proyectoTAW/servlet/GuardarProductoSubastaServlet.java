@@ -74,32 +74,41 @@ public class GuardarProductoSubastaServlet extends HttpServlet {
         
             
     
+            
+            if(categorias==null && idProducto!=null && !idProducto.isEmpty()){ // caso en el que las categorias son nulas y estamos creando un producto
+                String strError = "Error, debes seleccionar al menos uan categoria";
+                request.setAttribute("errorCategorias", strError);
                 
-                 for(Categoria c : categoriasTotales){
+                Producto producto = this.pFacade.find(Integer.parseInt(idProducto));
+                 request.setAttribute("producto", producto);
+                 
+                 
+                 String idSubasta = request.getParameter("subastaId");
+                 Subasta subasta = this.sFacade.find(Integer.parseInt(idSubasta));
+                 request.setAttribute("subasta", subasta);
+                 
+                request.setAttribute("categorias", categoriasTotales);
+                request.getRequestDispatcher("/WEB-INF/jsp/editorProductoSubasta.jsp").forward(request, response); // necesita, producto,categoria y subasta
+                
+                
+                
+            }else if (categorias == null &&( idProducto ==null || idProducto.isEmpty())){ // caso en el que las categorias son nulas  y estamos editando un producto
+                String strError = "**Error, debes seleccionar al menos una categoria";
+                request.setAttribute("errorCategorias", strError);
+                request.setAttribute("categorias", categoriasTotales);
+                request.getRequestDispatcher("/WEB-INF/jsp/crearProducto.jsp").forward(request, response);
+            }else { // casi en el que todos los datos son correctos 
+                
+                
+            // de aqui sacamos las categorias seleccionadas    
+               for(Categoria c : categoriasTotales){
                 for(String ci : categorias){
                     if(c.getIdCategoria().toString().equals(ci)){
                        categoriasFinales.add(c);      
                     }
                 }    
             }
-                
-           /* POR SI NO SE SELECIONA UNA CATEGORIA      
-                  if(categoriasFinales.isEmpty() || categoriasFinales==null){
-                       String error= "ERROR : Debe seleccionar al menos una categoría ";
-                        request.setAttribute("errorCategoria", error);
-                      
-                      
-                      
-                      if(idProducto == null  || idProducto.isEmpty()){ // si estamos creando
-                          
-                      }else{ // si estamos editando
-                          
-                      }
-                      
-                  
-                 }
-           */      
-                 
+                       
                  
             
             if(idProducto == null  || idProducto.isEmpty()){ // si es nulo quiere decir que estamos creandolo
@@ -206,6 +215,15 @@ public class GuardarProductoSubastaServlet extends HttpServlet {
             
             
             response.sendRedirect(request.getContextPath() + "/NuevoProductoServlet");
+                
+                
+                
+                
+            }
+            
+            
+       
+          
         } catch (ParseException ex) {
             Logger.getLogger(GuardarProductoSubastaServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
