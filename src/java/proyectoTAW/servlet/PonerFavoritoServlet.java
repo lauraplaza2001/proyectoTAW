@@ -46,7 +46,7 @@ public class PonerFavoritoServlet extends HttpServlet {
        
        
         
-        response.sendRedirect(request.getContextPath() + "/PaginaPrincpalServlet");  
+        response.sendRedirect(request.getContextPath() + "/PaginaPrincipalServlet");  
         
     }
 

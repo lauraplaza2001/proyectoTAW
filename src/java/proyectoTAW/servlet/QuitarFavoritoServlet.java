@@ -40,7 +40,7 @@ public class QuitarFavoritoServlet extends HttpServlet {
        this.us.eliminarProducto(new Integer(idUsuario), new Integer(idProducto));
         
         
-        response.sendRedirect(request.getContextPath() + "/PaginaPrincpalServlet");  
+        response.sendRedirect(request.getContextPath() + "/PaginaPrincipalServlet");  
         
     }
 

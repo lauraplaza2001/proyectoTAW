@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,6 +20,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -38,6 +40,9 @@ import proyectoTAW.dto.CategoriaDTO;
     , @NamedQuery(name = "Categoria.findByIdCategoria", query = "SELECT c FROM Categoria c WHERE c.idCategoria = :idCategoria")
     , @NamedQuery(name = "Categoria.findByNombre", query = "SELECT c FROM Categoria c WHERE c.nombre = :nombre")})
 public class Categoria implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoriaidCategoria")
+    private List<Lista> listaList;
     
     private static final long serialVersionUID = 1L;
     @Id
@@ -149,5 +154,14 @@ public class Categoria implements Serializable {
         }
         
         return result;
+    }
+
+    @XmlTransient
+    public List<Lista> getListaList() {
+        return listaList;
+    }
+
+    public void setListaList(List<Lista> listaList) {
+        this.listaList = listaList;
     }
 }

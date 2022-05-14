@@ -13,11 +13,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import proyectoTAW.dto.CategoriaDTO;
-import proyectoTAW.dto.ProductoDTO;
 import proyectoTAW.dto.SubastaDTO;
-import proyectoTAW.dto.UsuarioDTO;
 import proyectoTAW.service.CategoriaService;
-import proyectoTAW.service.ProductoService;
 import proyectoTAW.service.SubastaService;
 import proyectoTAW.service.UsuarioService;
 
@@ -48,15 +45,9 @@ public class PaginaPrincipalServlet extends ProjectoTAWServlet {
 
 
 
-            //String id = request.getParameter("id");
-
-            //UsuarioDTO user = this.us.find(Integer.parseInt(id)); 
             List <SubastaDTO> subastas = this.ss.SubastaActiva("","");
 
 
-
-
-            //request.setAttribute("usuario",user); //Quitar después
             request.setAttribute("categorias",categorias);
 
             request.setAttribute("listaTipo",listaTipo);

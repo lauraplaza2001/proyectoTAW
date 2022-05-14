@@ -14,16 +14,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import proyectoTAW.dao.CategoriaFacade;
+import proyectoTAW.dto.ListaDTO;
 import proyectoTAW.entity.Categoria;
+import proyectoTAW.service.ListaService;
 
 /**
  *
  * @author Agustín
  */
-@WebServlet(name = "ListasCategoriasServlet", urlPatterns = {"/ListasCategoriasServlet"})
-public class ListasCategoriasServlet extends HttpServlet {
+@WebServlet(name = "ListasMarketingServlet", urlPatterns = {"/ListasMarketingServlet"})
+public class ListasMarketingServlet extends HttpServlet {
     
-    @EJB CategoriaFacade cFacade;
+    @EJB ListaService listaService;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,9 +39,9 @@ public class ListasCategoriasServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        List<Categoria> categorias = this.cFacade.findAll();
+        List<ListaDTO> listas = this.listaService.findAll();
         
-        request.setAttribute("categorias", categorias); 
+        request.setAttribute("categorias", listas); 
         request.getRequestDispatcher("/WEB-INF/jsp/listasCompradores.jsp").forward(request, response);
     }
 
