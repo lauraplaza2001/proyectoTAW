@@ -50,6 +50,23 @@ public class ListaService {
     public List<ListaDTO> findAll() {
         return this.toDTOList(this.listaFacade.findAll());
     }
+
+    public void editarLista(String id, String edit) {
+        if (id != null && edit != null) {
+            Lista cat = this.listaFacade.find(Integer.parseInt(id));
+            cat.setNombre(edit);
+            this.listaFacade.edit(cat);
+        }
+    }
+
+    public void crearLista(String str) {
+        if (null != str) {
+            Lista lista = new Lista();
+            lista.setNombre(str);
+
+            this.listaFacade.create(lista);
+        }
+    }
     
     
 }

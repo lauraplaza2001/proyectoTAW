@@ -4,6 +4,7 @@
     Author     : Agustín
 --%>
 
+<%@page import="proyectoTAW.entity.Lista"%>
 <%@page import="proyectoTAW.entity.Categoria"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -51,23 +52,23 @@
                 <div class="col col-6">
                     <div class="container rows-2">
                         <div class="container align-items-right">
-                            <form class="d-flex" action="${pageContext.request.contextPath}/BusquedaCategoriaServlet" method="get">
+                            <form class="d-flex" action="${pageContext.request.contextPath}/BusquedaListaServlet" method="get">
                                 <input class="form-control me-2" type="search" autocomplete="off" placeholder="Busqueda..." aria-label="Search" name="busqueda">
                                 <button class="btn btn-outline-success" type="submit">Buscar</button>
                             </form>
                         </div>
-                        <%    List<Categoria> categorias = (List) request.getAttribute("categorias");
+                        <%    List<Lista> listas = (List) request.getAttribute("listas");
                         %>
                         <div class="container p-3">
                             <div class="row">
                                 <%
-                                    for (Categoria categoria : categorias) {
+                                    for (Lista lista : listas) {
                                 %>
                                 <form action="${pageContext.request.contextPath}/EditorCategoriasServlet">
                                     <ul class="col col-12 list-group list-group-horizontal">
-                                        <li name="edit" id="myInputID" class="list-group-item col-8"><%=categoria.getNombre()%></li>  
+                                        <li name="edit" id="myInputID" class="list-group-item col-8"><%=lista.getNombre()%></li>  
                                         <li class="p-2">
-                                            <a type="button" class="btn btn-danger" href="${pageContext.request.contextPath}/ListaCompradoresCategoria?id=<%=categoria.getIdCategoria()%>">Ver lista de compradores</a>
+                                            <a type="button" class="btn btn-danger" href="${pageContext.request.contextPath}/ListaCompradoresCategoria?id=<%=lista.getIdlista()%>">Ver lista de compradores</a>
                                         </li>
                                     </ul>
                                 </form>
@@ -75,6 +76,17 @@
                                 <% }%>
                             </div>  
                         </div>
+                    </div>
+                </div>
+                <div class="col col-6">
+                    <div class="container rows-2">
+                        <div class="container align-items-right">
+                            <form class="d-flex" action="${pageContext.request.contextPath}/NuevaListaServlet" method="post">
+                                <input class="form-control me-2" type="text"autocomplete="off" placeholder="Nueva Lista" aria-label="New" name="nombre">
+                                
+                                <button class="btn btn-outline-success" type="submit">Crear</button>
+                            </form>
+                        </div>  
                     </div>
                 </div>
             </div>
