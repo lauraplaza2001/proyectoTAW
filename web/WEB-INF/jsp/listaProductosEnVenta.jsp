@@ -1,9 +1,10 @@
 <%-- 
     Document   : listaProductosEnVenta
     Created on : 20-abr-2022, 12:01:08
-    Author     : amigo
+    Author     : Laura Plaza 
 --%>
 
+<%@page import="proyectoTAW.dto.UsuarioDTO"%>
 <%@page import="proyectoTAW.entity.Usuario"%>
 <%@page import="proyectoTAW.entity.Producto"%>
 <%@page import="java.util.List"%>
@@ -32,7 +33,7 @@
                         <li><a href="<%= request.getContextPath()%>/PaginaPrincipalServlet" class="nav-link px-2 link-secondary">Página Principal</a></li>
 
                         <%  
-                            Usuario u = (Usuario)session.getAttribute("usuario");
+                            UsuarioDTO u = (UsuarioDTO)session.getAttribute("usuario");
                             if(u.getTipoUsuario().getTipoUsuario().toString().equals("Administrador")){
                           %>
                         <li><a href="<%= request.getContextPath()%>/ListaUsuariosServlet?filtro=1" class="nav-link px-2 link-dark">Clientes</a></li>
@@ -89,7 +90,7 @@
         <div class="row">
             <%
            
-           Usuario usuario =  (Usuario) session.getAttribute("usuario");
+           UsuarioDTO usuario =  (UsuarioDTO) session.getAttribute("usuario");
            
           
            

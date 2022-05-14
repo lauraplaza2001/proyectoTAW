@@ -19,13 +19,14 @@ import javax.servlet.http.HttpSession;
 import proyectoTAW.dao.ProductoFacade;
 import proyectoTAW.dao.SubastaFacade;
 import proyectoTAW.dao.UsuarioFacade;
+import proyectoTAW.dto.UsuarioDTO;
 import proyectoTAW.entity.Producto;
 import proyectoTAW.entity.Subasta;
 import proyectoTAW.entity.Usuario;
 
 /**
  *
- * @author amigo
+ * @author Laura Plaza
  */
 @WebServlet(name = "BusquedaProductosVendedorServlet", urlPatterns = {"/BusquedaProductosVendedorServlet"})
 public class BusquedaProductosVendedorServlet extends HttpServlet {
@@ -57,7 +58,7 @@ public class BusquedaProductosVendedorServlet extends HttpServlet {
      
      
       HttpSession session = request.getSession();
-      Usuario u =  (Usuario) session.getAttribute("usuario");
+      UsuarioDTO u =  (UsuarioDTO) session.getAttribute("usuario");
       List<Subasta> subastasUsuario = this.uFacade.getSubastasVendedor(u.getIdUsuario()); // aquí hay que pasarle el id del usuario
        
       

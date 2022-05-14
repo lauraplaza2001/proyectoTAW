@@ -1,9 +1,10 @@
 <%-- 
     Document   : crearProducto
     Created on : 20-abr-2022, 22:02:01
-    Author     : amigo
+    Author     : Laura Plaza
 --%>
 
+<%@page import="proyectoTAW.dto.UsuarioDTO"%>
 <%@page import="java.util.Date"%>
 <%@page import="proyectoTAW.entity.Usuario"%>
 <%@page import="proyectoTAW.entity.Categoria"%>
@@ -29,7 +30,7 @@
             List<Categoria> categorias = (List) request.getAttribute("categorias");
               String error = (String)request.getAttribute("errorCategorias");
           
-            Usuario usuario =  (Usuario) session.getAttribute("usuario");
+             UsuarioDTO usuario = (UsuarioDTO)session.getAttribute("usuario");
         
 
         %>

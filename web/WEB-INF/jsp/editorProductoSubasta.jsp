@@ -1,9 +1,10 @@
 <%-- 
     Document   : editorProductoSubasta
     Created on : 26-abr-2022, 8:46:43
-    Author     : amigo
+    Author     : Laura Plaza
 --%>
 
+<%@page import="proyectoTAW.dto.UsuarioDTO"%>
 <%@page import="proyectoTAW.entity.Usuario"%>
 <%@page import="proyectoTAW.entity.Subasta"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -26,7 +27,7 @@
     <body class="bg-light">
 
         <%
-            Usuario usuario =  (Usuario) session.getAttribute("usuario");
+            UsuarioDTO usuario = (UsuarioDTO)session.getAttribute("usuario");
             Producto producto = (Producto) request.getAttribute("producto");
             List<Categoria> categorias = (List) request.getAttribute("categorias");
             Subasta subasta = (Subasta) request.getAttribute("subasta");

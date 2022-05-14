@@ -23,7 +23,7 @@ import proyectoTAW.entity.Subasta;
 
 /**
  *
- * @author amigo
+ * @author Laura Plaza
  */
 @WebServlet(name = "EditorSubastaServlet", urlPatterns = {"/EditorSubastaServlet"})
 public class EditorSubastaServlet extends HttpServlet {

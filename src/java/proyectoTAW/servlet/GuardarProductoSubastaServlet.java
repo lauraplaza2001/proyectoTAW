@@ -32,7 +32,7 @@ import proyectoTAW.entity.Usuario;
 
 /**
  *
- * @author amigo
+ * @author Laura Plaza
  */
 @WebServlet(name = "GuardarProductoSubastaServlet", urlPatterns = {"/GuardarProductoSubastaServlet"})
 public class GuardarProductoSubastaServlet extends HttpServlet {
@@ -76,7 +76,7 @@ public class GuardarProductoSubastaServlet extends HttpServlet {
     
             
             if(categorias==null && idProducto!=null && !idProducto.isEmpty()){ // caso en el que las categorias son nulas y estamos creando un producto
-                String strError = "Error, debes seleccionar al menos uan categoria";
+                String strError = "Error, debes seleccionar al menos una categoria";
                 request.setAttribute("errorCategorias", strError);
                 
                 Producto producto = this.pFacade.find(Integer.parseInt(idProducto));

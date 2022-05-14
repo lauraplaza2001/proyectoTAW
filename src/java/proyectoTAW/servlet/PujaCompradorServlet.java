@@ -21,7 +21,7 @@ import proyectoTAW.entity.Subasta;
 
 /**
  *
- * @author amigo
+ * @author Laura Plaza
  */
 @WebServlet(name = "PujaCompradorServlet", urlPatterns = {"/PujaCompradorServlet"})
 public class PujaCompradorServlet extends HttpServlet {

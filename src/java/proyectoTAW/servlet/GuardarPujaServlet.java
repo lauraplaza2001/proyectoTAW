@@ -22,7 +22,7 @@ import proyectoTAW.entity.Usuario;
 
 /**
  *
- * @author amigo
+ * @author Laura Plaza
  */
 @WebServlet(name = "GuardarPujaServlet", urlPatterns = {"/GuardarPujaServlet"})
 public class GuardarPujaServlet extends HttpServlet {

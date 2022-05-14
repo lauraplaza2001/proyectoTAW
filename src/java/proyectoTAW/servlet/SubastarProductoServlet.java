@@ -24,7 +24,7 @@ import proyectoTAW.entity.Usuario;
 
 /**
  *
- * @author amigo
+ * @author Laura Plaza
  */
 @WebServlet(name = "SubastarProductoServlet", urlPatterns = {"/SubastarProductoServlet"})
 public class SubastarProductoServlet extends HttpServlet {
@@ -46,7 +46,7 @@ public class SubastarProductoServlet extends HttpServlet {
         
         List<Categoria> categorias = this.cFacade.findAll();
         request.setAttribute("categorias", categorias);
-        request.setAttribute("errorCategorias", "");
+        request.setAttribute("errorCategorias","");
         request.getRequestDispatcher("/WEB-INF/jsp/crearProducto.jsp").forward(request, response);
         
         

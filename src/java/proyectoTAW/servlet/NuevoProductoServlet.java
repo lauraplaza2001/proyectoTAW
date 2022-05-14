@@ -18,12 +18,13 @@ import javax.servlet.http.HttpSession;
 import proyectoTAW.dao.ProductoFacade;
 import proyectoTAW.dao.SubastaFacade;
 import proyectoTAW.dao.UsuarioFacade;
+import proyectoTAW.dto.UsuarioDTO;
 import proyectoTAW.entity.Producto;
 import proyectoTAW.entity.Usuario;
 
 /**
  *
- * @author amigo
+ * @author Laura Plaza
  */
 @WebServlet(name = "NuevoProductoServlet", urlPatterns = {"/NuevoProductoServlet"})
 public class NuevoProductoServlet extends HttpServlet {
@@ -41,7 +42,7 @@ public class NuevoProductoServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
          HttpSession session = request.getSession();
-           Usuario usuario =  (Usuario) session.getAttribute("usuario");
+           UsuarioDTO usuario =  (UsuarioDTO) session.getAttribute("usuario");
        
      
         //List<Producto> productos = uFacade.find(1).getProductoList();

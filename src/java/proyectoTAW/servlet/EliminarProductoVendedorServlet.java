@@ -18,7 +18,7 @@ import proyectoTAW.entity.Producto;
 
 /**
  *
- * @author amigo
+ * @author Laura Plaza
  */
 @WebServlet(name = "EliminarProductoVendedorServlet", urlPatterns = {"/EliminarProductoVendedorServlet"})
 public class EliminarProductoVendedorServlet extends HttpServlet {
