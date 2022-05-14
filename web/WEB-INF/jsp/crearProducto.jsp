@@ -27,6 +27,7 @@
           //  Usuario usuario = (Usuario) request.getAttribute("usuario");
            // Producto producto = (Producto) request.getAttribute("producto");
             List<Categoria> categorias = (List) request.getAttribute("categorias");
+              String error = (String)request.getAttribute("errorCategorias");
           
             Usuario usuario =  (Usuario) session.getAttribute("usuario");
         
@@ -105,10 +106,19 @@
                                 </div>
 
                                 <% } %>
+                                
                          
                             </div>
+                              
+                                   <% if (error!=null && !error.isEmpty()) {%>
+                                    
+                                <h4 style="color:#FF0000">  <%=error%> </h4>
+                               <% }%>
 
                             <hr class="my-4">
+                            
+                             
+                                
 
                             <button class="w-100 btn btn-primary btn-lg" type="submit" name="idFinalizar" value="Finalizar Edición" >Finalizar Edición</button>
                     </form>
