@@ -58,7 +58,7 @@ public class iniciarSesionServlet extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + "/ListaProductosServlet");
                     break;
                 case "Marketing":
-                    response.sendRedirect(request.getContextPath() + "/ListasCategoriasServlet");
+                    response.sendRedirect(request.getContextPath() + "/ListasMarketingServlet");
                     break;
                 default:
                     response.sendRedirect(request.getContextPath() + "/PaginaPrincipalServlet");

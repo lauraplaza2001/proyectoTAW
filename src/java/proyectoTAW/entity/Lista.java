@@ -20,6 +20,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import proyectoTAW.dto.ListaDTO;
@@ -35,6 +37,12 @@ import proyectoTAW.dto.ListaDTO;
     @NamedQuery(name = "Lista.findAll", query = "SELECT l FROM Lista l")
     , @NamedQuery(name = "Lista.findByIdlista", query = "SELECT l FROM Lista l WHERE l.idlista = :idlista")})
 public class Lista implements Serializable {
+
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "nombre")
+    private String nombre;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -114,5 +122,13 @@ public class Lista implements Serializable {
         ld.setusuarioList(Usuario.toDTOList(this.getUsuarioList()));
         ld.setcategoriaidCategoria(this.getCategoriaidCategoria().toDTO());
         return ld;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 }

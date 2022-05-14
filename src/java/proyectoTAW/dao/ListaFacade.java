@@ -5,9 +5,11 @@
  */
 package proyectoTAW.dao;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import proyectoTAW.entity.Lista;
 
 /**
@@ -27,6 +29,14 @@ public class ListaFacade extends AbstractFacade<Lista> {
 
     public ListaFacade() {
         super(Lista.class);
+    }
+
+    public List<Lista> getListasLike(int busqueda) {
+        Query q;
+        q = this.getEntityManager().createQuery("select a from Lista a where a.categoriaidCategoria like :busqueda");
+        q.setParameter("busqueda", '%'+busqueda+'%');
+        
+        return q.getResultList();
     }
     
 }

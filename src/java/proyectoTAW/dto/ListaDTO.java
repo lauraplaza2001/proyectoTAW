@@ -17,6 +17,7 @@ public class ListaDTO {
     private Integer idlista;
     private List<UsuarioDTO> usuarioList;
     private CategoriaDTO categoriaidCategoria;
+    private String nombre;
     
     public ListaDTO(){
     }
@@ -49,5 +50,13 @@ public class ListaDTO {
     
     public CategoriaDTO getcategoriaidCategoria(){
         return this.categoriaidCategoria;
+    }
+    
+    public void setnombre(String nombre){
+        this.nombre = nombre;
+    }
+    
+    public String getnombre(){
+        return this.nombre;
     }
 }
