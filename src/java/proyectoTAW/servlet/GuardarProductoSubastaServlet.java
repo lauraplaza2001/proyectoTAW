@@ -119,6 +119,7 @@ public class GuardarProductoSubastaServlet extends ProjectoTAWServlet {
                 producto.setPrecioSalida(precio);
                 producto.setCategoriaList(categoriasFinales);
                 
+                
              
                 
             
