@@ -46,7 +46,7 @@
                     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                         
                         <li><a href="/proyectoTAW/PaginaPrincipalServlet" class="nav-link px-2 link-primary">Página Principal</a></li>
-                        <li><a href="#" class="nav-link px-2 link-dark">Crear Subasta</a></li>
+                        <li><a href="/proyectoTAW/NuevoProductoServlet" class="nav-link px-2 link-dark">Mis Productos </a></li>
                         <% if (user.getTipoUsuario().getTipoUsuario().equals("Administrador")){%>
                             
                         
@@ -63,7 +63,7 @@
                             <img src="/proyectoTAW/Images/list.svg" alt="..." width="32" height="32" class="rounded-circle">
                         </a>
                         <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                            <li><a class="dropdown-item" href="#">Configuración</a></li>
+                           <%-- <li><a class="dropdown-item" href="#">Configuración</a></li> --%>
                             <li><a class="dropdown-item" href="">Perfil</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="<%= request.getContextPath()%>/CerrarSesionServlet">Cerrar Sesión</a></li> <%--servlet log out --%>

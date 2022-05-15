@@ -70,7 +70,7 @@
             <%
                 Producto producto = (Producto) request.getAttribute("producto");
                 Subasta s = (Subasta) request.getAttribute("subasta");
-                Usuario user = (Usuario)session.getAttribute("usuario"); 
+                UsuarioDTO user = (UsuarioDTO)session.getAttribute("usuario"); 
                 int idUsuario = user.getIdUsuario();
                 String error = (String) request.getAttribute("error");
                 if (error == null) error = "";
