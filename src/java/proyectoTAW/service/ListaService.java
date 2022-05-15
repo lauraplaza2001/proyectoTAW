@@ -39,12 +39,15 @@ public class ListaService {
     
     public List<ListaDTO> getListasLike(String busqueda) {
 
-        List<Lista> result;
+        List<ListaDTO> listas;
 
-        result = this.listaFacade.getListasLike(parseInt(busqueda));
+        if (busqueda != null) {
+            listas = this.toDTOList(this.listaFacade.getListasLike(busqueda));
+        } else {
+            listas = this.toDTOList(this.listaFacade.findAll());
+        }
 
-        return this.toDTOList(result);
-
+        return listas;
     }
 
     public List<ListaDTO> findAll() {

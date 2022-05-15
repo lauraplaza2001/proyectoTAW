@@ -43,6 +43,7 @@ public class ListasMarketingServlet extends HttpServlet {
             throws ServletException, IOException {
         
         List<ListaDTO> listas = this.listaService.findAll();
+        
         List<CategoriaDTO> categorias = this.categoriaService.findAll();
         
         request.setAttribute("listas", listas); 

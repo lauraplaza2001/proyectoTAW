@@ -4,6 +4,7 @@
     Author     : Agustín
 --%>
 
+<%@page import="proyectoTAW.dto.ListaDTO"%>
 <%@page import="proyectoTAW.entity.Lista"%>
 <%@page import="proyectoTAW.entity.Categoria"%>
 <%@page import="java.util.List"%>
@@ -57,18 +58,18 @@
                                 <button class="btn btn-outline-success" type="submit">Buscar</button>
                             </form>
                         </div>
-                        <%    List<Lista> listas = (List) request.getAttribute("listas");
+                        <%    List<ListaDTO> listas = (List) request.getAttribute("listas");
                         %>
                         <div class="container p-3">
                             <div class="row">
                                 <%
-                                    for (Lista lista : listas) {
+                                    for (ListaDTO lista : listas) {
                                 %>
                                 <form action="${pageContext.request.contextPath}/EditorCategoriasServlet">
                                     <ul class="col col-12 list-group list-group-horizontal">
-                                        <li name="edit" id="myInputID" class="list-group-item col-8"><%=lista.getNombre()%></li>  
+                                        <li name="edit" id="myInputID" class="list-group-item col-8"><%=lista.getnombre()%></li>  
                                         <li class="p-2">
-                                            <a type="button" class="btn btn-danger" href="${pageContext.request.contextPath}/ListaCompradoresCategoria?id=<%=lista.getIdlista()%>">Ver lista de compradores</a>
+                                            <a type="button" class="btn btn-danger" href="${pageContext.request.contextPath}/ListaCompradoresCategoria?id=<%=lista.getidlista()%>">Ver lista de compradores</a>
                                         </li>
                                     </ul>
                                 </form>

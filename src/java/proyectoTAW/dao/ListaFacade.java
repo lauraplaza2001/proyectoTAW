@@ -31,9 +31,9 @@ public class ListaFacade extends AbstractFacade<Lista> {
         super(Lista.class);
     }
 
-    public List<Lista> getListasLike(int busqueda) {
+    public List<Lista> getListasLike(String busqueda) {
         Query q;
-        q = this.getEntityManager().createQuery("select a from Lista a where a.categoriaidCategoria like :busqueda");
+        q = this.getEntityManager().createQuery("select a from Lista a where a.nombre like :busqueda");
         q.setParameter("busqueda", '%'+busqueda+'%');
         
         return q.getResultList();

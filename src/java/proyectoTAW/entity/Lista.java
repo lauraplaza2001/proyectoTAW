@@ -62,8 +62,9 @@ public class Lista implements Serializable {
     public Lista() {
     }
 
-    public Lista(Integer idlista) {
+    public Lista(Integer idlista, String nombre) {
         this.idlista = idlista;
+        this.nombre = nombre;
     }
 
     public Integer getIdlista() {
@@ -121,6 +122,7 @@ public class Lista implements Serializable {
         ld.setidlista(this.getIdlista());
         ld.setusuarioList(Usuario.toDTOList(this.getUsuarioList()));
         ld.setcategoriaidCategoria(this.getCategoriaidCategoria().toDTO());
+        ld.setnombre(this.getNombre());
         return ld;
     }
 
