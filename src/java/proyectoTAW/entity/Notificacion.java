@@ -20,10 +20,14 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import proyectoTAW.dto.NotificacionDTO;
 
 /**
  *
  * @author juanm
+ * casi todo
+ * @autor Agustín
+ * toDTO
  */
 @Entity
 @Table(name = "notificacion")
@@ -108,6 +112,14 @@ public class Notificacion implements Serializable {
     @Override
     public String toString() {
         return "proyectoTAW.entity.Notificacion[ idNotificacion=" + idNotificacion + " ]";
+    }
+    
+    public NotificacionDTO toDTO(){
+        NotificacionDTO n = new NotificacionDTO();
+        n.setIdNotificacion(this.idNotificacion);
+        n.setDueno(this.dueno.toDTO());
+        n.setTexto(this.texto);
+        return n;
     }
     
 }

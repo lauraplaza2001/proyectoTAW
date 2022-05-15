@@ -66,6 +66,7 @@
                             <img src="/proyectoTAW/Images/list.svg" alt="..." width="32" height="32" class="rounded-circle">
                         </a>
                         <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                            <li><a class="dropdown-item" href="<%= request.getContextPath()%>/NotificacionesServlet?idUsuario=<%=user.getIdUsuario()%>">Notificaciones</a></li> <%--servlet log out --%>
                             <li><a class="dropdown-item" href="<%= request.getContextPath()%>/CerrarSesionServlet">Cerrar Sesión</a></li> <%--servlet log out --%>
                         </ul>
                     </div>

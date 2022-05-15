@@ -5,14 +5,20 @@
  */
 package proyectoTAW.dao;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import proyectoTAW.entity.Notificacion;
-
+import proyectoTAW.entity.Usuario;
+/*
+@autor Agustín
+*/
 
 @Stateless
 public class NotificacionFacade extends AbstractFacade<Notificacion> {
+    
 
     @PersistenceContext(unitName = "proyectoTAWPU")
     private EntityManager em;
@@ -24,6 +30,14 @@ public class NotificacionFacade extends AbstractFacade<Notificacion> {
 
     public NotificacionFacade() {
         super(Notificacion.class);
+    }
+    
+    public List<Notificacion> findNotificacionesByUsuario(int idUsuario){
+        Query q;
+        q = this.getEntityManager().createQuery("Select a from Notificacion a where a.dueno.idUsuario=:idUsuario");
+        q.setParameter("idUsuario", idUsuario);
+        
+        return q.getResultList();
     }
     
 }
