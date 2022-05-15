@@ -4,6 +4,7 @@
     Author     : Agustín
 --%>
 
+<%@page import="proyectoTAW.dto.CategoriaDTO"%>
 <%@page import="proyectoTAW.dto.ListaDTO"%>
 <%@page import="proyectoTAW.entity.Lista"%>
 <%@page import="proyectoTAW.entity.Categoria"%>
@@ -65,10 +66,12 @@
                                 <%
                                     for (ListaDTO lista : listas) {
                                 %>
-                                <form action="${pageContext.request.contextPath}/EditorCategoriasServlet">
+                                <form action="${pageContext.request.contextPath}/EditorListaServlet">
                                     <ul class="col col-12 list-group list-group-horizontal">
-                                        <li name="edit" id="myInputID" class="list-group-item col-8"><%=lista.getnombre()%></li>  
+                                        <input name="edit" id="myInputID" type="text" class="list-group-item col-8" value="<%=lista.getnombre()%>"></input>  
                                         <li class="p-2">
+                                            <button  type="submit" name="id" value="<%=lista.getidlista()%>" class="btn btn-warning" >Editar</button>
+                                            <a type="button" class="btn btn-danger" href="${pageContext.request.contextPath}/EliminarListaServlet?id=<%=lista.getidlista()%>">Eliminar</a>
                                             <a type="button" class="btn btn-danger" href="${pageContext.request.contextPath}/ListaCompradoresCategoria?id=<%=lista.getidlista()%>">Ver lista de compradores</a>
                                         </li>
                                     </ul>
@@ -84,7 +87,16 @@
                         <div class="container align-items-right">
                             <form class="d-flex" action="${pageContext.request.contextPath}/NuevaListaServlet" method="post">
                                 <input class="form-control me-2" type="text"autocomplete="off" placeholder="Nueva Lista" aria-label="New" name="nombre">
-                                
+                                <select class="form-control me-2" name="categoria">
+                                    <%    List<CategoriaDTO> categorias = (List) request.getAttribute("categorias");
+                                          for (CategoriaDTO categoria : categorias) {
+                                    %>
+                                    <option><%=categoria.getNombre()%></option>
+                                    
+                                    <%
+                                        }
+                                    %>
+                                </select>
                                 <button class="btn btn-outline-success" type="submit">Crear</button>
                             </form>
                         </div>  

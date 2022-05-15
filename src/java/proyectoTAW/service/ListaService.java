@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import proyectoTAW.dao.CategoriaFacade;
 import proyectoTAW.dao.ListaFacade;
 import proyectoTAW.dto.ListaDTO;
 import proyectoTAW.entity.Categoria;
@@ -22,6 +23,7 @@ import proyectoTAW.entity.Lista;
 @Stateless
 public class ListaService {
     @EJB ListaFacade listaFacade;
+    @EJB CategoriaFacade categoriaFacade;
     
     public List<ListaDTO> toDTOList(List<Lista> lista) {
 
@@ -56,17 +58,18 @@ public class ListaService {
 
     public void editarLista(String id, String edit) {
         if (id != null && edit != null) {
-            Lista cat = this.listaFacade.find(Integer.parseInt(id));
-            cat.setNombre(edit);
-            this.listaFacade.edit(cat);
+            Lista lista = this.listaFacade.find(Integer.parseInt(id));
+            lista.setNombre(edit);
+            this.listaFacade.edit(lista);
         }
     }
 
-    public void crearLista(String str) {
-        if (null != str) {
+    public void crearLista(String nombre, String categoria) {
+        if (null != nombre) {
             Lista lista = new Lista();
-            lista.setNombre(str);
-
+            lista.setNombre(nombre);
+            Categoria nuevaCategoria = this.categoriaFacade.getCategoriasLike(categoria).get(0);
+            lista.setCategoriaidCategoria(nuevaCategoria);
             this.listaFacade.create(lista);
         }
     }

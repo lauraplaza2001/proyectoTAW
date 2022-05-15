@@ -14,7 +14,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import proyectoTAW.dto.CategoriaDTO;
 import proyectoTAW.dto.ListaDTO;
+import proyectoTAW.service.CategoriaService;
 import proyectoTAW.service.ListaService;
 
 /**
@@ -35,6 +37,7 @@ public class EditorListaServlet extends HttpServlet {
      */
     
     @EJB ListaService listaService;
+    @EJB CategoriaService categoriaService;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -42,11 +45,12 @@ public class EditorListaServlet extends HttpServlet {
         String edit = request.getParameter("edit");
         
         this.listaService.editarLista(id, edit);
+        List<CategoriaDTO> categorias = this.categoriaService.findAll();
+        List<ListaDTO> listas = this.listaService.findAll();
         
-        List<ListaDTO> categorias = this.listaService.findAll();
-        
-        request.setAttribute("categorias", categorias); 
-        request.getRequestDispatcher("/WEB-INF/jsp/editorListas.jsp").forward(request, response);
+        request.setAttribute("listas", listas);
+        request.setAttribute("categorias", categorias);
+        request.getRequestDispatcher("/WEB-INF/jsp/listasCompradores.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

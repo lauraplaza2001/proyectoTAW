@@ -36,11 +36,11 @@ public class NuevaListaServlet extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String str = request.getParameter("nombre");
-        
-        this.listaService.crearLista(str);
+        String nombre = request.getParameter("nombre");
+        String categoria = request.getParameter("categoria");
+        this.listaService.crearLista(nombre, categoria);
    
-        response.sendRedirect(request.getContextPath() + "/EditorCategoriasServlet");
+        response.sendRedirect(request.getContextPath() + "/EditorListaServlet");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

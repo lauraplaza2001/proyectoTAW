@@ -14,7 +14,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import proyectoTAW.dto.CategoriaDTO;
 import proyectoTAW.dto.ListaDTO;
+import proyectoTAW.service.CategoriaService;
 import proyectoTAW.service.ListaService;
 
 /**
@@ -35,14 +37,17 @@ public class BusquedaListaServlet extends HttpServlet {
      */
     
     @EJB ListaService listaService;
+    @EJB CategoriaService categoriaService;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String busqueda = request.getParameter("busqueda");
         
         List<ListaDTO> listas = this.listaService.getListasLike(busqueda);
+        List<CategoriaDTO> categorias = this.categoriaService.findAll();
 
         request.setAttribute("listas", listas);
+        request.setAttribute("categorias", categorias);
 
         request.getRequestDispatcher("/WEB-INF/jsp/listasCompradores.jsp").forward(request, response);
     }
