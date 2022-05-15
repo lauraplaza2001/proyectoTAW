@@ -56,7 +56,7 @@ public class GuardarProductoSubastaServlet extends ProjectoTAWServlet {
             String title = (String) request.getParameter("name");
             String desc = (String) request.getParameter("descripcion");
             String foto = (String) request.getParameter("image");
-            double precio = Double.parseDouble(request.getParameter("price"));
+         
             String idProducto= (String) request.getParameter("id");
             Usuario user = this.uFacade.find(id);
              String strFecha = (String) request.getParameter("fecha");
@@ -112,7 +112,7 @@ public class GuardarProductoSubastaServlet extends ProjectoTAWServlet {
             
             if(idProducto == null  || idProducto.isEmpty()){ // si es nulo quiere decir que estamos creandolo
                 Producto producto = new Producto();
-                
+                   double precio = Double.parseDouble(request.getParameter("price"));
                 producto.setTitulo(title);
                 producto.setDescripcion(desc);
                 producto.setFoto(foto);
@@ -160,7 +160,7 @@ public class GuardarProductoSubastaServlet extends ProjectoTAWServlet {
                 producto.setTitulo(title);
                 producto.setDescripcion(desc);
                 producto.setFoto(foto);
-                producto.setPrecioSalida(precio); 
+      
                 producto.setCategoriaList(categoriasFinales);
                
       
@@ -170,7 +170,7 @@ public class GuardarProductoSubastaServlet extends ProjectoTAWServlet {
       
               //  Subasta s = sFacade.findSubastasDelProducto(producto.getIdProducto()).get(0);
                 
-                  subasta.setPredioActual(precio);
+             
                   subasta.setFechaCierre(fecha);
                 this.pFacade.edit(producto);
                 this.sFacade.edit(subasta);
