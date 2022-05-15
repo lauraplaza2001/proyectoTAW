@@ -100,6 +100,8 @@ public class ProductoService {
        Producto producto =  this.pFacade.find(idProducto);
        producto.setIdComprador(usuario);
        
+       this.pFacade.edit(producto);
+       
     }
   
      

@@ -59,5 +59,10 @@ public class SubastaService {
          List <Subasta> result = this.sFacade.findSubastaWithProductsComprados(this.uFacade.find(id), titulo,categoria);
         return this.toDTOList(result);
     }
+     
+      public SubastaDTO find(int id) {
+         Subasta subasta = this.sFacade.find(id);
+        return subasta.toDTO(subasta);
+    }
 
 }

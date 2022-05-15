@@ -33,7 +33,7 @@
             Subasta subasta = (Subasta) request.getAttribute("subasta");
             String error = (String)request.getAttribute("errorCategorias");
            
-            
+           
             
              SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
              String fecha = formato.format(subasta.getFechaCierre());
@@ -87,10 +87,8 @@
                             </div>
 
                             <div class="col-md-5">
-                                <label for="price" class="form-label">Precio Inicial</label>
-                                <input type="number" class="form-control" name="price" id="price" min="0" value="<%= producto.getPrecioSalida()%>" required></input>
-                                <div class="invalid-feedback">
-                                    Precio inicial obligatorio.
+                                <label for="price" class="form-label">Precio en subasta actual : <%=  subasta.getPredioActual()%> €</label>
+                              
                                 </div>
                             </div>    
                               <div class="col-md-8">
@@ -130,6 +128,16 @@
 
                             <button class="w-100 btn btn-primary btn-lg" type="submit" name="id" value="<%= producto.getIdProducto()%>">Finalizar Edición</button>
                     </form>
+                    <form action="CerrarSubastaServlet" method="POST">
+                        <input type="hidden" name="subastaId" value="<%= subasta.getIdSubasta()%>" />
+                        
+                        <input type="submit" value="Cerrar Subasta" />
+                    </form>
+                    
+                    
+                    
+                    
+                    
                 </div>
         </div>
     </main>
