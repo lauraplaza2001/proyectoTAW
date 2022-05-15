@@ -39,7 +39,7 @@
              String fecha = formato.format(subasta.getFechaCierre());
           //   String fecha = "2022-05-05";
             
-            
+           
 
         %>
 
@@ -47,93 +47,109 @@
             <main class="row justify-content-md-center">
 
                 <div class="py-5 text-center">
-                    <h2>Edición de productos</h2>
-                    <p class="lead">Por favor, introduzca los campos a editar</p>
-
-                </div>
-                <div class="col-md-7 col-lg-8">
-                    <form class="needs-validation" novalidate action="${pageContext.request.contextPath}/GuardarProductoSubastaServlet">
-                          <input type="hidden" name="idUser" id="idUser" value="<%=usuario.getIdUsuario()%>" />
-                          <input type="hidden" name="subastaId" value="<%= subasta.getIdSubasta()%>" />
-                        <div class="row g-3">
-                            <div class="col-sm-12">
-                                <label for="name" class="form-label">Titulo del Producto</label>
-                                <div class="input-group has-validation">
-                                    <input type="text" class="form-control" name="name" id="name" value="<%= producto.getTitulo()%>" required></input>
-                                    <div class="invalid-feedback">
-                                        Título de producto obligatorio.
-                                    </div>
-                                </div>
-                            </div> 
-
-                            <div class="col-sm-12">
-                                <label for="descripcion" class="form-label">Descripción del Producto</label>
-                                <div class="input-group has-validation">
-                                    <textarea type="text" class="comment" name="descripcion" id="descripcion" rows="10" cols='120' required><%= producto.getDescripcion()%></textarea>
-                                    <div class="invalid-feedback">
-                                        Descripción del producto obligatorio.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-12">
-                                <label for="image" class="form-label">URL de imagen</label>
-                                <div class="input-group has-validation">
-                                    <input type="text" class="form-control" name="image" id="image" value="<%= producto.getFoto()%>" required></input>
-                                    <div class="invalid-feedback">
-                                        Imagen necesaria.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-5">
-                                <label for="price" class="form-label">Precio en subasta actual : <%=  subasta.getPredioActual()%> €</label>
-                              
-                                </div>
-                            </div>    
-                              <div class="col-md-8">
-                                <label for="fecha" class="form-label">Fecha de cierre de subasta</label>
-                                <input type="date" id="start" name="fecha" value="<%=fecha%>" min="2022-05-05"  required> </input>
-                                <div class="invalid-feedback">
-                                    Fecha de cierre de subasta obligatorio
-                                </div>
-                            </div>  
-                             
-
-                             <div class="col-md-12" name="categorias">
-                                <label for="categorias" class="form-label">Categorias</label></br>
-                                <%
-                                    for (Categoria c : categorias) { 
-                                %>
-
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" name="categorias" id="categorias" type="checkbox" value="<%= c.getIdCategoria()%>" <%= !producto.getCategoriaList().contains(c)? "": "checked" %>>
-                                    <label class="form-check-label" for="<%= c.getIdCategoria()%>">
-                                        <%= c.getNombre()%>
-                                    </label>
-                                    
-                                </div>
-
-                                <% } %>
-                          
-                            </div>
-                            
-                          <% if (error!=null && !error.isEmpty()) {%>
-                                    
-                                <h4 style="color:#FF0000">  <%=error%> </h4>
-                               <% }%>
-
-                                
-                            <hr class="my-4">
-
-                            <button class="w-100 btn btn-primary btn-lg" type="submit" name="id" value="<%= producto.getIdProducto()%>">Finalizar Edición</button>
-                    </form>
-                    <form action="CerrarSubastaServlet" method="POST">
-                        <input type="hidden" name="subastaId" value="<%= subasta.getIdSubasta()%>" />
-                        
-                        <input type="submit" value="Cerrar Subasta" />
-                    </form>
                     
+                    <% if (subasta.getFechaCierre().compareTo(new Date())<=0 ){%>
+                     <h2>Puja cerrada</h2>
+                     <th> <%= producto.getTitulo()%></th></br>
+                     <th> <img src="<%= producto.getFoto()%>"/>
+                     </th></br>
+                
+                     <th> PRECIO FINAL: <%=subasta.getPredioActual()%> €</th></br>
+                     <form action="NuevoProductoServlet" method="POST">
+                            <button class="w-100 btn btn-primary btn-lg" type="submit" name="subastaId">Volver</button>                          
+                        </form>
+                                
+                         
+                     <%}else{%>
+                         <h2>Edición de productos</h2>
+                        <p class="lead">Por favor, introduzca los campos a editar</p>
+
+                    </div>
+                    <div class="col-md-7 col-lg-8">
+                        <form class="needs-validation" novalidate action="${pageContext.request.contextPath}/GuardarProductoSubastaServlet">
+                              <input type="hidden" name="idUser" id="idUser" value="<%=usuario.getIdUsuario()%>" />
+                              <input type="hidden" name="subastaId" value="<%= subasta.getIdSubasta()%>" />
+                            <div class="row g-3">
+                                <div class="col-sm-12">
+                                    <label for="name" class="form-label">Titulo del Producto</label>
+                                    <div class="input-group has-validation">
+                                        <input type="text" class="form-control" name="name" id="name" value="<%= producto.getTitulo()%>" required></input>
+                                        <div class="invalid-feedback">
+                                            Título de producto obligatorio.
+                                        </div>
+                                    </div>
+                                </div> 
+
+                                <div class="col-sm-12">
+                                    <label for="descripcion" class="form-label">Descripción del Producto</label>
+                                    <div class="input-group has-validation">
+                                        <textarea type="text" class="comment" name="descripcion" id="descripcion" rows="10" cols='120' required><%= producto.getDescripcion()%></textarea>
+                                        <div class="invalid-feedback">
+                                            Descripción del producto obligatorio.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <label for="image" class="form-label">URL de imagen</label>
+                                    <div class="input-group has-validation">
+                                        <input type="text" class="form-control" name="image" id="image" value="<%= producto.getFoto()%>" required></input>
+                                        <div class="invalid-feedback">
+                                            Imagen necesaria.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-5">
+                                    <label for="price" class="form-label">Precio en subasta actual : <%=  subasta.getPredioActual()%> €</label>
+
+                                    </div>
+                                </div>    
+                                  <div class="col-md-8">
+                                    <label for="fecha" class="form-label">Fecha de cierre de subasta</label>
+                                    <input type="date" id="start" name="fecha" value="<%=fecha%>" min="2022-05-05"  required> </input>
+                                    <div class="invalid-feedback">
+                                        Fecha de cierre de subasta obligatorio
+                                    </div>
+                                </div>  
+
+
+                                 <div class="col-md-12" name="categorias">
+                                    <label for="categorias" class="form-label">Categorias</label></br>
+                                    <%
+                                        for (Categoria c : categorias) { 
+                                    %>
+
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" name="categorias" id="categorias" type="checkbox" value="<%= c.getIdCategoria()%>" <%= !producto.getCategoriaList().contains(c)? "": "checked" %>>
+                                        <label class="form-check-label" for="<%= c.getIdCategoria()%>">
+                                            <%= c.getNombre()%>
+                                        </label>
+
+                                    </div>
+
+                                    <% } %>
+
+                                </div>
+
+                              <% if (error!=null && !error.isEmpty()) {%>
+
+                                    <h4 style="color:#FF0000">  <%=error%> </h4>
+                                   <% }%>
+
+
+                                <hr class="my-4">
+
+                                <button class="w-100 btn btn-primary btn-lg" type="submit" name="id" value="<%= producto.getIdProducto()%>">Finalizar Edición</button>
+                        </form>
+                        <th></th>
+                        <form action="CerrarSubastaServlet" method="POST">
+                            <button class="w-100 btn btn-primary btn-lg" type="submit" name="subastaId" value="<%= subasta.getIdSubasta()%>">Cerrar Subasta</button>
+
+
+                            
+                        </form>
+                <%}%>
                     
                     
                     
