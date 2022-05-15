@@ -37,16 +37,13 @@ public class CerrarSubastaServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            String idSubasta =  request.getParameter("subastaId");
-            
-            
-            
-            
+            String idSubasta =  request.getParameter("subastaId");  
             SubastaDTO subasta = this.ss.find(Integer.parseInt(idSubasta));
             
             this.ps.añadirComprado(subasta.getMayorPostor().getIdUsuario(),subasta.getProducto().getIdProducto());
+                    response.sendRedirect(request.getContextPath() + "/NuevoProductoServlet");
             
-        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
