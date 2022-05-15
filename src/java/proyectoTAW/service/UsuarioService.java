@@ -141,4 +141,20 @@ public class UsuarioService {
         String sesionReal = (String) sesion.getAttribute("tipoUsuario");
         return usuario.equals(sesionReal);
     }
+
+    public void editarUsuario(int idUsuario,String username, String pass, String name, String surname, String city, String address, int age, String gender, String userType) {
+        Usuario usuario = this.uFacade.find(idUsuario);
+
+        usuario.setNombreUsuario(username);
+        usuario.setContrasena(pass);
+        usuario.setNombre(name);
+        usuario.setApellidos(surname);
+        usuario.setCiudad(city);
+        usuario.setDomicilio(address);
+        usuario.setEdad(age);
+        usuario.setGenero(this.gFacade.find(gender));
+        usuario.setTipoUsuario(this.tuFacade.find(userType));
+
+        this.uFacade.edit(usuario);
+    }
 }

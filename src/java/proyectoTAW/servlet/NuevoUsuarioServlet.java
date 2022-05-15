@@ -15,8 +15,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import proyectoTAW.dao.GeneroFacade;
 import proyectoTAW.dao.TipousuarioFacade;
+import proyectoTAW.dto.GeneroDTO;
+import proyectoTAW.dto.TipousuarioDTO;
 import proyectoTAW.entity.Genero;
 import proyectoTAW.entity.Tipousuario;
+import proyectoTAW.service.GeneroService;
+import proyectoTAW.service.TipousuarioService;
 
 /**
  *
@@ -34,15 +38,15 @@ public class NuevoUsuarioServlet extends ProjectoTAWServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @EJB GeneroFacade gFacade;
-    @EJB TipousuarioFacade tuFacade;
+    @EJB GeneroService gService;
+    @EJB TipousuarioService tuService;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        List<Genero> generos = (List) this.gFacade.findAll();
-        List<Tipousuario> tUsuarios = (List) this.tuFacade.findAll();
+        List<GeneroDTO> generos = (List) this.gService.findAll();
+        List<TipousuarioDTO> tUsuarios = (List) this.tuService.findAll();
         
         boolean admin = Boolean.parseBoolean((String)request.getParameter("admin"));
 

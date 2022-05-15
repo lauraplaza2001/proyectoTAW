@@ -1,9 +1,10 @@
 <%-- 
-    Document   : registroUsuario.jsp
-    Created on : 07-abr-2022, 12:18:49
+    Document   : editorUsuario
+    Created on : 15-may-2022, 23:58:36
     Author     : juanm
 --%>
 
+<%@page import="proyectoTAW.dto.UsuarioDTO"%>
 <%@page import="proyectoTAW.dto.TipousuarioDTO"%>
 <%@page import="proyectoTAW.dto.GeneroDTO"%>
 <%@page import="java.util.List"%>
@@ -21,6 +22,10 @@
 
     </head>
     <body class="bg-light">
+        
+        <%
+            UsuarioDTO usuario = (UsuarioDTO) request.getAttribute("usuario");
+        %>
 
         <div class="container">
             <main class="row justify-content-md-center">
@@ -28,15 +33,15 @@
                 <div class="py-5 text-center">
                     <img class="d-block mx-auto mb-4" src="<%= request.getContextPath()%>/Images/logoipsum-logo-50.svg" alt="" width="72" height="57">
                     <h2>Registro de nuevos usuarios</h2>
-                    <p class="lead">Por favor, introduzca todos los campos para completar el registro</p>
+                    <p class="lead">Por favor, introduzca todos los campos para completar la edicion</p>
                 </div>
                 <div class="col-md-7 col-lg-8">
-                    <form class="needs-validation" novalidate action="${pageContext.request.contextPath}/CrearUsuarioServlet">
+                    <form class="needs-validation" novalidate action="${pageContext.request.contextPath}/GuardarUsuarioServlet">
                         <div class="row g-3">
                             <div class="col-sm-3">
                                 <label for="username" class="form-label">Nombre de usuario</label>
                                 <div class="input-group has-validation">
-                                    <input type="text" class="form-control" name="username" id="username" required>
+                                    <input type="text" class="form-control" name="username" id="username" value="<%= usuario.getNombreUsuario() %>" required>
                                     <div class="invalid-feedback">
                                         Nombre de usuario obligatorio.
                                     </div>
@@ -55,7 +60,7 @@
 
                             <div class="col-sm-6">
                                 <label for="firstName" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" name="firstName" id="firstName" required>
+                                <input type="text" class="form-control" name="firstName" id="firstName" value="<%= usuario.getNombre() %>"required>
                                 <div class="invalid-feedback">
                                     Primer nombre obligatorio.
                                 </div>
@@ -63,7 +68,7 @@
 
                             <div class="col-sm-6">
                                 <label for="lastName" class="form-label">Apellidos</label>
-                                <input type="text" class="form-control" name="lastName" id="lastName" required>
+                                <input type="text" class="form-control" name="lastName" id="lastName" value="<%= usuario.getApellidos() %>"required>
                                 <div class="invalid-feedback">
                                     Apellidos obligatorios.
                                 </div>
@@ -71,7 +76,7 @@
 
                             <div class="col-sm-4">
                                 <label for="city" class="form-label">Ciudad</label>
-                                <input type="text" class="form-control" name="city" id="city" required>
+                                <input type="text" class="form-control" name="city" id="city" value="<%= usuario.getCiudad() %>"required>
                                 <div class="invalid-feedback">
                                     Ciudad obligatoria.
                                 </div>
@@ -79,7 +84,7 @@
                             
                             <div class="col-sm-4">
                                 <label for="address" class="form-label">Dirección</label>
-                                <input type="text" class="form-control" name="address" id="address" required>
+                                <input type="text" class="form-control" name="address" id="address" value="<%= usuario.getDomicilio() %>"required>
                                 <div class="invalid-feedback">
                                     Dirección obligatoria.
                                 </div>
@@ -87,7 +92,7 @@
 
                             <div class="col-md-5">
                                 <label for="age" class="form-label">Edad</label>
-                                <input type="number" class="form-control" name="age" id="age" min="0" max="130" required>
+                                <input type="number" class="form-control" name="age" id="age" min="0" max="130" value="<%= usuario.getEdad() %>"required>
                                 <div class="invalid-feedback">
                                     Edad obligatoria.
                                 </div>
@@ -96,7 +101,6 @@
                             <%
                                 List<GeneroDTO> generos = (List) request.getAttribute("generos");
                                 List<TipousuarioDTO> tUsuarios = (List) request.getAttribute("tUsuarios");
-                                String admin = (String) request.getAttribute("admin");
                             %>
 
                             <div class="col-md-3">
@@ -111,7 +115,6 @@
                                     Género requerido.
                                 </div>
                             </div>
-                            <% if (admin.equalsIgnoreCase("true")) { %>
                             <div class="col-md-3">
                                 <label for="usertype" class="form-label">Tipo de Usuario</label>
                                 <select class="form-select" name="usertype" id="usertype" required>
@@ -124,12 +127,11 @@
                                     Tipo de usuario requerido.
                                 </div>
                             </div>
-                            <% }%>
                         </div>
 
                         <hr class="my-4">
 
-                        <button class="w-100 btn btn-primary btn-lg" type="submit">Finalizar registro</button>
+                        <button class="w-100 btn btn-primary btn-lg" name ="id" value="<%= usuario.getIdUsuario() %>" type="submit">Finalizar registro</button>
                     </form>
                 </div>
         </div>
@@ -162,3 +164,4 @@
 <script src="form-validation.js"></script>
 </body>
 </html>
+

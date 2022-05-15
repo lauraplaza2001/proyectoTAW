@@ -95,7 +95,7 @@ public class Genero implements Serializable {
         return "proyectoTAW.entity.Genero[ genero=" + genero + " ]";
     }
 
-    GeneroDTO toDTO() {
+    public GeneroDTO toDTO() {
         GeneroDTO g = new GeneroDTO();
 
         g.setGenero(this.getGenero());

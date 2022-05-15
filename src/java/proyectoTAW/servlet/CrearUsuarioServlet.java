@@ -45,6 +45,7 @@ public class CrearUsuarioServlet extends ProjectoTAWServlet {
         int age = Integer.parseInt(request.getParameter("age"));
         String gender = request.getParameter("gender");
         String userType = (String) request.getParameter("usertype");
+        if(userType == null) userType = "Estandar";
 
         this.uService.crearUsuario(username, pass, name, surname, city, address, age, gender, userType);
         

@@ -5,7 +5,13 @@
  */
 package proyectoTAW.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import proyectoTAW.dao.GeneroFacade;
+import proyectoTAW.dto.GeneroDTO;
+import proyectoTAW.entity.Genero;
 
 /**
  *
@@ -14,6 +20,23 @@ import javax.ejb.Stateless;
 @Stateless
 public class GeneroService {
 
+    @EJB GeneroFacade gFacade;
     
+    public List<GeneroDTO> findAll() {
+        return this.toDTOList(this.gFacade.findAll());
+    }
+
+    private List<GeneroDTO> toDTOList(List<Genero> generos) {
+        List<GeneroDTO> result = null;
+
+        if (generos != null) {
+            result = new ArrayList<>();
+            for (Genero c : generos) {
+                result.add(c.toDTO());
+            }
+        }
+
+        return result;
+    }
 
 }
