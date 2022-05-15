@@ -95,5 +95,9 @@ public class ListaService {
         usuarios.add(usuario);
         this.listaFacade.edit(lista);
     }
+
+    public void remove(int id) {
+        this.listaFacade.remove((this.listaFacade.find(id)));
+    }
     
 }
