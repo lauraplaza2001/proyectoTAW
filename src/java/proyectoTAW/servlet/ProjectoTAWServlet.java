@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import proyectoTAW.dto.UsuarioDTO;
 import proyectoTAW.entity.Usuario;
 
 /**
@@ -34,7 +35,7 @@ public abstract class ProjectoTAWServlet extends HttpServlet {
     protected boolean comprobarSession (HttpServletRequest request, HttpServletResponse response) 
                 throws ServletException, IOException {
         HttpSession session = request.getSession();
-        Usuario usuario = (Usuario)session.getAttribute("usuario");
+        UsuarioDTO usuario = (UsuarioDTO)session.getAttribute("usuario");
         if (usuario == null) {
             response.sendRedirect(request.getContextPath());
             return false;

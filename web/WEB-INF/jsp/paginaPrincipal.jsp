@@ -26,12 +26,12 @@
         List<CategoriaDTO> categorias = (List)request.getAttribute("categorias");
         
         
-       Usuario user = (Usuario)session.getAttribute("usuario");
+       UsuarioDTO user = (UsuarioDTO)session.getAttribute("usuario");
         if (user == null) {
             response.sendRedirect(request.getContextPath());
         }
         
-        // UsuarioDTO user = (UsuarioDTO)request.getAttribute("usuario");
+       
       %>
       
     <body>
@@ -84,7 +84,7 @@
                             <div class="input-group-prepend">
                                  <form class="d-flex" action="${pageContext.request.contextPath}/FiltroPaginaPrincipalServlet" method="get">
                                      
-                                     <input type="hidden"name="id" value ="1"/>
+                                     <input type="hidden"name="id" value ="<%=user.getIdUsuario()%>"/>
                                         <select class="custom-select" name="filtro" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         
                                             <option selected value ="todos"> Todos los productos </option>
