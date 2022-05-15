@@ -26,7 +26,7 @@
         List<CategoriaDTO> categorias = (List)request.getAttribute("categorias");
         
         
-       Usuario user = (Usuario)session.getAttribute("usuario");
+       UsuarioDTO user = (UsuarioDTO)session.getAttribute("usuario");
         if (user == null) {
             response.sendRedirect(request.getContextPath());
         }

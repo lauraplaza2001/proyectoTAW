@@ -27,7 +27,7 @@ import proyectoTAW.entity.Usuario;
  * @author Laura Plaza
  */
 @WebServlet(name = "SubastarProductoServlet", urlPatterns = {"/SubastarProductoServlet"})
-public class SubastarProductoServlet extends HttpServlet {
+public class SubastarProductoServlet extends ProjectoTAWServlet {
     @EJB ProductoFacade pFacade;
     @EJB CategoriaFacade cFacade;
     @EJB UsuarioFacade uFacade;
@@ -42,13 +42,16 @@ public class SubastarProductoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        if(super.comprobarSession(request, response)){
+              List<Categoria> categorias = this.cFacade.findAll();
+             request.setAttribute("categorias", categorias);
+                request.setAttribute("errorCategorias","");
+                request.getRequestDispatcher("/WEB-INF/jsp/crearProducto.jsp").forward(request, response);
+        
+        }
      
         
-        List<Categoria> categorias = this.cFacade.findAll();
-        request.setAttribute("categorias", categorias);
-        request.setAttribute("errorCategorias","");
-        request.getRequestDispatcher("/WEB-INF/jsp/crearProducto.jsp").forward(request, response);
-        
+      
         
     }
 

@@ -35,7 +35,7 @@ import proyectoTAW.entity.Usuario;
  * @author Laura Plaza
  */
 @WebServlet(name = "GuardarProductoSubastaServlet", urlPatterns = {"/GuardarProductoSubastaServlet"})
-public class GuardarProductoSubastaServlet extends HttpServlet {
+public class GuardarProductoSubastaServlet extends ProjectoTAWServlet {
     @EJB ProductoFacade pFacade;
     @EJB UsuarioFacade uFacade;
     @EJB SubastaFacade sFacade;
@@ -51,7 +51,9 @@ public class GuardarProductoSubastaServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+        
+        if(super.comprobarSession(request, response)){
+            
         try {
             int id = Integer.parseInt(request.getParameter("idUser")); // id del usuario
             String title = (String) request.getParameter("name");
@@ -137,9 +139,7 @@ public class GuardarProductoSubastaServlet extends HttpServlet {
                 
                 
                 
-                
-                
-                
+              
                 for(Categoria c : categoriasFinales){
                     List<Producto> p = new ArrayList<>();
                     p = c.getProductoList();
@@ -227,6 +227,16 @@ public class GuardarProductoSubastaServlet extends HttpServlet {
         } catch (ParseException ex) {
             Logger.getLogger(GuardarProductoSubastaServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
+        
+        
+        
+        }
+        
+        
+        
+       
 
        
         

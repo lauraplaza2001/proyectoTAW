@@ -29,7 +29,7 @@ import proyectoTAW.entity.Usuario;
  * @author Laura Plaza
  */
 @WebServlet(name = "BusquedaProductosVendedorServlet", urlPatterns = {"/BusquedaProductosVendedorServlet"})
-public class BusquedaProductosVendedorServlet extends HttpServlet {
+public class BusquedaProductosVendedorServlet extends ProjectoTAWServlet {
     @EJB ProductoFacade pFacade;
     @EJB SubastaFacade sFacade;
     @EJB UsuarioFacade uFacade;
@@ -45,7 +45,9 @@ public class BusquedaProductosVendedorServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    
+        
+       if(super.comprobarSession(request, response)){
+       
       List<Producto> productos;
       String like = (String) request.getParameter("busqueda");
       Integer filtro = Integer.parseInt(request.getParameter("filtro"));
@@ -98,6 +100,13 @@ public class BusquedaProductosVendedorServlet extends HttpServlet {
       
       request.setAttribute("productos", productosFiltrados);
       request.getRequestDispatcher("/WEB-INF/jsp/listaProductosEnVenta.jsp").forward(request, response);
+           
+           
+           
+           
+       }
+        
+    
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

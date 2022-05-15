@@ -25,7 +25,7 @@ import proyectoTAW.entity.Usuario;
  * @author Laura Plaza
  */
 @WebServlet(name = "GuardarPujaServlet", urlPatterns = {"/GuardarPujaServlet"})
-public class GuardarPujaServlet extends HttpServlet {
+public class GuardarPujaServlet extends ProjectoTAWServlet {
        @EJB SubastaFacade sFacade;
        @EJB UsuarioFacade uFacade;
        @EJB ProductoFacade pFacade;
@@ -41,7 +41,8 @@ public class GuardarPujaServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        int idSubasta = Integer.parseInt(request.getParameter("idSubasta"));
+        if(super.comprobarSession(request, response)){
+              int idSubasta = Integer.parseInt(request.getParameter("idSubasta"));
         int idMayorPostor=Integer.parseInt(request.getParameter("mayorPostor"));
         String precioPuja = request.getParameter("precioPuja");
      
@@ -81,6 +82,14 @@ public class GuardarPujaServlet extends HttpServlet {
         
         request.setAttribute("error", strError);
         request.getRequestDispatcher("/WEB-INF/jsp/pujas.jsp").forward(request, response);
+        
+        
+        
+        
+        }
+        
+        
+      
        
         
     }

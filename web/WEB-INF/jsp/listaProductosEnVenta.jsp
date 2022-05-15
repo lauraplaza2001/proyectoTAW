@@ -55,7 +55,7 @@
                             <img src="<%= request.getContextPath()%>/Images/list.svg" alt="No File" width="32" height="32" class="rounded-circle">
                         </a>
                         <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                            <li><a class="dropdown-item" href="#">Configuración</a></li>
+                       
                             <li><a class="dropdown-item" href="#">Perfil</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li>

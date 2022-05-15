@@ -34,6 +34,7 @@
                         <li><a href="<%= request.getContextPath()%>/ListaUsuariosServlet" class="nav-link px-2 link-primary">Clientes</a></li>
                         <li><a href="<%= request.getContextPath()%>/ListaProductosServlet" class="nav-link px-2 link-dark">Productos</a></li>
                         <li><a href="<%= request.getContextPath()%>/EditorCategoriasServlet" class="nav-link px-2 link-dark">Categorías</a></li>
+                         <li><a href="<%= request.getContextPath()%>/NuevoProductoServlet" class="nav-link px-2 link-dark">Mis productos</a></li>
                     </ul>
 
                     <div class="dropdown text-end">

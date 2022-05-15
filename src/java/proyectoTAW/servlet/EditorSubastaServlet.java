@@ -26,7 +26,7 @@ import proyectoTAW.entity.Subasta;
  * @author Laura Plaza
  */
 @WebServlet(name = "EditorSubastaServlet", urlPatterns = {"/EditorSubastaServlet"})
-public class EditorSubastaServlet extends HttpServlet {
+public class EditorSubastaServlet extends ProjectoTAWServlet {
     @EJB CategoriaFacade  cFacade;
     @EJB ProductoFacade pFacade;
     @EJB SubastaFacade sFacade;
@@ -41,7 +41,10 @@ public class EditorSubastaServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String idUser = (String) request.getParameter("idUser");
+        
+        if(super.comprobarSession(request, response)){
+            
+            String idUser = (String) request.getParameter("idUser");
         String idProducto = (String) request.getParameter("id");
         
         Producto prod = this.pFacade.find(Integer.parseInt(idProducto));
@@ -54,6 +57,10 @@ public class EditorSubastaServlet extends HttpServlet {
         request.setAttribute("subasta", s);
         request.setAttribute("errorCategorias", "");
         request.getRequestDispatcher("/WEB-INF/jsp/editorProductoSubasta.jsp").forward(request, response);
+            
+        }
+        
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

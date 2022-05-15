@@ -21,7 +21,7 @@ import proyectoTAW.entity.Producto;
  * @author Laura Plaza
  */
 @WebServlet(name = "EliminarProductoVendedorServlet", urlPatterns = {"/EliminarProductoVendedorServlet"})
-public class EliminarProductoVendedorServlet extends HttpServlet {
+public class EliminarProductoVendedorServlet extends ProjectoTAWServlet {
     @EJB ProductoFacade pFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,6 +34,8 @@ public class EliminarProductoVendedorServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        if(super.comprobarSession(request, response)){
+            
         String str = request.getParameter("id");
         String idUser= request.getParameter("idUser");
         
@@ -42,6 +44,10 @@ public class EliminarProductoVendedorServlet extends HttpServlet {
         this.pFacade.remove(producto);
         
         response.sendRedirect(request.getContextPath() + "/NuevoProductoServlet?id=1" );
+        }
+        
+        
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
