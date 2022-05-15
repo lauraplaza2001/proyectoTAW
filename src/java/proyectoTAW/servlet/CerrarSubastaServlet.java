@@ -7,13 +7,18 @@ package proyectoTAW.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import proyectoTAW.dao.ProductoFacade;
+import proyectoTAW.dao.SubastaFacade;
 import proyectoTAW.dto.SubastaDTO;
+import proyectoTAW.entity.Producto;
+import proyectoTAW.entity.Subasta;
 import proyectoTAW.service.ProductoService;
 import proyectoTAW.service.SubastaService;
 
@@ -23,8 +28,9 @@ import proyectoTAW.service.SubastaService;
  */
 @WebServlet(name = "CerrarSubastaServlet", urlPatterns = {"/CerrarSubastaServlet"})
 public class CerrarSubastaServlet extends HttpServlet {
-        @EJB ProductoService ps;
-        @EJB SubastaService ss;
+  
+        @EJB SubastaFacade sf;
+        @EJB ProductoFacade pf;
         
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +44,18 @@ public class CerrarSubastaServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
             String idSubasta =  request.getParameter("subastaId");  
-            SubastaDTO subasta = this.ss.find(Integer.parseInt(idSubasta));
+            Subasta s = this.sf.find(Integer.parseInt(idSubasta));
             
-            this.ps.añadirComprado(subasta.getMayorPostor().getIdUsuario(),subasta.getProducto().getIdProducto());
-                    response.sendRedirect(request.getContextPath() + "/NuevoProductoServlet");
+            Producto p = s.getProducto();
+            p.setIdComprador(s.getMayorPostor());
+            this.pf.edit(p);
+            
+            
+            s.setFechaCierre(new Date());
+            this.sf.edit(s);
+            
+            
+            response.sendRedirect(request.getContextPath() + "/NuevoProductoServlet");
             
         
     }
