@@ -69,7 +69,7 @@
                     </div>
 
                     <%    List<UsuarioDTO> usuarios = (List) request.getAttribute("usuarios");
-                          int idlista = (Integer) request.getAttribute("idlista");
+                          String idlista = request.getAttribute("idlista").toString();
                           
                     %>
                     <div class="container p-3">
@@ -77,10 +77,11 @@
                             <%
                                 for (UsuarioDTO usuario : usuarios) {
                             %>
-                            <form action="${pageContext.request.contextPath}/AnadirUsuarioListaServlet?idlist=<%=idlista%>">
+                            <form action="${pageContext.request.contextPath}/AnadirUsuarioListaServlet">
                                 <ul class="col col-12 list-group list-group-horizontal">
                                     <li class="list-group-item col-8"><%= usuario.toString() %></li>  
                                     <li class="p-2">
+                                        <input type="text" name="idlista" hidden="true" value="<%=idlista%>">
                                         <button  type="submit" name="id" value="<%=usuario.getIdUsuario()%>" class="btn btn-warning" >Añadir</button>
                                     </li>
                                 </ul>

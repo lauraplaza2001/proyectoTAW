@@ -6,6 +6,7 @@ package proyectoTAW.servlet;
 
 import java.io.IOException;
 import static java.lang.Integer.parseInt;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +14,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import proyectoTAW.dto.ListaDTO;
+import proyectoTAW.dto.UsuarioDTO;
 import proyectoTAW.service.ListaService;
+import proyectoTAW.service.UsuarioService;
 
 /**
  *
@@ -33,6 +36,7 @@ public class ListaCompradoresCategoria extends ProjectoTAWServlet {
      */
     
     @EJB ListaService listaService;
+    @EJB UsuarioService usuarioService;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
