@@ -40,7 +40,7 @@ public class BusquedaListaServlet extends ProjectoTAWServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if(super.redirigirUsuario(request, response, "Estandar", request.getSession())){
+        if(super.redirigirUsuario(request, response, "Marketing", request.getSession())){
         String busqueda = request.getParameter("busqueda");
         
         List<ListaDTO> listas = this.listaService.getListasLike(busqueda);
