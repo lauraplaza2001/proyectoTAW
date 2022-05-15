@@ -21,7 +21,7 @@ import proyectoTAW.service.UsuarioService;
  * @author juanm
  */
 @WebServlet(name = "ListaUsuariosServlet", urlPatterns = {"/ListaUsuariosServlet"})
-public class ListaUsuariosServlet extends HttpServlet {
+public class ListaUsuariosServlet extends ProjectoTAWServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,7 +38,7 @@ public class ListaUsuariosServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
         
-      
+      if(super.redirigirUsuario(request, response, "Administrador", request.getSession())){
       String like = (String) request.getParameter("busqueda");
       Integer filtro = Integer.parseInt(request.getParameter("filtro"));
   
@@ -46,6 +46,7 @@ public class ListaUsuariosServlet extends HttpServlet {
      
       request.setAttribute("usuarios", usuarios);
       request.getRequestDispatcher("/WEB-INF/jsp/editorUsuarios.jsp").forward(request, response);
+      }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

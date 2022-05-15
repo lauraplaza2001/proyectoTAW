@@ -9,11 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.jms.Session;
+import javax.servlet.http.HttpSession;
 import proyectoTAW.dao.GeneroFacade;
 import proyectoTAW.dao.ProductoFacade;
 import proyectoTAW.dao.TipousuarioFacade;
 import proyectoTAW.dao.UsuarioFacade;
-import proyectoTAW.dto.ProductoDTO;
 import proyectoTAW.dto.UsuarioDTO;
 import proyectoTAW.entity.Producto;
 import proyectoTAW.entity.Usuario;
@@ -31,7 +32,8 @@ public class UsuarioService {
     GeneroFacade gFacade;
     @EJB
     TipousuarioFacade tuFacade;
-    @EJB ProductoFacade pFacade;
+    @EJB
+    ProductoFacade pFacade;
 
     public List<UsuarioDTO> toDTOList(List<Usuario> lista) {
 
@@ -68,9 +70,11 @@ public class UsuarioService {
     public void remove(int id) {
         this.uFacade.remove((this.uFacade.find(id)));
     }
-    public void edit(int id){
+
+    public void edit(int id) {
         this.uFacade.edit((this.uFacade).find(id));
     }
+
     public List<UsuarioDTO> getCategoriasLike(String like, Integer filtro) {
         List<UsuarioDTO> usuarios;
 
@@ -82,48 +86,59 @@ public class UsuarioService {
 
         return usuarios;
     }
-    public UsuarioDTO find (int id){
-          
+
+    public UsuarioDTO find(int id) {
+
         return this.uFacade.find(id).toDTO();
     }
 
     public void insertarProducto(int idUsuario, int idProducto) {
-       Producto producto = this.pFacade.find(idProducto);
-       Usuario usuario = this.uFacade.find(idUsuario);
-       
-       if (!this.pFacade.isProductFavourite(idUsuario, idProducto)){
-            List <Usuario> usuarios = producto.getUsuarioList();
-            List <Producto> productos = usuario.getProductoList();
-            
+        Producto producto = this.pFacade.find(idProducto);
+        Usuario usuario = this.uFacade.find(idUsuario);
+
+        if (!this.pFacade.isProductFavourite(idUsuario, idProducto)) {
+            List<Usuario> usuarios = producto.getUsuarioList();
+            List<Producto> productos = usuario.getProductoList();
+
             productos.add(producto);
             usuarios.add(usuario);
-            
+
             producto.setUsuarioList(usuarios);
             usuario.setProductoList(productos);
 
             this.uFacade.edit(usuario);
             this.pFacade.edit(producto);
-       }
-      
+        }
+
     }
+
     public void eliminarProducto(int idUsuario, int idProducto) {
-       Producto producto = this.pFacade.find( idProducto);
-       Usuario usuario = this.uFacade.find(idUsuario);
-       
-       if (this.pFacade.isProductFavourite(idUsuario, idProducto)){
-            List <Usuario> usuarios = producto.getUsuarioList();
-            List <Producto> productos = usuario.getProductoList();
-            
+        Producto producto = this.pFacade.find(idProducto);
+        Usuario usuario = this.uFacade.find(idUsuario);
+
+        if (this.pFacade.isProductFavourite(idUsuario, idProducto)) {
+            List<Usuario> usuarios = producto.getUsuarioList();
+            List<Producto> productos = usuario.getProductoList();
+
             productos.remove(producto);
             usuarios.remove(usuario);
 
             this.uFacade.edit(usuario);
             this.pFacade.edit(producto);
-       }
-      
+        }
+
     }
 
     public UsuarioDTO comprobarUsuario(String username, String psw) {
         return this.uFacade.comprobarUsuario(username, psw).toDTO();
+    }
+
+    public List<UsuarioDTO> findAll() {
+        return this.toDTOList(this.uFacade.findAll());
+    }
+    
+    public boolean comprobarPermisos(HttpSession sesion, String usuario){
+        String sesionReal = (String) sesion.getAttribute("tipoUsuario");
+        return usuario.equals(sesionReal);
     }
 }

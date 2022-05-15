@@ -1,23 +1,27 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package proyectoTAW.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import static java.lang.Integer.parseInt;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import proyectoTAW.service.ListaService;
+import proyectoTAW.service.UsuarioService;
 
 /**
  *
  * @author Agustín
  */
-@WebServlet(name = "ComprobarPermisosServlet", urlPatterns = {"/ComprobarPermisosServlet"})
-public class ComprobarPermisosServlet extends HttpServlet {
+@WebServlet(name = "AnadirUsuarioListaServlet", urlPatterns = {"/AnadirUsuarioListaServlet"})
+public class AnadirUsuarioListaServlet extends ProjectoTAWServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -28,20 +32,18 @@ public class ComprobarPermisosServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    @EJB ListaService listaService;
+    @EJB UsuarioService usuarioService;
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ComprobarPermisosServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ComprobarPermisosServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        if(super.redirigirUsuario(request, response, "Marketing", request.getSession())){
+        int idusuario = parseInt(request.getParameter("id"));
+        int idlista = parseInt(request.getParameter("idlista"));
+        
+        this.listaService.addUsuarioToLista(idusuario, idlista);
+        response.sendRedirect(request.getContextPath() + "/ListaCompradoresCategoria?id="+idlista);
         }
     }
 

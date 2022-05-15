@@ -6,12 +6,10 @@
 package proyectoTAW.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import proyectoTAW.dao.CategoriaFacade;
@@ -42,24 +40,22 @@ public class EditorSubastaServlet extends ProjectoTAWServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        if(super.comprobarSession(request, response)){
+        if(super.redirigirUsuario(request, response, "Estandar", request.getSession())){
             
             String idUser = (String) request.getParameter("idUser");
-        String idProducto = (String) request.getParameter("id");
-        
-        Producto prod = this.pFacade.find(Integer.parseInt(idProducto));
-        List<Categoria> categorias = this.cFacade.findAll();
-        Subasta s = this.sFacade.findSubastaActiva(prod);
- 
-        request.setAttribute("producto", prod); 
-        request.setAttribute("categorias", categorias);
-        request.setAttribute("idUser", idUser);
-        request.setAttribute("subasta", s);
-        request.setAttribute("errorCategorias", "");
-        request.getRequestDispatcher("/WEB-INF/jsp/editorProductoSubasta.jsp").forward(request, response);
-            
+            String idProducto = (String) request.getParameter("id");
+
+            Producto prod = this.pFacade.find(Integer.parseInt(idProducto));
+            List<Categoria> categorias = this.cFacade.findAll();
+            Subasta s = this.sFacade.findSubastaActiva(prod);
+
+            request.setAttribute("producto", prod); 
+            request.setAttribute("categorias", categorias);
+            request.setAttribute("idUser", idUser);
+            request.setAttribute("subasta", s);
+            request.setAttribute("errorCategorias", "");
+            request.getRequestDispatcher("/WEB-INF/jsp/editorProductoSubasta.jsp").forward(request, response);
         }
-        
         
     }
 

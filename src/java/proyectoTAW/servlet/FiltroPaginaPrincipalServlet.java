@@ -6,26 +6,21 @@
 package proyectoTAW.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import proyectoTAW.dto.CategoriaDTO;
-import proyectoTAW.dto.ProductoDTO;
 import proyectoTAW.dto.SubastaDTO;
-import proyectoTAW.dto.UsuarioDTO;
 import proyectoTAW.service.CategoriaService;
-import proyectoTAW.service.ProductoService;
 import proyectoTAW.service.SubastaService;
 import proyectoTAW.service.UsuarioService;
 
 /**
  *
- * @author 34636
+ * @author Chris
  */
 @WebServlet(name = "FiltroPaginaPrincipalServlet", urlPatterns = {"/FiltroPaginaPrincipalServlet"})
 public class FiltroPaginaPrincipalServlet extends ProjectoTAWServlet {
@@ -44,7 +39,7 @@ public class FiltroPaginaPrincipalServlet extends ProjectoTAWServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-      if (super.comprobarSession(request,response)){
+      
           //DATOS 
           //-----------------------------------------------------------------
       Boolean fav=false,comp=false;
@@ -93,8 +88,6 @@ public class FiltroPaginaPrincipalServlet extends ProjectoTAWServlet {
         
              
       
-       
-    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

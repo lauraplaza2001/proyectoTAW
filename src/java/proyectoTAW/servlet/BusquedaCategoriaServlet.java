@@ -6,7 +6,6 @@
 package proyectoTAW.servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -22,7 +21,7 @@ import proyectoTAW.service.CategoriaService;
  * @author juanm
  */
 @WebServlet(name = "BusquedaCategoriaServlet", urlPatterns = {"/BusquedaCategoriaServlet"})
-public class BusquedaCategoriaServlet extends HttpServlet {
+public class BusquedaCategoriaServlet extends ProjectoTAWServlet {
 
     @EJB CategoriaService cFacade;
 
@@ -37,6 +36,7 @@ public class BusquedaCategoriaServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        if(super.redirigirUsuario(request, response, "Administrador", request.getSession())){
         response.setContentType("text/html;charset=UTF-8");
 
         String busqueda = request.getParameter("busqueda");
@@ -46,6 +46,7 @@ public class BusquedaCategoriaServlet extends HttpServlet {
         request.setAttribute("categorias", categorias);
 
         request.getRequestDispatcher("/WEB-INF/jsp/editorCategorias.jsp").forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -6,7 +6,6 @@
 package proyectoTAW.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -14,9 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import proyectoTAW.dao.ProductoFacade;
 import proyectoTAW.dto.ProductoDTO;
-import proyectoTAW.entity.Producto;
 import proyectoTAW.service.ProductoService;
 
 /**
@@ -24,7 +21,7 @@ import proyectoTAW.service.ProductoService;
  * @author juanm
  */
 @WebServlet(name = "BusquedaProductosServlet", urlPatterns = {"/BusquedaProductosServlet"})
-public class BusquedaProductosServlet extends HttpServlet {
+public class BusquedaProductosServlet extends ProjectoTAWServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,7 +38,7 @@ public class BusquedaProductosServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        
+      if(super.redirigirUsuario(request, response, "Estandar", request.getSession())){
       List<ProductoDTO> productos;
       String like = (String) request.getParameter("busqueda");
       Integer filtro = Integer.parseInt(request.getParameter("filtro"));
@@ -50,6 +47,7 @@ public class BusquedaProductosServlet extends HttpServlet {
     
       request.setAttribute("productos", productos);
       request.getRequestDispatcher("/WEB-INF/jsp/listaProductos.jsp").forward(request, response);
+      }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

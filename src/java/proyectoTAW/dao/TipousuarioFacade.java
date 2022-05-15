@@ -10,10 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import proyectoTAW.entity.Tipousuario;
 
-/**
- *
- * @author juanm
- */
+
 @Stateless
 public class TipousuarioFacade extends AbstractFacade<Tipousuario> {
 

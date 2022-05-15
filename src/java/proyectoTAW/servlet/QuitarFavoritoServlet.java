@@ -16,10 +16,10 @@ import proyectoTAW.service.UsuarioService;
 
 /**
  *
- * @author 34636
+ * @author Chris
  */
 @WebServlet(name = "QuitarFavoritoServlet", urlPatterns = {"/QuitarFavoritoServlet"})
-public class QuitarFavoritoServlet extends HttpServlet {
+public class QuitarFavoritoServlet extends ProjectoTAWServlet {
     @EJB UsuarioService us;
     
     /**
@@ -33,7 +33,7 @@ public class QuitarFavoritoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        if(super.redirigirUsuario(request, response, "Estandar", request.getSession())){
         String idProducto = request.getParameter("idProducto");
         String idUsuario = request.getParameter("idUsuario");
         
@@ -41,7 +41,7 @@ public class QuitarFavoritoServlet extends HttpServlet {
         
         
         response.sendRedirect(request.getContextPath() + "/PaginaPrincipalServlet");  
-        
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

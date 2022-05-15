@@ -6,26 +6,22 @@
 package proyectoTAW.servlet;
 
 import java.io.IOException;
-import java.util.List;
+import static java.lang.Integer.parseInt;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import proyectoTAW.dao.CategoriaFacade;
-import proyectoTAW.dao.ProductoFacade;
-import proyectoTAW.dao.UsuarioFacade;
-import proyectoTAW.entity.Categoria;
+import proyectoTAW.service.ListaService;
 
 /**
  *
- * @author Laura Plaza
+ * @author Agustín
  */
-@WebServlet(name = "SubastarProductoServlet", urlPatterns = {"/SubastarProductoServlet"})
-public class SubastarProductoServlet extends ProjectoTAWServlet {
-    @EJB ProductoFacade pFacade;
-    @EJB CategoriaFacade cFacade;
-    @EJB UsuarioFacade uFacade;
+@WebServlet(name = "EliminarUsuarioListaServlet", urlPatterns = {"/EliminarUsuarioListaServlet"})
+public class EliminarUsuarioListaServlet extends ProjectoTAWServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -35,16 +31,19 @@ public class SubastarProductoServlet extends ProjectoTAWServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    @EJB ListaService listaService;
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if(super.redirigirUsuario(request, response, "Estandar", request.getSession())){
-              List<Categoria> categorias = this.cFacade.findAll();
-             request.setAttribute("categorias", categorias);
-                request.setAttribute("errorCategorias","");
-                request.getRequestDispatcher("/WEB-INF/jsp/crearProducto.jsp").forward(request, response);
+        if(super.redirigirUsuario(request, response, "Marketing", request.getSession())){
+        int idusuario = parseInt(request.getParameter("id"));
+        int idlista = parseInt(request.getParameter("idlista"));
+        
+        this.listaService.removeUsuarioFromLista(idusuario, idlista);
+        response.sendRedirect(request.getContextPath() + "/ListaCompradoresCategoria?id="+idlista);
         }
-        }
-
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

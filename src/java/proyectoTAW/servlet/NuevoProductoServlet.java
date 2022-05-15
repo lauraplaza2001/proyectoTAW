@@ -6,7 +6,6 @@
 package proyectoTAW.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -16,18 +15,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import proyectoTAW.dao.ProductoFacade;
-import proyectoTAW.dao.SubastaFacade;
 import proyectoTAW.dao.UsuarioFacade;
 import proyectoTAW.dto.UsuarioDTO;
 import proyectoTAW.entity.Producto;
-import proyectoTAW.entity.Usuario;
 
 /**
  *
  * @author Laura Plaza
  */
 @WebServlet(name = "NuevoProductoServlet", urlPatterns = {"/NuevoProductoServlet"})
-public class NuevoProductoServlet extends HttpServlet {
+public class NuevoProductoServlet extends ProjectoTAWServlet {
     @EJB ProductoFacade pFacade;
     @EJB UsuarioFacade uFacade;
     /**
@@ -41,6 +38,7 @@ public class NuevoProductoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        if(super.redirigirUsuario(request, response, "Estandar", request.getSession())){
          HttpSession session = request.getSession();
            UsuarioDTO usuario =  (UsuarioDTO) session.getAttribute("usuario");
        
@@ -50,6 +48,7 @@ public class NuevoProductoServlet extends HttpServlet {
         request.setAttribute("productos", productos);
         request.setAttribute("errorCategorias", "");
         request.getRequestDispatcher("/WEB-INF/jsp/listaProductosEnVenta.jsp").forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

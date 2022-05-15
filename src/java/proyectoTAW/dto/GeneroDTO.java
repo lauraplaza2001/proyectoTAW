@@ -5,8 +5,6 @@
  */
 package proyectoTAW.dto;
 
-import java.util.List;
-
 /**
  *
  * @author juanm

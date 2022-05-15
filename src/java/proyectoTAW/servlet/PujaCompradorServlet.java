@@ -6,12 +6,9 @@
 package proyectoTAW.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import proyectoTAW.dao.ProductoFacade;
@@ -40,10 +37,7 @@ public class PujaCompradorServlet extends ProjectoTAWServlet {
             throws ServletException, IOException {
         
         
-        
-        
-        
-         if (super.comprobarSession(request,response)){
+        if(super.redirigirUsuario(request, response, "Estandar", request.getSession())){
          
          
         String idProducto = (String) request.getParameter("idProducto");
@@ -62,11 +56,9 @@ public class PujaCompradorServlet extends ProjectoTAWServlet {
         
         request.setAttribute("error", error);
         request.getRequestDispatcher("/WEB-INF/jsp/pujas.jsp").forward(request, response);
-         
+        }
          }
-      
-        
-    }
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

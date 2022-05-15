@@ -5,7 +5,6 @@
 package proyectoTAW.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -13,10 +12,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import proyectoTAW.dao.CategoriaFacade;
 import proyectoTAW.dto.CategoriaDTO;
 import proyectoTAW.dto.ListaDTO;
-import proyectoTAW.entity.Categoria;
 import proyectoTAW.service.CategoriaService;
 import proyectoTAW.service.ListaService;
 
@@ -25,7 +22,7 @@ import proyectoTAW.service.ListaService;
  * @author Agustín
  */
 @WebServlet(name = "ListasMarketingServlet", urlPatterns = {"/ListasMarketingServlet"})
-public class ListasMarketingServlet extends HttpServlet {
+public class ListasMarketingServlet extends ProjectoTAWServlet {
     
     @EJB ListaService listaService;
     @EJB CategoriaService categoriaService;
@@ -41,13 +38,14 @@ public class ListasMarketingServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        if(super.redirigirUsuario(request, response, "Marketing", request.getSession())){
         List<ListaDTO> listas = this.listaService.findAll();
         List<CategoriaDTO> categorias = this.categoriaService.findAll();
         
         request.setAttribute("listas", listas); 
         request.setAttribute("categorias", categorias);
         request.getRequestDispatcher("/WEB-INF/jsp/listasCompradores.jsp").forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -6,12 +6,10 @@
 package proyectoTAW.dto;
 
 import java.util.List;
-import proyectoTAW.entity.Categoria;
-import proyectoTAW.entity.Usuario;
 
 /**
  *
- * @author Ferni
+ * @author Agustín
  */
 public class ListaDTO {
     private Integer idlista;

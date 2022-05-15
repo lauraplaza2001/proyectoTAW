@@ -205,38 +205,7 @@ public class Usuario implements Serializable {
         this.tipoUsuario = tipoUsuario;
     }
     
-        public String filtro(int filtro) {
-
-        String sol;
-        switch (filtro) {
-            case (2):
-                sol = getNombre();
-                break;
-            case (3):
-                sol = getApellidos();
-                break;
-            case (4):
-                sol = getDomicilio();
-                break;
-            case (5):
-                sol = getCiudad();
-                break;
-            case (6):
-                sol = getEdad().toString();
-                break;
-            case (7):
-                sol = getGenero().getGenero();
-                break;
-            case (8):
-                sol = getTipoUsuario().getTipoUsuario();
-                break;
-            default:
-                sol = getNombreUsuario();
-                break;
-
-        }
-        return sol;
-    }
+       
 
     @Override
     public int hashCode() {

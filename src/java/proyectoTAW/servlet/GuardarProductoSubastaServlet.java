@@ -6,19 +6,16 @@
 package proyectoTAW.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import proyectoTAW.dao.CategoriaFacade;
@@ -52,7 +49,7 @@ public class GuardarProductoSubastaServlet extends ProjectoTAWServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        if(super.comprobarSession(request, response)){
+        if(super.redirigirUsuario(request, response, "Estandar", request.getSession())){
             
         try {
             int id = Integer.parseInt(request.getParameter("idUser")); // id del usuario
@@ -230,17 +227,12 @@ public class GuardarProductoSubastaServlet extends ProjectoTAWServlet {
         
         
         
-        
+        }
         
         }
         
         
-        
-       
 
-       
-        
-    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

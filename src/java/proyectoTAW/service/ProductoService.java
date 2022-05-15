@@ -20,6 +20,9 @@ import proyectoTAW.entity.Usuario;
 /**
  *
  * @author juanm
+ * hasta edit incluido
+ * @autor Chris
+ * los 3 ultimos
  */
 @Stateless
 public class ProductoService {

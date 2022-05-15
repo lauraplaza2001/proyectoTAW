@@ -6,11 +6,9 @@
 package proyectoTAW.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import proyectoTAW.dao.ProductoFacade;
@@ -34,7 +32,7 @@ public class EliminarProductoVendedorServlet extends ProjectoTAWServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if(super.comprobarSession(request, response)){
+        if(super.redirigirUsuario(request, response, "Estandar", request.getSession())){
             
         String str = request.getParameter("id");
         String idUser= request.getParameter("idUser");
@@ -44,9 +42,9 @@ public class EliminarProductoVendedorServlet extends ProjectoTAWServlet {
         this.pFacade.remove(producto);
         
         response.sendRedirect(request.getContextPath() + "/NuevoProductoServlet?id=1" );
+        
+        
         }
-        
-        
         
     }
 

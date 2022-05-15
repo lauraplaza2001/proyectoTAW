@@ -15,6 +15,7 @@ import proyectoTAW.entity.Categoria;
 /**
  *
  * @author juanm
+ * getCategoriasLike
  */
 @Stateless
 public class CategoriaFacade extends AbstractFacade<Categoria> {

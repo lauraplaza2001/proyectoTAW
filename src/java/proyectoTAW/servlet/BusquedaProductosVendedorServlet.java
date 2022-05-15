@@ -6,13 +6,11 @@
 package proyectoTAW.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -22,7 +20,6 @@ import proyectoTAW.dao.UsuarioFacade;
 import proyectoTAW.dto.UsuarioDTO;
 import proyectoTAW.entity.Producto;
 import proyectoTAW.entity.Subasta;
-import proyectoTAW.entity.Usuario;
 
 /**
  *
@@ -46,7 +43,7 @@ public class BusquedaProductosVendedorServlet extends ProjectoTAWServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-       if(super.comprobarSession(request, response)){
+      if(super.redirigirUsuario(request, response, "Estandar", request.getSession())){
        
       List<Producto> productos;
       String like = (String) request.getParameter("busqueda");
@@ -78,24 +75,6 @@ public class BusquedaProductosVendedorServlet extends ProjectoTAWServlet {
   
        
        
-       /*
-       
-      if(subastasUsuario.size()==0 || productos.size() ==0 || subastasUsuario.isEmpty() || subastasUsuario==null || productos.isEmpty() || productos == null){
-          productosFiltrados = null;
-      }else{
-          for(int i = 0 ; i< subastasUsuario.size(); i++){
-              for (int j = 0 ; j < productos.size(); j++){
-                 if(subastasUsuario.get(i).getProducto().getIdProducto().equals(productos.get(j).getIdProducto())) {
-                      productosFiltrados.add(productos.get(j));
-                  }
-              }
-          }
-          
-          
-      }
-      
-      
-      */
       
       
       request.setAttribute("productos", productosFiltrados);
@@ -104,7 +83,7 @@ public class BusquedaProductosVendedorServlet extends ProjectoTAWServlet {
            
            
            
-       }
+      }
         
     
     }

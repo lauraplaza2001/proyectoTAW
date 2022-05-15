@@ -6,7 +6,6 @@
 package proyectoTAW.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -21,10 +20,10 @@ import proyectoTAW.service.ListaService;
 
 /**
  *
- * @author Ferni
+ * @author Agustín
  */
 @WebServlet(name = "BusquedaListaServlet", urlPatterns = {"/BusquedaListaServlet"})
-public class BusquedaListaServlet extends HttpServlet {
+public class BusquedaListaServlet extends ProjectoTAWServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,6 +40,7 @@ public class BusquedaListaServlet extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        if(super.redirigirUsuario(request, response, "Estandar", request.getSession())){
         String busqueda = request.getParameter("busqueda");
         
         List<ListaDTO> listas = this.listaService.getListasLike(busqueda);
@@ -50,6 +50,7 @@ public class BusquedaListaServlet extends HttpServlet {
         request.setAttribute("categorias", categorias);
 
         request.getRequestDispatcher("/WEB-INF/jsp/listasCompradores.jsp").forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

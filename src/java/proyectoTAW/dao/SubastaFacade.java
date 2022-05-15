@@ -11,14 +11,19 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import proyectoTAW.dto.ProductoDTO;
 import proyectoTAW.entity.Producto;
 import proyectoTAW.entity.Subasta;
 import proyectoTAW.entity.Usuario;
 
 /**
  *
- * @author juanm
+ * @author Laura
+ * findSubastasDelProducto
+ * findSubastaActiva
+ * @autor Chris
+ * findSubastaActivaFiltro
+ * findSubastaWithFavouriteProductList
+ * findSubastaWithProductsComprados
  */
 @Stateless
 public class SubastaFacade extends AbstractFacade<Subasta> {
@@ -35,24 +40,6 @@ public class SubastaFacade extends AbstractFacade<Subasta> {
         super(Subasta.class);
     }
 
-    public List<Subasta> findSubastaActiva() {
-       Query q;
-             
-       q = this.getEntityManager().createQuery("SELECT s FROM Subasta s  WHERE s.fechaCierre >= :today",Subasta.class);
-       q.setParameter("today",new Date());
-       
-       return q.getResultList();
-        
-    }
-
-    public List<Subasta> findSubastaDelProducto(Producto producto) {
-        Query q;
-        q= this.getEntityManager().createQuery("SELECT s FROM Subasta s WHERE s.producto.idProducto= :idProducto");
-     //   q.setParameter("fecha", new Date());
-        q.setParameter("idProducto", producto.getIdProducto());
-        
-        return q.getResultList();
-    }
 
     public List<Subasta> findSubastasDelProducto(int idProducto) {
         Query q;

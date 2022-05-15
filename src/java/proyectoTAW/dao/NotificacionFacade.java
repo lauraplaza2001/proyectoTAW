@@ -10,10 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import proyectoTAW.entity.Notificacion;
 
-/**
- *
- * @author juanm
- */
+
 @Stateless
 public class NotificacionFacade extends AbstractFacade<Notificacion> {
 

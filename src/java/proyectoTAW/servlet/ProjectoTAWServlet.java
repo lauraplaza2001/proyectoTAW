@@ -6,7 +6,7 @@
 package proyectoTAW.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,14 +14,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import proyectoTAW.dto.UsuarioDTO;
-import proyectoTAW.entity.Usuario;
+import proyectoTAW.service.UsuarioService;
 
 /**
  *
- * @author 34636
+ * @author Chris
  */
 @WebServlet(name = "ProjectoTAWServlet", urlPatterns = {"/ProjectoTAWServlet"})
 public abstract class ProjectoTAWServlet extends HttpServlet {
+    @EJB UsuarioService usuarioService;
 @Override
     protected abstract void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException;
@@ -32,16 +33,14 @@ public abstract class ProjectoTAWServlet extends HttpServlet {
     protected abstract void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException;
 
-    protected boolean comprobarSession (HttpServletRequest request, HttpServletResponse response) 
+    protected boolean redirigirUsuario (HttpServletRequest request, HttpServletResponse response, String tipoUsuario, HttpSession sesion) 
                 throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        UsuarioDTO usuario = (UsuarioDTO)session.getAttribute("usuario");
-        if (usuario == null) {
-            response.sendRedirect(request.getContextPath());
+        if (!this.usuarioService.comprobarPermisos(sesion, tipoUsuario)){
+            response.sendRedirect(request.getContextPath() + "/PaginaPrincipalServlet");
             return false;
-        } else {
+        }  else {
             return true;
-        }        
+        }
         
     }
 }

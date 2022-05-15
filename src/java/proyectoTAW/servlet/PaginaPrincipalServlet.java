@@ -20,7 +20,7 @@ import proyectoTAW.service.UsuarioService;
 
 /**
  *
- * @author 34636
+ * @author Chris
  */
 @WebServlet(name = "PaginaPrincipalServlet", urlPatterns = {"/PaginaPrincipalServlet"})
 public class PaginaPrincipalServlet extends ProjectoTAWServlet {
@@ -38,7 +38,6 @@ public class PaginaPrincipalServlet extends ProjectoTAWServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       if (super.comprobarSession(request,response)){
             Boolean fav=false,comp=false;
             String listaTipo = "PRODUCTOS EN SUBASTA ";
             List <CategoriaDTO> categorias = this.cs.findAll();
@@ -56,7 +55,6 @@ public class PaginaPrincipalServlet extends ProjectoTAWServlet {
 
             request.setAttribute("subastas",subastas);
             request.getRequestDispatcher("/WEB-INF/jsp/paginaPrincipal.jsp").forward(request,response);
-         }
         
      
 

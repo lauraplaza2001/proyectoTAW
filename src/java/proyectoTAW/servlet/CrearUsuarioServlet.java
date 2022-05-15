@@ -19,7 +19,7 @@ import proyectoTAW.service.UsuarioService;
  * @author juanm
  */
 @WebServlet(name = "CrearUsuarioServlet", urlPatterns = {"/CrearUsuarioServlet"})
-public class CrearUsuarioServlet extends HttpServlet {
+public class CrearUsuarioServlet extends ProjectoTAWServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

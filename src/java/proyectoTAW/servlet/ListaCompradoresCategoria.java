@@ -5,30 +5,22 @@
 package proyectoTAW.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import static java.lang.Integer.parseInt;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import proyectoTAW.dto.CategoriaDTO;
-import proyectoTAW.dto.SubastaDTO;
-import proyectoTAW.dto.UsuarioDTO;
-import proyectoTAW.entity.Categoria;
-import proyectoTAW.entity.Usuario;
-import proyectoTAW.service.CategoriaService;
-import proyectoTAW.service.SubastaService;
-import proyectoTAW.service.UsuarioService;
+import proyectoTAW.dto.ListaDTO;
+import proyectoTAW.service.ListaService;
 
 /**
  *
  * @author Agustín
  */
 @WebServlet(name = "ListaCompradoresCategoria", urlPatterns = {"/ListaCompradoresCategoria"})
-public class ListaCompradoresCategoria extends HttpServlet {
+public class ListaCompradoresCategoria extends ProjectoTAWServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,17 +32,17 @@ public class ListaCompradoresCategoria extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     
-    @EJB CategoriaService categoriaService;
-    @EJB UsuarioService usuarioService;
-    @EJB SubastaService subastaService;
+    @EJB ListaService listaService;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        if(super.redirigirUsuario(request, response, "Marketing", request.getSession())){
         String id = request.getParameter("id");
-        CategoriaDTO categoria = this.categoriaService.find(parseInt(id));
+        ListaDTO lista = this.listaService.find(parseInt(id));
         
-        //List<SubastaDTO> subastasDeLaCategoria = this.subastaService.
+        request.setAttribute("lista", lista);
+        request.getRequestDispatcher("/WEB-INF/jsp/editorLista.jsp").forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

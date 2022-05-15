@@ -23,7 +23,7 @@ import proyectoTAW.entity.Tipousuario;
  * @author juanm
  */
 @WebServlet(name = "NuevoUsuarioServlet", urlPatterns = {"/NuevoUsuarioServlet"})
-public class NuevoUsuarioServlet extends HttpServlet {
+public class NuevoUsuarioServlet extends ProjectoTAWServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

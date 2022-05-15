@@ -6,7 +6,6 @@
 package proyectoTAW.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,9 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import proyectoTAW.dao.UsuarioFacade;
 import proyectoTAW.dto.UsuarioDTO;
-import proyectoTAW.entity.Usuario;
 import proyectoTAW.service.UsuarioService;
 
 /**
@@ -52,7 +49,7 @@ public class iniciarSesionServlet extends HttpServlet {
         } else {
             HttpSession session = request.getSession();
             session.setAttribute("usuario", usuario);
-            //session.setAttribute("tipoUsuario", usuario.getTipoUsuario());
+            session.setAttribute("tipoUsuario", usuario.getTipoUsuario().getTipoUsuario());
             switch(usuario.getTipoUsuario().getTipoUsuario()){
                 case "Administrador":
                     response.sendRedirect(request.getContextPath() + "/ListaProductosServlet");

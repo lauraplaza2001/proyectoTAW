@@ -6,7 +6,6 @@
 package proyectoTAW.dao;
 
 
-import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -14,12 +13,13 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import proyectoTAW.entity.Categoria;
 import proyectoTAW.entity.Producto;
-import proyectoTAW.entity.Subasta;
-import proyectoTAW.entity.Usuario;
 
 /**
  *
  * @author juanm
+ * findFiltered
+ * @autor Chris
+ * isProductFavourite
  */
 @Stateless
 public class ProductoFacade extends AbstractFacade<Producto> {
@@ -52,15 +52,6 @@ public class ProductoFacade extends AbstractFacade<Producto> {
                 q.setParameter("busqueda", '%' + busqueda + '%');
                 break;
 
-            /*
-                SELECT *
-                FROM producto a
-                JOIN categoriasproducto relation 
-                ON a.idProducto = relation.idProducto
-                JOIN categoria b 
-                ON relation.idCategoria = b.idCategoria
-                where b.nombre like :busqueda
-             */
         }
 
         return q.getResultList();

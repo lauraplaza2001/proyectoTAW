@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import proyectoTAW.dto.ProductoDTO;
+import proyectoTAW.dto.UsuarioDTO;
 import proyectoTAW.service.ProductoService;
 
 /**
@@ -21,7 +22,7 @@ import proyectoTAW.service.ProductoService;
  * @author juanm
  */
 @WebServlet(name = "ListaProductosServlet", urlPatterns = {"/ListaProductosServlet"})
-public class ListaProductosServlet extends HttpServlet {
+public class ListaProductosServlet extends ProjectoTAWServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +38,13 @@ public class ListaProductosServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        if(super.redirigirUsuario(request, response, "Administrador", request.getSession())){
         List<ProductoDTO> productos = this.pService.findAll();
-
+        UsuarioDTO usuario = (UsuarioDTO) request.getSession().getAttribute("usuario");
         request.setAttribute("productos", productos);
+        request.setAttribute("usuario", usuario);
         request.getRequestDispatcher("/WEB-INF/jsp/listaProductos.jsp").forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

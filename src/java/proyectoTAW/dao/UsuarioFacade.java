@@ -5,7 +5,6 @@
  */
 package proyectoTAW.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -18,6 +17,12 @@ import proyectoTAW.entity.Usuario;
 /**
  *
  * @author juanm
+ * findFiltered
+ * @autor Agustín
+ * comprobarUsuario
+ * @autor Laura
+ * getProductosVendedor
+ * getSubastasVendedor
  */
 @Stateless
 public class UsuarioFacade extends AbstractFacade<Usuario> {
@@ -94,7 +99,6 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
    }
 
 
- 
 
    public List<Producto> getProductosVendedor(int id){
 

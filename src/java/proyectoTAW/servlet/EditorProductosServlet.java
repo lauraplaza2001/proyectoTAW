@@ -23,7 +23,7 @@ import proyectoTAW.service.ProductoService;
  * @author juanm
  */
 @WebServlet(name = "EditorProductosServlet", urlPatterns = {"/EditorProductosServlet"})
-public class EditorProductosServlet extends HttpServlet {
+public class EditorProductosServlet extends ProjectoTAWServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

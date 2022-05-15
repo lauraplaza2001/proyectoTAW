@@ -6,7 +6,6 @@
 package proyectoTAW.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -24,7 +23,7 @@ import proyectoTAW.service.ListaService;
  * @author Agustín
  */
 @WebServlet(name = "EditorListaServlet", urlPatterns = {"/EditorListaServlet"})
-public class EditorListaServlet extends HttpServlet {
+public class EditorListaServlet extends ProjectoTAWServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,6 +40,7 @@ public class EditorListaServlet extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        if(super.redirigirUsuario(request, response, "Marketing", request.getSession())){
         String id = request.getParameter("id");
         String edit = request.getParameter("edit");
         
@@ -51,6 +51,7 @@ public class EditorListaServlet extends HttpServlet {
         request.setAttribute("listas", listas);
         request.setAttribute("categorias", categorias);
         request.getRequestDispatcher("/WEB-INF/jsp/listasCompradores.jsp").forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

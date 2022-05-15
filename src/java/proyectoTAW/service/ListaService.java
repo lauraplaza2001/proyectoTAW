@@ -5,16 +5,17 @@
  */
 package proyectoTAW.service;
 
-import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import proyectoTAW.dao.CategoriaFacade;
 import proyectoTAW.dao.ListaFacade;
+import proyectoTAW.dao.UsuarioFacade;
 import proyectoTAW.dto.ListaDTO;
 import proyectoTAW.entity.Categoria;
 import proyectoTAW.entity.Lista;
+import proyectoTAW.entity.Usuario;
 
 /**
  *
@@ -24,6 +25,7 @@ import proyectoTAW.entity.Lista;
 public class ListaService {
     @EJB ListaFacade listaFacade;
     @EJB CategoriaFacade categoriaFacade;
+    @EJB UsuarioFacade usuarioFacade;
     
     public List<ListaDTO> toDTOList(List<Lista> lista) {
 
@@ -73,6 +75,25 @@ public class ListaService {
             this.listaFacade.create(lista);
         }
     }
-    
+
+    public ListaDTO find(int id) {
+        return this.listaFacade.find(id).toDTO();
+    }
+
+    public void removeUsuarioFromLista(int idusuario, int idlista) {
+        Lista lista = this.listaFacade.find(idlista);
+        Usuario usuario = this.usuarioFacade.find(idusuario);
+        List <Usuario> usuarios = lista.getUsuarioList();
+        usuarios.remove(usuario);
+        this.listaFacade.edit(lista);
+    }
+
+    public void addUsuarioToLista(int idusuario, int idlista) {
+        Lista lista = this.listaFacade.find(idlista);
+        Usuario usuario = this.usuarioFacade.find(idusuario);
+        List <Usuario> usuarios = lista.getUsuarioList();
+        usuarios.add(usuario);
+        this.listaFacade.edit(lista);
+    }
     
 }

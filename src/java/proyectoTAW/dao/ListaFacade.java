@@ -14,7 +14,8 @@ import proyectoTAW.entity.Lista;
 
 /**
  *
- * @author Ferni
+ * @author Agustín
+ * getListasLike
  */
 @Stateless
 public class ListaFacade extends AbstractFacade<Lista> {

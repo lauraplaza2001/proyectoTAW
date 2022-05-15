@@ -11,13 +11,12 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import proyectoTAW.dao.SubastaFacade;
 import proyectoTAW.dao.UsuarioFacade;
-import proyectoTAW.dto.ProductoDTO;
 import proyectoTAW.dto.SubastaDTO;
 import proyectoTAW.entity.Subasta;
 
 /**
  *
- * @author juanm
+ * @author Chris
  */
 @Stateless
 public class SubastaService {

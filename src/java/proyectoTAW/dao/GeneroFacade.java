@@ -10,10 +10,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import proyectoTAW.entity.Genero;
 
-/**
- *
- * @author juanm
- */
 @Stateless
 public class GeneroFacade extends AbstractFacade<Genero> {
 
