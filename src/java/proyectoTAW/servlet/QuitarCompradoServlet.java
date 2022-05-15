@@ -7,11 +7,14 @@ package proyectoTAW.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import proyectoTAW.service.ProductoService;
+import proyectoTAW.service.UsuarioService;
 
 /**
  *
@@ -20,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "QuitarCompradoServlet", urlPatterns = {"/QuitarCompradoServlet"})
 public class QuitarCompradoServlet extends HttpServlet {
     
-    
+     @EJB ProductoService ps;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,12 +36,12 @@ public class QuitarCompradoServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String idProducto = request.getParameter("idProducto");
-        String idUsuario = request.getParameter("idUsuario");
         
         
-        //POR HACER
+       this.ps.eliminarComprado(new Integer(idProducto));
         
-        response.sendRedirect(request.getContextPath() + "/PaginaPrincpalServlet");  
+        
+        response.sendRedirect(request.getContextPath() + "/PaginaPrincipalServlet");  
 
     }
 

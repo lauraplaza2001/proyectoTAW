@@ -154,7 +154,10 @@ public class Subasta implements Serializable {
         s.setCreador(sub.getCreador().toDTO());
         s.setFechaCierre(sub.getFechaCierre());
         s.setIdSubasta(sub.getIdSubasta());
-        s.setMayorPostor(sub.getMayorPostor().toDTO());
+        if (this.getMayorPostor()!= null){
+             s.setMayorPostor(sub.getMayorPostor().toDTO());
+        }
+       
         s.setPredioActual(sub.getPredioActual());
         s.setProducto(sub.getProducto().toDTO());
 
