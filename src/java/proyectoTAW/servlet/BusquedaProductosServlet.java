@@ -38,7 +38,7 @@ public class BusquedaProductosServlet extends ProjectoTAWServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-      if(super.redirigirUsuario(request, response, "Estandar", request.getSession())){
+      if(super.redirigirUsuario(request, response, "Administrador", request.getSession())){
       List<ProductoDTO> productos;
       String like = (String) request.getParameter("busqueda");
       Integer filtro = Integer.parseInt(request.getParameter("filtro"));

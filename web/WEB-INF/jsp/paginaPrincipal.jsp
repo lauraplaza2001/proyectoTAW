@@ -1,7 +1,8 @@
 <%-- 
     Document   : paginaPrincipal
     Created on : 26-abr-2022, 10:44:54
-    Author     : 34636
+    Author     : Chris
+    Autor notificaciones: Agustín
 --%>
 
 
@@ -53,12 +54,13 @@
                         <li><a href="<%= request.getContextPath()%>/ListaUsuariosServlet?filtro=1" class="nav-link px-2 link-dark">Clientes</a></li> <%-- solo puede ir si es admin --%>
                         <li><a href="<%= request.getContextPath()%>/ListaProductosServlet" class="nav-link px-2 link-dark">Productos</a></li> <%-- solo puede ir si es admin --%>
                         <li><a href="<%= request.getContextPath()%>/EditorCategoriasServlet" class="nav-link px-2 link-dark">Categorías</a></li> <%-- solo puede ir si es admin --%>
-                        <li> <p class="text-success">Bienvenido <%= user.getNombreUsuario() %></p> </li>
+                        
                         <%} else {%>
                         <li><a href="/proyectoTAW/NuevoProductoServlet" class="nav-link px-2 link-dark">Mis Productos </a></li>
                         <%
                             }
                         %>
+                        <li> <p class="text-success">Bienvenido <%= user.getNombreUsuario() %></p> </li>
                     </ul>
 
                     <div class="dropdown text-end">
