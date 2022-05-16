@@ -48,8 +48,12 @@ public class CrearUsuarioServlet extends ProjectoTAWServlet {
         if(userType == null) userType = "Estandar";
 
         this.uService.crearUsuario(username, pass, name, surname, city, address, age, gender, userType);
-        
-        response.sendRedirect(request.getContextPath()+"/ListaUsuariosServlet?filtro=1");        
+        if(request.getSession().getAttribute("usuario")== null){
+            response.sendRedirect("/proyectoTAW/inicioSesion.jsp"); 
+        }else{
+             response.sendRedirect(request.getContextPath()+"/ListaUsuariosServlet?filtro=1"); 
+        }
+              
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
